@@ -372,75 +372,11 @@ elif page == "🗺️ GIS Priority Mapping":
 
 # ── 9. NEWS REPORT SUMMARY ──
 elif page == "📰 News Report Summary":
-    # ── CSS Animations ──
-    st.markdown("""
-    <style>
-    @keyframes ticker {
-        0%   { transform: translateX(100%); }
-        100% { transform: translateX(-100%); }
-    }
-    @keyframes fadeSlideIn {
-        0%   { opacity: 0; transform: translateY(30px); }
-        100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulseGlow {
-        0%, 100% { box-shadow: 0 0 5px rgba(255,200,0,0.3); }
-        50%      { box-shadow: 0 0 25px rgba(255,200,0,0.8); }
-    }
-    @keyframes countUp {
-        from { opacity: 0; transform: scale(0.5); }
-        to   { opacity: 1; transform: scale(1); }
-    }
-    @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50%      { opacity: 0; }
-    }
-    .news-ticker-bar {
-        background: linear-gradient(90deg, #1a1a2e, #16213e);
-        color: #fff; padding: 8px 0; border-radius: 6px; overflow: hidden;
-        margin-bottom: 20px; border-left: 4px solid #e94560;
-    }
-    .news-ticker-text {
-        display: inline-block; white-space: nowrap;
-        animation: ticker 25s linear infinite; padding-left: 100%;
-        font-size: 1.1rem; font-weight: 500; letter-spacing: 0.5px;
-    }
-    .news-ticker-text span { color: #ffd700; margin: 0 20px; }
-    .news-card {
-        background: linear-gradient(135deg, #0f3460, #16213e);
-        color: #fff; padding: 20px; border-radius: 12px; margin: 16px 0;
-        animation: fadeSlideIn 0.6s ease-out forwards; opacity: 0;
-        border-left: 5px solid #e94560; transition: transform 0.3s;
-    }
-    .news-card:hover { transform: translateX(8px); }
-    .news-card h4 { margin: 0 0 8px 0; color: #ffd700; font-size: 1.15rem; }
-    .news-card p  { margin: 0; line-height: 1.6; color: #e0e0e0; }
-    .live-badge {
-        display: inline-block; background: #e94560; color: #fff;
-        padding: 2px 12px; border-radius: 4px; font-size: 0.75rem;
-        font-weight: 700; letter-spacing: 1px; margin-right: 10px;
-        animation: blink 1.2s infinite;
-    }
-    .headline-glow {
-        animation: pulseGlow 2s infinite; border-radius: 10px; padding: 6px 16px;
-    }
-    .metric-box {
-        background: linear-gradient(135deg, #1a1a2e, #0f3460); border-radius: 10px;
-        padding: 16px; text-align: center; animation: countUp 0.5s ease-out forwards;
-        opacity: 0; border: 1px solid rgba(255,255,255,0.1);
-    }
-    .metric-box .num { font-size: 1.8rem; font-weight: 700; color: #ffd700; }
-    .metric-box .lbl { font-size: 0.85rem; color: #aaa; margin-top: 4px; }
-    </style>
-    """, unsafe_allow_html=True)
-
     total = len(df)
     alive = (df['Survival_Status'] == 'Alive').sum()
     dead = (df['Survival_Status'] == 'Dead').sum()
     survival_rate = alive / total
-    mortality_rate = dead / total
 
-    # ── Compute stats once ──
     mun_stats = df.groupby('Municipality').agg(
         Total_Trees=('Tree_ID', 'count'),
         Alive=('Survival_Status', lambda x: (x == 'Alive').sum()),
@@ -475,78 +411,73 @@ elif page == "📰 News Report Summary":
 
     total_carbon = (0.05 * (df['Diameter_cm'] ** 2 * df['Height_m']).sum() * 0.47) / 1000
 
-    # ── Breaking News Ticker ──
-    ticker_items = [
-        f"🌳 {total} trees surveyed across {df['Municipality'].nunique()} municipalities",
-        f"✅ Overall survival rate: {survival_rate:.1%}",
-        f"🏆 {best_mun['Municipality']} leads with {best_mun['Survival_Rate']:.1%} survival",
-        f"⚠️ {worst_mun['Municipality']} needs urgent attention ({worst_mun['Survival_Rate']:.1%})",
-        f"🌿 Best species: {best_sp} ({sp_stats.loc[best_sp, 'Survival_Rate']:.1%})",
-        f"🧪 Best soil: {best_soil} ({soil_stats.loc[best_soil, 'Survival_Rate']:.1%})",
-        f"🌍 Carbon stored: {total_carbon:.1f} tonnes CO₂e",
-    ]
-    ticker_html = '<div class="news-ticker-bar"><div class="news-ticker-text">'
-    for item in ticker_items:
-        ticker_html += f'<span>◆</span> {item} '
-    ticker_html += '</div></div>'
-    st.markdown(ticker_html, unsafe_allow_html=True)
+    # ── Key Metrics ──
+    st.subheader("Forest Overview")
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Total Trees", total)
+    col2.metric("Alive", f"{alive} ({survival_rate:.1%})")
+    col3.metric("Dead", f"{dead} ({1-survival_rate:.1%})")
+    col4.metric("Municipalities", df['Municipality'].nunique())
 
-    # ── Live Headline ──
+    # ── Status Banner ──
     if survival_rate >= 0.70:
-        h_color, h_text = "#2ecc71", "FOREST IN GOOD CONDITION"
-        h_detail = f"Overall survival rate is {survival_rate:.1%}, indicating a healthy forest ecosystem across all municipalities."
+        st.success(f"**Forest Status: Healthy** — {survival_rate:.1%} overall survival rate across all municipalities.")
     elif survival_rate >= 0.50:
-        h_color, h_text = "#f1c40f", "MODERATE CONCERN"
-        h_detail = f"Survival rate at {survival_rate:.1%}. Some areas need attention and possible intervention."
+        st.warning(f"**Forest Status: Moderate Concern** — Survival rate at {survival_rate:.1%}. Some areas need attention.")
     else:
-        h_color, h_text = "#e94560", "CRITICAL ALERT"
-        h_detail = f"Survival rate is only {survival_rate:.1%}. Immediate reforestation and intervention required."
+        st.error(f"**Forest Status: Critical** — Survival rate at {survival_rate:.1%}. Immediate intervention required.")
 
-    st.markdown(f"""
-    <div style="text-align:center; margin: 10px 0 20px 0;">
-        <span class="live-badge">LIVE</span>
-        <span style="font-size:0.9rem; color:#888;">Forest News Brief</span>
-        <div class="headline-glow" style="background:{h_color}22; border:1px solid {h_color}; margin-top:10px;">
-            <h2 style="color:{h_color}; margin:8px 0;">{h_text}</h2>
-        </div>
-        <p style="color:#ccc; margin-top:8px;">{h_detail}</p>
-    </div>
-    """, unsafe_allow_html=True)
+    # ── Insight Cards (using native Streamlit) ──
+    st.subheader("Key Insights")
+    c1, c2 = st.columns(2)
 
-    # ── Animated Metric Counters ──
-    st.markdown('<div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin:20px 0;">', unsafe_allow_html=True)
-    metrics = [
-        ("🌳 Total Trees", str(total)),
-        ("✅ Survival Rate", f"{survival_rate:.1%}"),
-        ("❌ Mortality Rate", f"{mortality_rate:.1%}"),
-        ("📈 Health Index", f"{(survival_rate*100):.1f}%"),
-    ]
-    for i, (lbl, num) in enumerate(metrics):
-        st.markdown(f'<div class="metric-box" style="animation-delay:{i*0.1}s"><div class="num">{num}</div><div class="lbl">{lbl}</div></div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    with c1:
+        st.info(f"**🏆 Best Municipality:** {best_mun['Municipality']}")
+        st.caption(f"{best_mun['Survival_Rate']:.1%} survival — {int(best_mun['Alive'])} alive out of {int(best_mun['Total_Trees'])} trees")
+        st.info(f"**🌿 Best Species:** {best_sp}")
+        st.caption(f"{sp_stats.loc[best_sp, 'Survival_Rate']:.1%} survival rate")
+        st.info(f"**🧪 Best Soil Type:** {best_soil}")
+        st.caption(f"{soil_stats.loc[best_soil, 'Survival_Rate']:.1%} survival rate")
 
-    # ── News Cards (with staggered animation) ──
-    st.markdown('<h3 style="color:#ffd700;">📋 Top Stories</h3>', unsafe_allow_html=True)
+    with c2:
+        st.warning(f"**⚠️ Needs Intervention:** {worst_mun['Municipality']}")
+        st.caption(f"{worst_mun['Survival_Rate']:.1%} survival — {int(worst_mun['Dead'])} dead out of {int(worst_mun['Total_Trees'])} trees")
+        st.warning(f"**🌿 Weakest Species:** {worst_sp}")
+        st.caption(f"{sp_stats.loc[worst_sp, 'Survival_Rate']:.1%} survival rate — may need site-matching adjustments")
+        st.info(f"**🌍 Carbon Stored:** {total_carbon:.1f} tonnes ({(total_carbon * 3.67):.1f} tonnes CO₂e)")
 
-    articles = [
-        ("🏆 Municipality Leader", f"<b>{best_mun['Municipality']}</b> recorded the highest survival rate at <b>{best_mun['Survival_Rate']:.1%}</b> — {int(best_mun['Alive'])} alive out of {int(best_mun['Total_Trees'])} trees. This area sets the benchmark for reforestation success."),
-        ("⚠️ Needs Attention", f"<b>{worst_mun['Municipality']}</b> has the lowest survival rate at <b>{worst_mun['Survival_Rate']:.1%}</b> ({int(worst_mun['Dead'])} dead out of {int(worst_mun['Total_Trees'])} trees). Priority intervention is recommended."),
-        ("🌿 Species Spotlight", f"<b>{best_sp}</b> is the most resilient species (<b>{sp_stats.loc[best_sp, 'Survival_Rate']:.1%}</b> survival). <b>{worst_sp}</b> has the lowest rate (<b>{sp_stats.loc[worst_sp, 'Survival_Rate']:.1%}</b>) and may need site-matching adjustments."),
-        ("🧪 Soil Insight", f"Trees in <b>{best_soil}</b> soil show the best survival (<b>{soil_stats.loc[best_soil, 'Survival_Rate']:.1%}</b>). This guides future planting site selection."),
-        ("📈 Age Structure", f"Young trees (≤5 yrs): <b>{young_survival:.1%}</b> survival ({len(young_trees)} trees). Mature trees (>20 yrs): <b>{mature_survival:.1%}</b> survival ({len(mature_trees)} trees). {'Young trees need extra monitoring.' if young_survival < 0.70 else 'Young trees are establishing well.'}"),
-        ("🌍 Carbon Storage", f"Estimated above-ground carbon: <b>{total_carbon:.1f} tonnes</b> — equivalent to <b>{total_carbon * 3.67:.1f} tonnes of CO₂</b> removed from the atmosphere across {total} trees."),
-    ]
+    # ── Age Structure ──
+    st.subheader("Age Structure")
+    col1, col2 = st.columns(2)
+    col1.metric("Young Trees (≤5 yrs)", f"{len(young_trees)} trees", f"{young_survival:.1%} survival")
+    col2.metric("Mature Trees (>20 yrs)", f"{len(mature_trees)} trees", f"{mature_survival:.1%} survival")
 
-    for i, (title, body) in enumerate(articles):
-        st.markdown(f'<div class="news-card" style="animation-delay:{i*0.12}s"><h4>{title}</h4><p>{body}</p></div>', unsafe_allow_html=True)
+    # ── Alerts ──
+    st.subheader("Municipality Alerts")
+    has_alert = False
+    for _, m in mun_stats.iterrows():
+        if m['Survival_Rate'] < 0.50:
+            st.error(f"**{m['Municipality']}** — Critical ({m['Survival_Rate']:.1%}). Immediate reforestation needed.")
+            has_alert = True
+        elif m['Survival_Rate'] < 0.65:
+            st.warning(f"**{m['Municipality']}** — Moderate ({m['Survival_Rate']:.1%}). Monitoring recommended.")
+            has_alert = True
+    if not has_alert:
+        st.success("No critical alerts. All municipalities have adequate survival rates.")
 
-    # ── AI Live News Feed ──
-    st.markdown('<h3 style="color:#ffd700; margin-top:30px;">🤖 AI Live News Feed</h3>', unsafe_allow_html=True)
-    st.markdown("Real-time news sourced from Google News RSS — forestry, environment, and DENR updates.")
+    # ── Municipality Details ──
+    with st.expander("View Full Per-Municipality Report"):
+        st.dataframe(mun_stats.style.format({
+            'Survival_Rate': '{:.1%}', 'Avg_Age': '{:.1f} yrs', 'Avg_Height': '{:.1f} m'
+        }), use_container_width=True)
+
+    # ── Live News Feed ──
+    st.subheader("Live Forestry News")
+    st.caption("Sourced from Google News — forestry, environment, and DENR updates")
 
     @st.cache_data(ttl=600)
     def fetch_live_news():
-        import feedparser, time
+        import feedparser, time, re, urllib.request
         sources = [
             "https://news.google.com/rss/search?q=forestry+Philippines+DENR&hl=en-PH&gl=PH&ceid=PH:en",
             "https://news.google.com/rss/search?q=reforestation+environment+Philippines&hl=en-PH&gl=PH&ceid=PH:en",
@@ -561,62 +492,61 @@ elif page == "📰 News Report Summary":
                     t = e.title.strip()
                     if t not in seen_titles:
                         seen_titles.add(t)
+                        image_url = None
+                        if hasattr(e, 'media_content'):
+                            for mc in e.media_content:
+                                if mc.get('type', '').startswith('image'):
+                                    image_url = mc['url']
+                                    break
+                        if not image_url and hasattr(e, 'summary'):
+                            m = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', e.summary)
+                            if m:
+                                image_url = m.group(1)
+                        if not image_url:
+                            try:
+                                with urllib.request.urlopen(e.link, timeout=2) as resp:
+                                    html = resp.read().decode('utf-8', errors='ignore')
+                                    m = re.search(r'<meta\s+property=["\']og:image["\']\s+content=["\']([^"\']+)["\']', html, re.IGNORECASE)
+                                    if m:
+                                        image_url = m.group(1)
+                            except:
+                                pass
+                        raw_summary = getattr(e, 'summary', '')
+                        clean_summary = re.sub(r'<[^>]+>', '', raw_summary)[:200]
                         entries.append({
                             "title": t,
                             "link": e.link,
                             "source": getattr(e, "source", {}).get("title", "Google News") if hasattr(e, "source") else "Google News",
                             "published": getattr(e, "published", "Just now"),
-                            "summary": getattr(e, "summary", "")[:200],
+                            "summary": clean_summary,
+                            "image_url": image_url,
                         })
             except:
                 pass
             time.sleep(0.3)
         return entries[:10]
 
-    if st.button("🔄 Refresh Live News", key="refresh_news"):
+    if st.button("Refresh Live News", key="refresh_news"):
         st.cache_data.clear()
         st.rerun()
 
     news_entries = fetch_live_news()
     if news_entries:
-        for i, ne in enumerate(news_entries):
-            st.markdown(f"""
-            <div class="news-card" style="animation-delay:{i*0.08}s; border-left-color:#00b4d8;">
-                <span style="font-size:0.7rem; color:#00b4d8; text-transform:uppercase; letter-spacing:1px;">
-                    📡 {ne['source']} • {ne['published']}
-                </span>
-                <h4 style="margin:4px 0 6px 0;">
-                    <a href="{ne['link']}" target="_blank" style="color:#ffd700; text-decoration:none;">
-                        {ne['title']}
-                    </a>
-                </h4>
-                <p style="font-size:0.9rem;">{ne['summary']}</p>
-            </div>
-            """, unsafe_allow_html=True)
+        for ne in news_entries:
+            with st.container(border=True):
+                cols = st.columns([1, 3])
+                with cols[0]:
+                    if ne.get('image_url'):
+                        st.image(ne['image_url'], use_container_width=True)
+                with cols[1]:
+                    st.markdown(f"**[{ne['title']}]({ne['link']})**")
+                    st.caption(f"{ne['source']} • {ne['published']}")
+                    if ne['summary']:
+                        st.markdown(ne['summary'])
     else:
-        st.info("Live news unavailable. Showing data-driven reports below.")
+        st.info("Live news feed unavailable at this time.")
 
-    # ── Per-Municipality Report ──
-    with st.expander("🏛️ View Full Per-Municipality Report"):
-        st.dataframe(mun_stats.style.format({
-            'Survival_Rate': '{:.1%}', 'Avg_Age': '{:.1f} yrs', 'Avg_Height': '{:.1f} m'
-        }), width='stretch')
-
-    # ── Alerts ──
-    st.markdown('<h3 style="color:#ffd700;">🚨 Live Alerts</h3>', unsafe_allow_html=True)
-    has_alert = False
-    for _, m in mun_stats.iterrows():
-        if m['Survival_Rate'] < 0.50:
-            st.error(f"🔴 **{m['Municipality']}** — Critical ({m['Survival_Rate']:.1%}). Immediate reforestation needed.")
-            has_alert = True
-        elif m['Survival_Rate'] < 0.65:
-            st.warning(f"🟡 **{m['Municipality']}** — Moderate ({m['Survival_Rate']:.1%}). Monitoring recommended.")
-            has_alert = True
-    if not has_alert:
-        st.success("✅ No critical alerts. All municipalities have adequate survival rates.")
-
-    st.markdown("---")
-    st.caption("📅 Live report generated from forest inventory data • For DENR decision support")
+    st.caption("Report generated from forest inventory data • For DENR decision support")
 
 st.sidebar.markdown("---")
 st.sidebar.info("Built with Streamlit • Models trained on Forest Inventory Dataset")
