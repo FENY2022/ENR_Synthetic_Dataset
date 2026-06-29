@@ -1,0 +1,1001 @@
+Tree_ID,Species,Barangay,Municipality,Latitude,Longitude,Age_Years,Height_m,Diameter_cm,Soil_Type,Survival_Status
+T0001,Yakal,Libertad,Bunawan,8.37454,126.426071,11,20.5,26.9,Sandy,Alive
+T0002,Gmelina,Salvacion,Talacogon,8.099975,125.688873,5,11.4,12.5,Clay,Alive
+T0003,Yakal,Libertad,San Francisco,8.96991,126.248664,6,13,16.3,Sandy,Alive
+T0004,Molave,Libertad,Bislig,8.023062,125.787162,15,26.4,31.5,Loam,Alive
+T0005,Narra,San Roque,Bunawan,8.45607,126.177764,3,5.6,6.5,Clay,Dead
+T0006,Mahogany,San Roque,Bislig,8.85994,126.020461,9,15.3,19.2,Clay,Alive
+T0007,Yakal,Sta. Cruz,Talacogon,8.440152,125.183057,13,22.8,29.4,Loam,Alive
+T0008,Molave,San Isidro,Rosario,8.182236,126.133042,14,29.4,33.2,Clay,Alive
+T0009,Bagras,Patin-ay,San Francisco,8.969585,126.162699,2,4.6,4.1,Loam,Dead
+T0010,Gmelina,San Isidro,Talacogon,8.326541,125.855666,12,21.4,25.8,Clay,Alive
+T0011,Bagras,Poblacion,Bunawan,8.271349,126.243106,10,18.1,22.8,Clay,Alive
+T0012,Acacia,Libertad,Loreto,8.296274,125.2479,9,17.1,21.6,Loam,Alive
+T0013,Molave,San Isidro,Rosario,8.77127,125.111067,7,13.6,15.9,Clay,Dead
+T0014,Yakal,Taglatawan,Bislig,8.449451,125.143115,7,10.9,13,Clay,Alive
+T0015,Acacia,Libertad,Bislig,8.637557,126.330819,1,2.3,2,Loam,Dead
+T0016,Bagras,Poblacion,Bislig,8.72173,125.353977,14,30.3,29,Clay,Alive
+T0017,Yakal,Libertad,Bunawan,8.025419,125.161837,15,26.9,34.9,Sandy,Alive
+T0018,Mahogany,San Isidro,Bunawan,8.695516,125.208997,7,14.8,14.4,Clay,Alive
+T0019,Bagras,Libertad,Prosperidad,8.07698,125.434627,6,11.2,15,Loam,Alive
+T0020,Acacia,Poblacion,Talacogon,8.105494,125.684802,12,23.7,26.8,Loam,Alive
+T0021,Gmelina,Salvacion,San Francisco,8.318003,125.165078,9,14.2,17.8,Loam,Alive
+T0022,Yakal,Libertad,Bislig,8.534089,125.727245,1,1.3,0.6,Sandy,Dead
+T0023,Mahogany,Salvacion,Talacogon,8.323203,125.778186,9,15.2,19.5,Loam,Alive
+T0024,Acacia,San Isidro,San Francisco,8.246876,126.044456,3,3.8,4.6,Sandy,Dead
+T0025,Molave,Salvacion,San Francisco,8.609564,125.754019,6,10.7,12.7,Loam,Alive
+T0026,Bagras,San Roque,Talacogon,8.680705,125.796402,10,19.7,23.5,Clay,Alive
+T0027,Bagras,Poblacion,Prosperidad,8.728216,125.551675,4,7.1,9.2,Loam,Dead
+T0028,Narra,Salvacion,Bislig,8.798345,125.226076,11,22.4,25.9,Sandy,Alive
+T0029,Gmelina,Salvacion,San Francisco,8.512093,125.339744,7,13.4,13.6,Loam,Alive
+T0030,Acacia,Taglatawan,Talacogon,8.93673,125.206281,12,20.3,27.8,Loam,Alive
+T0031,Mahogany,Salvacion,San Francisco,8.695784,125.342825,10,18,22.8,Sandy,Alive
+T0032,Molave,San Isidro,San Francisco,8.996254,126.448129,5,9.4,12.6,Sandy,Alive
+T0033,Acacia,Sta. Cruz,Loreto,8.34921,126.088934,3,5,8.7,Clay,Dead
+T0034,Mahogany,Taglatawan,Bunawan,8.850928,126.403452,4,7.5,10.5,Clay,Alive
+T0035,Bagras,Libertad,Talacogon,8.101472,125.995253,13,21.9,26.4,Sandy,Alive
+T0036,Mahogany,Sta. Cruz,Bislig,8.448424,126.491686,4,5.7,10.4,Clay,Alive
+T0037,Acacia,Sta. Cruz,Bislig,8.746491,125.974449,7,11.2,17.6,Loam,Alive
+T0038,Molave,San Isidro,Bislig,8.508814,125.954499,6,12.1,12.7,Clay,Alive
+T0039,Yakal,Libertad,San Francisco,8.794811,125.753956,12,22.9,27.2,Sandy,Alive
+T0040,Bagras,San Isidro,Rosario,8.499193,125.858006,1,-0.9,1.7,Sandy,Dead
+T0041,Gmelina,Libertad,Loreto,8.747719,126.429608,13,24.1,28.5,Loam,Dead
+T0042,Mahogany,Taglatawan,Bunawan,8.853009,125.441673,5,8.1,9.4,Sandy,Dead
+T0043,Yakal,San Isidro,Bislig,8.372687,125.592037,6,11.7,16.7,Clay,Alive
+T0044,Molave,Libertad,Rosario,8.615007,126.485081,2,2.3,2.3,Sandy,Dead
+T0045,Gmelina,Salvacion,Talacogon,8.84867,125.204932,6,8.7,11.3,Loam,Alive
+T0046,Bagras,Patin-ay,Bislig,8.810113,126.300608,13,21.6,29.6,Sandy,Alive
+T0047,Narra,Poblacion,Prosperidad,8.396784,125.076153,3,3.7,3.6,Clay,Alive
+T0048,Narra,Poblacion,Rosario,8.57828,125.053913,9,16.4,20.1,Loam,Alive
+T0049,Mahogany,San Roque,Talacogon,8.038835,125.454898,11,19.9,22,Sandy,Dead
+T0050,Narra,Libertad,San Francisco,8.215821,125.934336,4,6.6,9.7,Loam,Alive
+T0051,Bagras,Libertad,Rosario,8.699512,125.20753,13,23.2,27.6,Sandy,Alive
+T0052,Bagras,Patin-ay,Talacogon,8.744043,125.376291,10,16.8,25.3,Sandy,Alive
+T0053,Acacia,Patin-ay,Loreto,8.156437,125.375364,14,25.5,32,Sandy,Alive
+T0054,Bagras,Sta. Cruz,Talacogon,8.657111,125.653509,13,21.1,27.6,Sandy,Alive
+T0055,Bagras,Salvacion,San Francisco,8.757846,125.02159,14,26.2,32,Loam,Alive
+T0056,Acacia,Poblacion,Prosperidad,8.464674,125.974661,10,20.3,24.6,Sandy,Alive
+T0057,Acacia,Libertad,Talacogon,8.374613,125.93879,10,22.8,22.2,Clay,Alive
+T0058,Narra,Poblacion,Bunawan,8.615851,126.415837,2,3.7,3.6,Sandy,Dead
+T0059,Molave,Salvacion,Bislig,8.575474,125.582255,12,21.9,25.9,Clay,Dead
+T0060,Narra,Libertad,San Francisco,8.62594,126.23064,8,13.7,18,Sandy,Alive
+T0061,Narra,Salvacion,Bunawan,8.844875,125.034908,2,3.6,1,Clay,Dead
+T0062,Bagras,Poblacion,Bunawan,8.348337,126.404972,8,15.6,18.9,Sandy,Alive
+T0063,Mahogany,San Isidro,San Francisco,8.17744,126.125922,3,5.4,6.8,Loam,Dead
+T0064,Mahogany,Patin-ay,San Francisco,8.776413,125.511205,14,22.9,31.5,Sandy,Dead
+T0065,Molave,Taglatawan,Talacogon,8.739909,125.357354,14,25.2,32.7,Loam,Alive
+T0066,Bagras,Sta. Cruz,Talacogon,8.32005,126.343285,1,1.2,4.2,Clay,Dead
+T0067,Narra,Sta. Cruz,Loreto,8.67677,125.723781,10,16.8,26.2,Loam,Alive
+T0068,Acacia,Taglatawan,Rosario,8.328665,126.008778,4,9.9,9.6,Sandy,Dead
+T0069,Narra,Libertad,Bunawan,8.68803,126.255446,1,1.2,2.6,Loam,Dead
+T0070,Yakal,Poblacion,Rosario,8.706242,125.122023,5,9.7,8.1,Clay,Dead
+T0071,Mahogany,Salvacion,Talacogon,8.88036,125.355028,7,11.5,15,Sandy,Dead
+T0072,Acacia,Patin-ay,Prosperidad,8.558404,125.636333,10,16.9,18.2,Clay,Alive
+T0073,Gmelina,Taglatawan,Talacogon,8.405202,125.85721,4,9.1,10.3,Clay,Alive
+T0074,Acacia,Libertad,Bunawan,8.962173,125.562306,1,1.9,0.5,Sandy,Dead
+T0075,Molave,San Roque,Bunawan,8.802109,126.466851,13,23.7,28.6,Clay,Alive
+T0076,Mahogany,Sta. Cruz,Prosperidad,8.553854,126.453954,2,2.9,3.3,Loam,Alive
+T0077,Mahogany,Sta. Cruz,Bunawan,8.995831,126.045388,3,5.2,8.6,Clay,Dead
+T0078,Acacia,San Roque,Prosperidad,8.277381,125.282182,10,16,20.9,Loam,Alive
+T0079,Bagras,Taglatawan,Loreto,8.360345,125.389925,11,20.3,28,Loam,Alive
+T0080,Yakal,Taglatawan,Talacogon,8.813795,126.027097,13,23.2,29.9,Clay,Alive
+T0081,Gmelina,Salvacion,Bunawan,8.919177,125.124123,14,25.1,30.2,Sandy,Dead
+T0082,Yakal,San Roque,San Francisco,8.987276,125.225625,5,8.1,13.9,Loam,Alive
+T0083,Narra,San Roque,Bislig,8.569081,125.095268,9,13.8,18.6,Loam,Alive
+T0084,Molave,Patin-ay,Bunawan,8.864722,126.219352,15,27.5,33.4,Sandy,Alive
+T0085,Narra,Patin-ay,Bunawan,8.726121,126.135622,3,4.9,3.4,Sandy,Dead
+T0086,Narra,Salvacion,Prosperidad,8.954051,125.909262,14,25.7,31.8,Clay,Alive
+T0087,Molave,Salvacion,Bislig,8.268672,125.033277,10,20.3,22.2,Sandy,Alive
+T0088,Narra,Libertad,Prosperidad,8.852182,125.82786,5,8.2,16.1,Sandy,Alive
+T0089,Molave,Poblacion,Loreto,8.784668,125.959042,11,19.1,23.5,Clay,Alive
+T0090,Yakal,Poblacion,Talacogon,8.350588,125.884877,14,23.9,31,Loam,Alive
+T0091,Acacia,Patin-ay,San Francisco,8.547446,125.676366,15,29.4,30.2,Sandy,Dead
+T0092,Gmelina,Taglatawan,Loreto,8.949521,125.22061,8,15.1,18.8,Clay,Alive
+T0093,Narra,Taglatawan,Bislig,8.045861,125.931209,2,5.3,1.5,Sandy,Dead
+T0094,Narra,Libertad,Bislig,8.075863,125.19332,7,10,18.4,Clay,Alive
+T0095,Molave,San Isidro,Talacogon,8.180067,126.044752,9,16.1,21.7,Loam,Alive
+T0096,Narra,Salvacion,Loreto,8.17232,125.288434,3,4.6,8.7,Loam,Dead
+T0097,Mahogany,Taglatawan,Rosario,8.031805,125.823073,5,6.8,10.6,Sandy,Alive
+T0098,Yakal,San Isidro,Bislig,8.503417,126.035592,9,16.1,18,Sandy,Dead
+T0099,Molave,San Roque,San Francisco,8.511657,125.235467,13,23.7,27,Sandy,Dead
+T0100,Gmelina,Libertad,Talacogon,8.536591,126.386063,14,22.9,33.5,Loam,Alive
+T0101,Narra,Libertad,San Francisco,8.747471,125.055025,8,15,16,Sandy,Dead
+T0102,Mahogany,San Isidro,Loreto,8.749616,125.045708,2,5.9,-0.5,Sandy,Dead
+T0103,Mahogany,Poblacion,Talacogon,8.269243,125.565926,10,19.8,22.4,Sandy,Alive
+T0104,Yakal,San Isidro,Bislig,8.535336,125.349825,13,25.9,30.4,Loam,Alive
+T0105,Gmelina,San Roque,Bunawan,8.498442,125.13038,15,27.6,36.3,Sandy,Alive
+T0106,Acacia,San Isidro,Bunawan,8.564459,125.568159,5,11.1,8.4,Clay,Alive
+T0107,Gmelina,Patin-ay,San Francisco,8.356097,126.479773,5,8.1,8.5,Loam,Alive
+T0108,Mahogany,Taglatawan,Bislig,8.850818,125.131831,14,25.3,29.1,Sandy,Alive
+T0109,Acacia,San Roque,Bunawan,8.982379,125.168058,2,4.8,4.7,Clay,Alive
+T0110,Yakal,Patin-ay,Bislig,8.975067,125.736123,6,11.6,13.6,Clay,Alive
+T0111,Bagras,Poblacion,Bislig,8.571613,125.419969,12,20.2,27.7,Sandy,Dead
+T0112,Mahogany,Sta. Cruz,Talacogon,8.52984,126.060845,14,26.2,27.5,Clay,Alive
+T0113,Gmelina,Poblacion,Rosario,8.48114,125.798884,1,0.7,-2.1,Clay,Dead
+T0114,Gmelina,Salvacion,San Francisco,8.548922,125.302596,8,13.5,19.1,Clay,Alive
+T0115,Yakal,Libertad,Loreto,8.760228,125.893458,8,16.3,18.5,Sandy,Alive
+T0116,Bagras,Sta. Cruz,Bislig,8.850727,126.118962,2,4.2,3.2,Sandy,Dead
+T0117,Mahogany,Salvacion,Rosario,8.181233,125.099744,8,15.3,18.6,Clay,Alive
+T0118,Bagras,Patin-ay,Prosperidad,8.799537,126.237699,5,9.8,13.1,Clay,Alive
+T0119,Mahogany,Poblacion,Rosario,8.35883,126.315801,9,15.4,23.6,Loam,Alive
+T0120,Bagras,Salvacion,Loreto,8.899667,125.936152,1,1.8,5.6,Clay,Dead
+T0121,Bagras,Libertad,Prosperidad,8.899575,125.575837,14,21.8,33.7,Clay,Alive
+T0122,Bagras,Taglatawan,Talacogon,8.730549,126.040576,4,8,11.3,Clay,Alive
+T0123,Bagras,Taglatawan,Loreto,8.893893,126.182896,6,12,15.2,Loam,Alive
+T0124,Bagras,Salvacion,Talacogon,8.143128,125.306817,2,4.3,5.1,Clay,Dead
+T0125,Yakal,Salvacion,Prosperidad,8.821257,125.165948,4,10.6,6.9,Loam,Alive
+T0126,Gmelina,Libertad,Rosario,8.539861,125.729536,4,8.6,10.7,Loam,Alive
+T0127,Gmelina,Sta. Cruz,San Francisco,8.693948,125.814087,11,21.6,24.9,Sandy,Dead
+T0128,Gmelina,San Roque,Bunawan,8.342524,125.341026,7,13.6,15.3,Loam,Alive
+T0129,Mahogany,San Isidro,Bunawan,8.58623,125.758833,9,17.5,17.9,Clay,Alive
+T0130,Molave,Sta. Cruz,Loreto,8.102213,126.378126,5,9.3,11.9,Sandy,Alive
+T0131,Bagras,Poblacion,Prosperidad,8.576288,125.910073,6,10.3,12.3,Sandy,Alive
+T0132,Molave,Libertad,Prosperidad,8.186321,126.256236,1,1.9,4.4,Sandy,Dead
+T0133,Mahogany,San Isidro,Bunawan,8.399003,125.082142,9,17.1,18.5,Sandy,Dead
+T0134,Acacia,San Roque,Bislig,8.114267,125.621757,10,17.7,23.3,Sandy,Alive
+T0135,Yakal,Salvacion,Loreto,8.737501,125.678327,11,20.5,21.1,Loam,Alive
+T0136,Narra,Poblacion,Bislig,8.033879,125.46721,13,26.2,30.9,Loam,Alive
+T0137,Yakal,Libertad,San Francisco,8.663537,125.267054,4,10.6,5.5,Loam,Dead
+T0138,Molave,San Isidro,San Francisco,8.53507,125.276694,7,11.6,15.7,Loam,Alive
+T0139,Gmelina,Sta. Cruz,San Francisco,8.209906,126.347081,14,29.1,28.6,Loam,Alive
+T0140,Molave,Patin-ay,Talacogon,8.775528,125.679933,2,1.3,10,Loam,Alive
+T0141,Yakal,Sta. Cruz,San Francisco,8.765356,125.154472,8,12.3,16,Sandy,Dead
+T0142,Mahogany,San Isidro,Prosperidad,8.408734,125.03808,12,23.4,22.1,Sandy,Alive
+T0143,Bagras,San Roque,Loreto,8.196113,125.758262,8,14.5,17.3,Loam,Alive
+T0144,Mahogany,Sta. Cruz,Rosario,8.652746,125.357274,2,5.5,5.2,Sandy,Dead
+T0145,Molave,Poblacion,Prosperidad,8.94441,125.211623,14,26.1,30.2,Loam,Alive
+T0146,Acacia,Salvacion,Bislig,8.085509,125.311829,3,7.5,8.5,Loam,Dead
+T0147,Bagras,Patin-ay,San Francisco,8.624761,125.503799,15,29,29.5,Clay,Alive
+T0148,Gmelina,Poblacion,Bunawan,8.624149,125.614117,14,26.6,30.1,Clay,Alive
+T0149,Yakal,San Isidro,Talacogon,8.974547,126.169638,1,1.7,4.4,Clay,Dead
+T0150,Mahogany,San Roque,Bunawan,8.799855,125.63782,3,8,6.8,Clay,Dead
+T0151,Acacia,Libertad,Prosperidad,8.40255,125.327035,6,8.9,13.4,Loam,Alive
+T0152,Yakal,Salvacion,San Francisco,8.018391,126.371448,5,9,13.7,Sandy,Alive
+T0153,Acacia,Taglatawan,Prosperidad,8.405248,125.746197,12,22,28.4,Clay,Alive
+T0154,Mahogany,San Roque,Rosario,8.665037,125.263057,13,22.9,30.9,Clay,Alive
+T0155,Bagras,Sta. Cruz,Talacogon,8.422036,125.530807,6,10.3,13.6,Clay,Alive
+T0156,Bagras,Taglatawan,Bunawan,8.245349,125.583943,8,15.6,17.4,Sandy,Dead
+T0157,Mahogany,Libertad,Prosperidad,8.610405,126.42396,7,13.3,15.8,Clay,Alive
+T0158,Bagras,Taglatawan,San Francisco,8.21494,125.046775,4,7.6,8.2,Sandy,Dead
+T0159,Molave,Poblacion,Rosario,8.955236,125.232008,9,15.7,20.3,Loam,Alive
+T0160,Molave,Sta. Cruz,Rosario,8.728189,125.743237,11,18.4,28.8,Sandy,Alive
+T0161,Acacia,Patin-ay,San Francisco,8.077765,125.003509,3,6.3,3.5,Loam,Dead
+T0162,Acacia,San Isidro,Rosario,8.091582,126.37597,13,24.4,30.6,Clay,Alive
+T0163,Bagras,San Isidro,Rosario,8.086705,126.437256,3,6.6,7.8,Sandy,Dead
+T0164,Acacia,Salvacion,Loreto,8.692277,126.273793,9,16.6,21.3,Loam,Alive
+T0165,Narra,San Isidro,Talacogon,8.051596,126.004876,10,16.1,27.2,Loam,Alive
+T0166,Gmelina,Poblacion,Bislig,8.120523,126.096536,3,5.3,8,Clay,Dead
+T0167,Mahogany,Patin-ay,Talacogon,8.844549,125.478651,10,20,24.6,Loam,Alive
+T0168,Yakal,Patin-ay,San Francisco,8.560677,125.721593,3,3.8,9.2,Clay,Dead
+T0169,Narra,Sta. Cruz,Prosperidad,8.065356,125.472936,1,4.9,3.2,Loam,Dead
+T0170,Molave,Taglatawan,Prosperidad,8.520168,125.640226,12,21.7,28.5,Clay,Dead
+T0171,Mahogany,Sta. Cruz,Prosperidad,8.798783,126.496901,4,7.2,7.7,Sandy,Dead
+T0172,Yakal,San Roque,Rosario,8.271687,125.597431,14,22.7,27.3,Sandy,Dead
+T0173,Acacia,Taglatawan,Bunawan,8.238777,125.165711,14,26.4,29.9,Loam,Alive
+T0174,Gmelina,Sta. Cruz,Rosario,8.589109,125.415898,5,8.9,11.5,Loam,Alive
+T0175,Molave,Salvacion,Prosperidad,8.679647,125.327381,10,17,23.6,Clay,Alive
+T0176,Gmelina,Sta. Cruz,Prosperidad,8.982331,126.326298,8,17.9,16.3,Clay,Alive
+T0177,Acacia,Poblacion,San Francisco,8.991169,125.347508,4,6.5,10,Sandy,Dead
+T0178,Bagras,Sta. Cruz,San Francisco,8.120339,125.070418,9,15.3,18.7,Clay,Alive
+T0179,Bagras,Taglatawan,Talacogon,8.350125,125.086764,15,27.1,30,Sandy,Alive
+T0180,Molave,San Roque,Prosperidad,8.525032,125.39035,3,6.6,8.7,Sandy,Dead
+T0181,Molave,San Roque,Bunawan,8.815833,125.336661,8,11,15.8,Sandy,Alive
+T0182,Acacia,Patin-ay,Rosario,8.476677,125.066565,2,4,5.1,Loam,Dead
+T0183,Mahogany,San Roque,Loreto,8.550857,125.13048,8,14,17.8,Loam,Alive
+T0184,Gmelina,Salvacion,Prosperidad,8.962122,125.164203,12,16.4,24.7,Loam,Alive
+T0185,Gmelina,Sta. Cruz,Loreto,8.824681,125.521714,2,5.3,4.7,Loam,Dead
+T0186,Gmelina,Libertad,Prosperidad,8.52126,126.302241,12,22.8,27.4,Clay,Alive
+T0187,Yakal,San Roque,Loreto,8.680141,125.927917,6,11.1,12.9,Clay,Dead
+T0188,Yakal,Libertad,Rosario,8.46547,126.318607,10,17.4,20.3,Sandy,Dead
+T0189,Narra,San Roque,Talacogon,8.16076,126.226951,14,24,32.5,Clay,Alive
+T0190,Bagras,San Roque,Bislig,8.084098,125.48965,9,14.2,21.3,Clay,Alive
+T0191,Mahogany,Patin-ay,Prosperidad,8.539985,126.169768,6,12.6,12.7,Sandy,Alive
+T0192,Narra,Salvacion,Prosperidad,8.179497,126.130548,6,11.1,14,Sandy,Alive
+T0193,Gmelina,Poblacion,Talacogon,8.300964,126.062258,6,10.4,16.9,Sandy,Alive
+T0194,Molave,Libertad,Rosario,8.074694,126.278622,14,24.4,31.6,Clay,Alive
+T0195,Gmelina,Libertad,Bislig,8.024587,125.033185,6,12.5,12.3,Clay,Alive
+T0196,Gmelina,Sta. Cruz,Prosperidad,8.001029,125.238407,2,1.8,4,Sandy,Dead
+T0197,Mahogany,Libertad,Bislig,8.693682,125.331154,2,2.5,5.9,Sandy,Dead
+T0198,Bagras,Salvacion,Bunawan,8.868054,126.444855,8,15.4,17.4,Sandy,Alive
+T0199,Bagras,San Isidro,Rosario,8.638526,125.596392,9,13.4,18.7,Sandy,Alive
+T0200,Molave,Libertad,Rosario,8.724423,126.118756,3,5.5,6.1,Sandy,Dead
+T0201,Bagras,San Roque,Loreto,8.864358,125.709815,8,13.8,16.6,Sandy,Alive
+T0202,Acacia,Poblacion,Bunawan,8.153658,125.68054,2,4.6,7.1,Sandy,Dead
+T0203,Yakal,Poblacion,Bunawan,8.032526,126.381272,3,5.2,3.9,Loam,Alive
+T0204,Bagras,Taglatawan,Bunawan,8.598327,125.91096,4,5.2,8.2,Loam,Alive
+T0205,Gmelina,Taglatawan,San Francisco,8.064209,125.872957,5,6.8,14.9,Clay,Dead
+T0206,Acacia,Patin-ay,San Francisco,8.149581,125.696898,14,24.5,26,Sandy,Dead
+T0207,Yakal,San Isidro,Bislig,8.291663,126.042473,1,3.2,3.9,Sandy,Dead
+T0208,Bagras,Taglatawan,Prosperidad,8.102792,125.856357,15,30.6,33,Loam,Alive
+T0209,Bagras,San Isidro,Loreto,8.559649,125.014656,12,21.7,24.8,Clay,Dead
+T0210,Bagras,Libertad,Loreto,8.082509,126.236771,10,16.5,21.4,Loam,Alive
+T0211,Mahogany,Taglatawan,Bislig,8.689465,126.20088,2,3.8,3.9,Sandy,Dead
+T0212,Yakal,Sta. Cruz,Loreto,8.12422,126.344332,9,18.9,20.5,Clay,Dead
+T0213,Acacia,Poblacion,Talacogon,8.714087,126.202592,14,24.7,35.6,Loam,Alive
+T0214,Mahogany,Poblacion,Rosario,8.553001,125.896214,6,13.9,11.8,Loam,Alive
+T0215,Gmelina,San Isidro,Bislig,8.73159,125.122445,6,13.4,15.4,Sandy,Alive
+T0216,Gmelina,San Roque,Bislig,8.615742,125.493526,14,23.7,29.7,Clay,Alive
+T0217,Narra,Salvacion,San Francisco,8.658708,125.747294,2,4.4,0.4,Loam,Dead
+T0218,Acacia,Salvacion,San Francisco,8.081526,125.604892,13,23,25.3,Loam,Alive
+T0219,Yakal,Taglatawan,Prosperidad,8.727169,126.11406,4,9.3,10.3,Clay,Alive
+T0220,Narra,San Isidro,Talacogon,8.504845,125.814951,3,3.1,10.6,Loam,Dead
+T0221,Yakal,Salvacion,Loreto,8.486669,126.310135,2,4.5,6.7,Sandy,Dead
+T0222,Molave,Poblacion,Prosperidad,8.283855,125.538727,3,7.6,9.4,Sandy,Dead
+T0223,Molave,Poblacion,Prosperidad,8.131568,126.073737,14,24.4,29.5,Sandy,Dead
+T0224,Molave,Poblacion,Loreto,8.180977,126.281578,13,22.1,28.3,Sandy,Alive
+T0225,Acacia,San Isidro,Loreto,8.592918,125.869122,4,5.5,9.4,Loam,Alive
+T0226,Mahogany,Libertad,San Francisco,8.969412,125.3872,5,9,10.8,Clay,Alive
+T0227,Gmelina,Libertad,San Francisco,8.39666,125.355542,15,27.1,30.4,Sandy,Alive
+T0228,Bagras,Patin-ay,Talacogon,8.828883,125.646331,4,8.1,9,Clay,Alive
+T0229,Yakal,Taglatawan,Loreto,8.359251,125.569038,11,21.1,26.6,Sandy,Alive
+T0230,Molave,San Isidro,Bunawan,8.84417,126.208505,12,21.9,28.6,Clay,Alive
+T0231,Gmelina,Salvacion,Loreto,8.034188,126.480039,9,17.3,19.9,Clay,Alive
+T0232,Gmelina,San Roque,San Francisco,8.12211,125.678299,5,11.6,12.5,Sandy,Alive
+T0233,Mahogany,San Isidro,Bunawan,8.479897,126.028952,14,25.4,31.7,Clay,Dead
+T0234,Molave,San Isidro,San Francisco,8.45474,125.773394,2,4.2,0.2,Clay,Alive
+T0235,Yakal,Taglatawan,Bunawan,8.132715,125.215314,2,4.5,2.3,Clay,Dead
+T0236,Molave,San Isidro,Prosperidad,8.093901,126.008903,6,10.5,13.6,Loam,Alive
+T0237,Acacia,Poblacion,Talacogon,8.838115,126.416921,10,18.3,22.3,Clay,Alive
+T0238,Gmelina,Taglatawan,Bunawan,8.11311,126.193266,4,5.6,10.1,Clay,Dead
+T0239,Acacia,Taglatawan,Bunawan,8.393864,125.976849,10,16.5,21.1,Sandy,Dead
+T0240,Yakal,San Roque,Talacogon,8.318112,126.299658,9,16.7,20.6,Clay,Alive
+T0241,Bagras,San Isidro,Bunawan,8.738449,126.317773,13,24.8,28.3,Clay,Dead
+T0242,Narra,Sta. Cruz,Bislig,8.317196,126.303351,1,2,0.1,Sandy,Dead
+T0243,Bagras,Salvacion,Rosario,8.324586,125.549692,7,9.6,17.5,Sandy,Alive
+T0244,Acacia,Taglatawan,Prosperidad,8.596485,125.81853,3,7.9,8.6,Loam,Dead
+T0245,Bagras,Sta. Cruz,Loreto,8.463494,125.569679,10,15.6,22.3,Sandy,Alive
+T0246,Molave,San Roque,Bislig,8.394365,125.824121,14,24.8,31.6,Sandy,Dead
+T0247,Narra,Salvacion,San Francisco,8.060267,126.401654,6,10.1,12.3,Clay,Alive
+T0248,Gmelina,Libertad,Talacogon,8.523085,126.005144,13,23.7,31.4,Clay,Alive
+T0249,Mahogany,Libertad,Talacogon,8.610334,126.074226,1,0.2,2.3,Clay,Dead
+T0250,Acacia,Taglatawan,San Francisco,8.799781,125.276878,15,27.2,31.1,Sandy,Alive
+T0251,Acacia,San Isidro,Bunawan,8.962927,125.725318,7,11.9,17.7,Clay,Alive
+T0252,Gmelina,San Isidro,San Francisco,8.112304,125.003876,6,10.9,13.3,Loam,Alive
+T0253,Narra,Salvacion,Loreto,8.212045,125.916471,10,19.1,21.5,Sandy,Dead
+T0254,Molave,Salvacion,Prosperidad,8.556637,125.383467,4,8.4,7.7,Clay,Alive
+T0255,Molave,Salvacion,San Francisco,8.66755,125.143303,4,6.8,6.5,Clay,Alive
+T0256,Gmelina,Patin-ay,Bunawan,8.235236,126.303889,1,1.5,1.9,Clay,Alive
+T0257,Mahogany,San Isidro,Bislig,8.641972,125.910641,11,19,21.5,Sandy,Alive
+T0258,Bagras,San Isidro,Prosperidad,8.496767,126.481678,3,7.9,8.4,Clay,Dead
+T0259,Acacia,San Isidro,San Francisco,8.445791,126.086775,11,20.3,23.1,Loam,Alive
+T0260,Gmelina,Taglatawan,Prosperidad,8.274161,125.119129,8,16.1,21,Clay,Alive
+T0261,Molave,San Roque,Prosperidad,8.366956,125.515341,7,12.7,13.9,Sandy,Alive
+T0262,Gmelina,San Isidro,Bunawan,8.800357,125.350568,5,9.9,7.9,Clay,Dead
+T0263,Mahogany,San Roque,Rosario,8.230829,125.685288,6,11.8,17.1,Sandy,Dead
+T0264,Bagras,San Isidro,Bislig,8.465206,125.090214,12,23.6,27.8,Clay,Alive
+T0265,Bagras,Patin-ay,Prosperidad,8.409478,125.634034,7,11.5,17.9,Sandy,Dead
+T0266,Yakal,Taglatawan,Loreto,8.79545,126.390767,13,22.3,30.2,Clay,Alive
+T0267,Molave,Sta. Cruz,San Francisco,8.092929,125.385571,8,13.6,18.3,Loam,Alive
+T0268,Narra,Taglatawan,Loreto,8.782028,126.063117,14,24.8,30,Loam,Alive
+T0269,Gmelina,Poblacion,San Francisco,8.38091,125.519483,9,13.4,20.8,Clay,Alive
+T0270,Bagras,Patin-ay,Loreto,8.447203,125.900892,7,13.3,14.3,Loam,Alive
+T0271,Yakal,Taglatawan,Loreto,8.566575,125.586564,12,20.9,28.7,Sandy,Dead
+T0272,Acacia,San Roque,Prosperidad,8.868057,126.208888,7,11.8,14.9,Clay,Alive
+T0273,Gmelina,San Isidro,Loreto,8.173525,126.042427,2,3.7,5.5,Clay,Dead
+T0274,Bagras,Sta. Cruz,Rosario,8.575163,125.719032,1,1.8,3.8,Sandy,Dead
+T0275,Bagras,San Roque,San Francisco,8.76481,125.262258,3,4.2,7.3,Sandy,Dead
+T0276,Acacia,Sta. Cruz,Bunawan,8.506108,125.348827,13,24.2,28.7,Clay,Alive
+T0277,Molave,Poblacion,Bislig,8.311816,125.759213,2,4.7,3.5,Loam,Alive
+T0278,Yakal,Taglatawan,Rosario,8.017688,125.90383,7,12.3,18.4,Clay,Alive
+T0279,Mahogany,San Isidro,Bislig,8.994866,125.086671,8,13.5,14.1,Clay,Alive
+T0280,Gmelina,Taglatawan,San Francisco,8.07463,126.174044,14,25.7,29.5,Loam,Alive
+T0281,Narra,San Roque,San Francisco,8.509422,126.495045,1,0.7,0.8,Sandy,Dead
+T0282,Bagras,Salvacion,San Francisco,8.655724,126.272024,2,1.5,4,Clay,Dead
+T0283,Gmelina,San Roque,Bislig,8.41413,126.241307,5,9.6,10.8,Loam,Alive
+T0284,Narra,Salvacion,Rosario,8.133804,125.627871,6,12.1,11.6,Clay,Alive
+T0285,Acacia,Libertad,San Francisco,8.53531,125.322803,5,9.6,13.2,Clay,Alive
+T0286,Acacia,San Isidro,Bislig,8.064617,125.06395,1,2,0.3,Sandy,Dead
+T0287,Gmelina,Sta. Cruz,Rosario,8.844357,125.147124,10,19.1,19.5,Loam,Alive
+T0288,Acacia,Salvacion,Prosperidad,8.614081,126.289348,10,18.4,22.4,Sandy,Dead
+T0289,Mahogany,Sta. Cruz,Talacogon,8.786903,125.47311,1,2.3,1.9,Sandy,Dead
+T0290,Molave,Patin-ay,Rosario,8.78117,126.237698,7,13.7,16,Clay,Alive
+T0291,Gmelina,Sta. Cruz,Loreto,8.613934,125.099978,8,14.4,18.1,Sandy,Alive
+T0292,Gmelina,San Roque,Loreto,8.038022,126.119311,1,0.6,4.8,Sandy,Dead
+T0293,Gmelina,Taglatawan,Rosario,8.349703,126.16198,7,11.7,17.8,Clay,Alive
+T0294,Acacia,Taglatawan,Loreto,8.549616,126.245802,8,15.9,16.1,Loam,Alive
+T0295,Molave,Sta. Cruz,Prosperidad,8.38194,125.308531,1,0.5,0.4,Loam,Alive
+T0296,Bagras,Salvacion,San Francisco,8.959827,125.717383,15,29.2,36.6,Clay,Alive
+T0297,Molave,Sta. Cruz,Talacogon,8.81177,125.984718,11,18.6,24.6,Loam,Alive
+T0298,Narra,Poblacion,San Francisco,8.550092,125.582979,2,3.3,3.8,Loam,Dead
+T0299,Yakal,Sta. Cruz,Prosperidad,8.645811,125.42886,14,24.9,31.4,Sandy,Dead
+T0300,Bagras,Patin-ay,Prosperidad,8.460539,126.262998,8,12.5,18.1,Clay,Alive
+T0301,Mahogany,Poblacion,Rosario,8.32006,126.129781,9,16.1,19.6,Clay,Alive
+T0302,Bagras,Taglatawan,Bunawan,8.817785,125.320267,3,4.8,4.7,Sandy,Dead
+T0303,Acacia,San Roque,San Francisco,8.758185,126.115136,3,6.2,3.1,Clay,Dead
+T0304,Acacia,Patin-ay,Bunawan,8.873323,125.954437,5,8.8,8.6,Loam,Alive
+T0305,Bagras,San Isidro,Loreto,8.246679,126.089693,1,0.5,1,Sandy,Dead
+T0306,Yakal,Sta. Cruz,San Francisco,8.65756,125.466393,5,10.1,13.9,Clay,Alive
+T0307,Bagras,Poblacion,Rosario,8.355385,126.175688,4,9,9,Sandy,Dead
+T0308,Bagras,Sta. Cruz,Loreto,8.83268,125.016547,9,16,20.6,Sandy,Alive
+T0309,Yakal,Taglatawan,Rosario,8.148888,125.458406,8,12.8,17.6,Sandy,Alive
+T0310,Narra,Libertad,Talacogon,8.643365,126.1706,6,8.3,16.1,Sandy,Alive
+T0311,Yakal,San Isidro,Talacogon,8.695618,125.004827,6,10.2,12.4,Sandy,Alive
+T0312,Narra,Sta. Cruz,Bunawan,8.402327,126.311394,13,22.6,29,Sandy,Alive
+T0313,Yakal,Libertad,Prosperidad,8.561485,125.84099,14,29,30.1,Clay,Alive
+T0314,Yakal,San Isidro,Bunawan,8.022933,125.483162,15,28.7,31.7,Clay,Alive
+T0315,Gmelina,San Roque,Loreto,8.788615,125.775904,13,22.8,26.8,Loam,Alive
+T0316,Gmelina,Sta. Cruz,Talacogon,8.0886,125.330918,11,20.7,25.6,Clay,Alive
+T0317,Molave,Sta. Cruz,Bislig,8.299444,125.26022,6,12.6,14.4,Sandy,Alive
+T0318,Bagras,Patin-ay,Talacogon,8.409905,126.259703,11,20.3,21.4,Clay,Dead
+T0319,Narra,Sta. Cruz,Bislig,8.165294,126.050378,14,24.4,32.3,Sandy,Alive
+T0320,Mahogany,Taglatawan,Bislig,8.298726,126.411019,10,17.4,23.1,Clay,Alive
+T0321,Mahogany,Taglatawan,San Francisco,8.461733,125.721359,5,7.2,5.3,Loam,Alive
+T0322,Acacia,San Isidro,San Francisco,8.080602,126.091909,2,3.7,4.7,Clay,Alive
+T0323,Bagras,Taglatawan,Loreto,8.05728,125.337836,12,22.2,25.3,Sandy,Dead
+T0324,Molave,Patin-ay,Bunawan,8.956615,125.103437,12,20.2,24.5,Loam,Alive
+T0325,Gmelina,San Isidro,San Francisco,8.974835,125.556811,15,29.2,32.5,Loam,Alive
+T0326,Yakal,San Isidro,Prosperidad,8.487571,125.05042,4,8.8,12.9,Loam,Alive
+T0327,Mahogany,Sta. Cruz,Rosario,8.31519,126.157787,6,11.2,13.4,Loam,Alive
+T0328,Narra,Salvacion,Prosperidad,8.936822,125.078387,12,22.4,28.9,Sandy,Alive
+T0329,Gmelina,San Isidro,San Francisco,8.979551,125.217448,7,13,12.7,Loam,Alive
+T0330,Narra,Sta. Cruz,Loreto,8.972005,125.912791,9,15.3,23.1,Clay,Alive
+T0331,Molave,San Roque,Bislig,8.683754,125.817658,8,14,17.9,Sandy,Dead
+T0332,Acacia,San Isidro,Rosario,8.543538,125.122588,6,10.4,15.5,Clay,Alive
+T0333,Molave,Poblacion,Talacogon,8.664188,125.324136,10,14.5,20,Sandy,Dead
+T0334,Mahogany,San Isidro,San Francisco,8.545432,125.09341,8,13.9,16,Sandy,Dead
+T0335,Bagras,Patin-ay,San Francisco,8.79399,125.745884,7,12.8,17.5,Clay,Alive
+T0336,Yakal,San Roque,Loreto,8.754108,125.026919,8,13.9,18.6,Loam,Alive
+T0337,Narra,Poblacion,San Francisco,8.98499,126.158019,15,25.7,33.2,Clay,Alive
+T0338,Narra,San Isidro,Loreto,8.282431,125.586093,3,5.8,5.1,Sandy,Dead
+T0339,Acacia,Patin-ay,Talacogon,8.38042,126.163418,3,4.6,5.6,Clay,Alive
+T0340,Bagras,Poblacion,Bislig,8.356671,126.136223,5,10.8,12.1,Sandy,Alive
+T0341,Gmelina,Patin-ay,Loreto,8.91509,125.799543,10,21,18.3,Loam,Alive
+T0342,Bagras,San Isidro,San Francisco,8.613473,125.544651,11,19.3,23.4,Loam,Alive
+T0343,Bagras,Libertad,Prosperidad,8.89399,125.981439,11,21.3,22.9,Clay,Dead
+T0344,Mahogany,Salvacion,Rosario,8.856874,125.176466,11,20.6,24.2,Sandy,Alive
+T0345,Yakal,Sta. Cruz,Rosario,8.98411,126.00188,13,24,27.1,Sandy,Alive
+T0346,Gmelina,Libertad,Rosario,8.029364,126.234438,10,18.3,21.3,Loam,Alive
+T0347,Narra,San Isidro,Bislig,8.858177,126.228595,2,4,3.5,Clay,Dead
+T0348,Acacia,Poblacion,San Francisco,8.901296,125.977502,9,16.1,15.3,Sandy,Dead
+T0349,Yakal,San Isidro,Bislig,8.335208,125.260642,5,8.1,14.3,Loam,Dead
+T0350,Bagras,Poblacion,Bunawan,8.739671,125.286891,11,21.6,27.2,Sandy,Alive
+T0351,Mahogany,Taglatawan,Bunawan,8.841448,125.706931,15,26.3,33.6,Sandy,Alive
+T0352,Molave,Poblacion,Bislig,8.003817,126.022504,6,10.2,14.2,Clay,Dead
+T0353,Yakal,Libertad,San Francisco,8.279276,125.964323,4,6.7,9.7,Loam,Alive
+T0354,Yakal,San Isidro,San Francisco,8.068505,126.144733,5,9.8,11.4,Loam,Alive
+T0355,Narra,Patin-ay,Bunawan,8.766065,126.182671,13,23.8,30.1,Clay,Dead
+T0356,Gmelina,Taglatawan,Bunawan,8.000188,125.253622,2,1,-0.2,Clay,Dead
+T0357,Mahogany,Patin-ay,Prosperidad,8.546648,125.570601,14,25.1,33.6,Loam,Alive
+T0358,Gmelina,Sta. Cruz,Bislig,8.421444,125.040763,6,11.9,12.3,Sandy,Alive
+T0359,Yakal,Patin-ay,Prosperidad,8.91077,126.130943,9,17.7,23.9,Sandy,Dead
+T0360,Narra,Taglatawan,Bislig,8.532676,125.952634,4,7.7,7.5,Loam,Dead
+T0361,Gmelina,San Roque,San Francisco,8.096534,125.362841,1,-1,1.6,Loam,Dead
+T0362,Mahogany,Taglatawan,Prosperidad,8.297238,125.449879,14,24.2,31.1,Clay,Dead
+T0363,Bagras,Poblacion,Bunawan,8.877262,125.495612,6,10.6,12.9,Sandy,Dead
+T0364,Gmelina,Poblacion,Bunawan,8.03467,125.87421,14,25.3,33.1,Loam,Alive
+T0365,Gmelina,Salvacion,Bunawan,8.831374,125.898468,1,2.1,5.6,Loam,Alive
+T0366,Narra,Salvacion,San Francisco,8.868552,125.09703,1,0.1,2,Sandy,Dead
+T0367,Molave,San Roque,Bunawan,8.164825,125.255873,5,10.8,14.5,Loam,Alive
+T0368,Mahogany,Patin-ay,Rosario,8.237433,125.768546,12,22.7,25.1,Sandy,Dead
+T0369,Mahogany,Libertad,Rosario,8.262676,125.407353,11,19.9,27.6,Sandy,Dead
+T0370,Mahogany,Salvacion,Rosario,8.070932,125.381587,1,2,1.3,Clay,Dead
+T0371,Gmelina,Patin-ay,Rosario,8.238857,125.704463,9,15.9,15.7,Sandy,Alive
+T0372,Narra,San Isidro,Rosario,8.61078,125.421025,8,15.8,22.3,Clay,Dead
+T0373,Mahogany,San Isidro,Rosario,8.049497,126.249976,4,6.7,7.3,Clay,Dead
+T0374,Narra,San Roque,Talacogon,8.572049,125.769002,11,18.9,25.9,Clay,Dead
+T0375,Gmelina,Salvacion,Bislig,8.531599,126.319794,7,12.6,17.6,Loam,Alive
+T0376,Narra,Patin-ay,Loreto,8.992817,125.197234,14,24.6,28.6,Clay,Alive
+T0377,Mahogany,Sta. Cruz,Bislig,8.882259,126.006415,13,21,30.4,Clay,Dead
+T0378,Yakal,Libertad,Prosperidad,8.955061,126.231797,8,15.6,18.7,Loam,Alive
+T0379,Bagras,Poblacion,Bislig,8.871598,125.385041,4,6,4.4,Sandy,Dead
+T0380,Narra,Taglatawan,Bislig,8.121025,125.628422,4,6.9,10.5,Clay,Alive
+T0381,Molave,San Roque,San Francisco,8.749851,125.619013,13,21.8,31.4,Sandy,Alive
+T0382,Molave,San Isidro,Prosperidad,8.010131,125.954144,6,11.5,11.1,Sandy,Dead
+T0383,Narra,San Roque,Prosperidad,8.529992,126.243527,14,22.7,29.5,Loam,Alive
+T0384,Acacia,Libertad,Prosperidad,8.5772,125.065609,5,8.1,12.2,Sandy,Alive
+T0385,Acacia,Libertad,Bunawan,8.816723,125.101077,5,8,14.6,Loam,Alive
+T0386,Molave,Patin-ay,Bunawan,8.275381,125.45947,10,15.9,22.9,Clay,Alive
+T0387,Gmelina,Poblacion,Prosperidad,8.450123,125.8689,9,13.5,18.4,Sandy,Alive
+T0388,Molave,San Isidro,Prosperidad,8.371172,125.901611,4,8.1,4,Sandy,Dead
+T0389,Molave,Sta. Cruz,Bunawan,8.165628,125.968611,5,8.5,12.6,Sandy,Alive
+T0390,Narra,Salvacion,Prosperidad,8.025448,125.968734,12,22.3,29.1,Loam,Alive
+T0391,Mahogany,Sta. Cruz,Loreto,8.847139,125.796628,4,9.5,12.9,Loam,Alive
+T0392,Acacia,Sta. Cruz,San Francisco,8.16736,126.458038,14,25.2,29.8,Clay,Dead
+T0393,Gmelina,Sta. Cruz,Loreto,8.384207,125.058494,6,10.6,14.7,Sandy,Alive
+T0394,Gmelina,Poblacion,Talacogon,8.313206,125.220593,5,9.8,10.4,Sandy,Alive
+T0395,Acacia,Libertad,Bunawan,8.955919,125.47095,7,12.8,15.4,Clay,Alive
+T0396,Narra,Sta. Cruz,Bunawan,8.088202,125.910316,14,22.9,27.8,Sandy,Alive
+T0397,Yakal,Poblacion,Rosario,8.541408,125.231218,1,-0.1,2.4,Clay,Dead
+T0398,Molave,San Roque,Bislig,8.838549,125.534278,2,2.4,3.2,Sandy,Dead
+T0399,Molave,Poblacion,San Francisco,8.342448,125.405372,12,21.9,28.9,Clay,Alive
+T0400,Acacia,Poblacion,Rosario,8.582984,126.499571,13,23.1,33.3,Sandy,Alive
+T0401,Bagras,Sta. Cruz,Rosario,8.993848,126.320472,8,16,16.3,Sandy,Alive
+T0402,Narra,San Isidro,Bislig,8.730818,125.221976,5,13,8,Loam,Alive
+T0403,Gmelina,Libertad,Bislig,8.964029,126.364182,11,18.9,20,Sandy,Alive
+T0404,Mahogany,Patin-ay,San Francisco,8.74586,125.823984,5,8,12.7,Loam,Alive
+T0405,Mahogany,Libertad,Loreto,8.944042,125.223194,3,4,6.7,Sandy,Dead
+T0406,Gmelina,Libertad,Rosario,8.491931,125.453671,4,5.8,7.5,Loam,Dead
+T0407,Molave,Salvacion,Rosario,8.386541,125.766913,9,18.2,18.1,Loam,Alive
+T0408,Bagras,San Roque,Bislig,8.455979,125.665184,15,27.6,36,Sandy,Dead
+T0409,Bagras,San Isidro,Bunawan,8.200475,125.163896,4,5.7,7.2,Clay,Alive
+T0410,Gmelina,San Isidro,Loreto,8.256048,125.046185,15,28,33.4,Loam,Alive
+T0411,Narra,Patin-ay,Rosario,8.476843,126.031583,11,19.9,26.4,Clay,Alive
+T0412,Molave,Sta. Cruz,Bunawan,8.64447,126.229697,9,14.9,18.4,Clay,Dead
+T0413,Yakal,San Roque,Bunawan,8.008863,126.496731,8,16.2,14.7,Sandy,Alive
+T0414,Molave,Salvacion,Prosperidad,8.005666,126.405637,12,23.4,27.8,Loam,Alive
+T0415,Acacia,Poblacion,Talacogon,8.613604,125.132907,9,14.8,21.8,Loam,Alive
+T0416,Gmelina,Poblacion,Rosario,8.024498,125.459206,8,14.6,17.3,Sandy,Dead
+T0417,Molave,Libertad,Bunawan,8.072316,126.432673,11,20.4,25.8,Clay,Alive
+T0418,Mahogany,San Roque,San Francisco,8.842074,125.363347,6,8.4,11.7,Clay,Alive
+T0419,Gmelina,Taglatawan,San Francisco,8.281004,126.205224,14,24.5,29.4,Loam,Alive
+T0420,Acacia,Taglatawan,Prosperidad,8.583257,126.263346,1,1.9,2.2,Loam,Dead
+T0421,Mahogany,Libertad,Loreto,8.357814,125.971726,6,11.7,11.5,Loam,Alive
+T0422,Narra,San Isidro,San Francisco,8.453947,126.232148,6,11.1,12.2,Sandy,Alive
+T0423,Molave,Taglatawan,Bislig,8.713953,126.233802,8,15.2,14.1,Sandy,Alive
+T0424,Gmelina,San Roque,Talacogon,8.916792,126.080983,12,18.8,26.3,Loam,Alive
+T0425,Molave,San Roque,Bunawan,8.629558,125.081498,12,20.3,26,Clay,Alive
+T0426,Gmelina,Salvacion,Rosario,8.783017,126.072558,6,10.3,13.5,Clay,Dead
+T0427,Bagras,San Isidro,Loreto,8.00382,125.370236,9,15.9,20.1,Loam,Alive
+T0428,Narra,San Roque,Prosperidad,8.866548,125.857714,2,3.4,6.3,Sandy,Dead
+T0429,Acacia,Patin-ay,Talacogon,8.377318,126.446118,5,10.1,11.2,Loam,Alive
+T0430,Molave,Salvacion,Bislig,8.675848,125.208674,5,10.4,13.5,Sandy,Dead
+T0431,Bagras,Poblacion,Bunawan,8.761038,126.426159,15,30.4,32.2,Loam,Dead
+T0432,Bagras,San Roque,Prosperidad,8.104808,125.747856,7,8.4,15.4,Clay,Alive
+T0433,Acacia,Libertad,Rosario,8.208883,125.553061,12,21.9,23.7,Loam,Alive
+T0434,Molave,Sta. Cruz,Bislig,8.719654,125.556742,6,12.4,13,Loam,Alive
+T0435,Yakal,Sta. Cruz,Loreto,8.677813,125.911628,2,4.6,4.1,Clay,Alive
+T0436,Acacia,San Roque,Loreto,8.737097,126.461888,12,23.9,24.9,Clay,Alive
+T0437,Bagras,Taglatawan,Rosario,8.890215,125.431114,3,6.9,7.6,Sandy,Dead
+T0438,Gmelina,Libertad,Prosperidad,8.543806,125.1498,10,17.7,20,Clay,Alive
+T0439,Mahogany,Sta. Cruz,Bislig,8.40429,125.796407,6,12.2,11.3,Loam,Alive
+T0440,Molave,Libertad,Prosperidad,8.041657,125.596471,1,3.4,0.8,Loam,Dead
+T0441,Yakal,Poblacion,Talacogon,8.521296,126.464021,11,18.7,24.5,Loam,Alive
+T0442,Bagras,Patin-ay,Bunawan,8.367734,125.272609,7,12.8,18.5,Sandy,Alive
+T0443,Yakal,Libertad,Bislig,8.371739,125.00203,11,20.7,28.2,Sandy,Dead
+T0444,Mahogany,Poblacion,Loreto,8.67558,125.820445,8,15.4,19,Sandy,Alive
+T0445,Bagras,Patin-ay,Talacogon,8.398005,125.454374,3,5.9,6.9,Clay,Dead
+T0446,Mahogany,San Isidro,Talacogon,8.473401,125.089575,12,21.6,26.9,Clay,Dead
+T0447,Molave,Patin-ay,Rosario,8.075605,125.548521,11,21,27.1,Sandy,Dead
+T0448,Narra,Patin-ay,Rosario,8.847194,125.472721,3,5.9,5.9,Sandy,Dead
+T0449,Acacia,Taglatawan,Rosario,8.388166,126.011195,11,21.7,22.4,Sandy,Alive
+T0450,Bagras,Taglatawan,San Francisco,8.060629,126.035,10,16.7,26.2,Sandy,Alive
+T0451,Yakal,Poblacion,Rosario,8.957934,125.79449,15,27.7,32.7,Sandy,Dead
+T0452,Gmelina,Patin-ay,Prosperidad,8.620909,126.39299,14,28.5,27,Clay,Alive
+T0453,Acacia,Taglatawan,San Francisco,8.0439,125.248625,13,24.8,28.5,Loam,Alive
+T0454,Bagras,San Isidro,Bislig,8.136999,126.492472,2,3,5.6,Clay,Dead
+T0455,Gmelina,Libertad,Loreto,8.196926,126.427145,8,12,18.5,Loam,Alive
+T0456,Acacia,San Roque,Bunawan,8.593561,125.109622,6,11.6,14.7,Loam,Alive
+T0457,Bagras,San Isidro,Bunawan,8.698311,125.592809,2,3.5,5.2,Sandy,Dead
+T0458,Bagras,Libertad,Bislig,8.773089,125.465,14,27.3,33.2,Sandy,Alive
+T0459,Molave,Sta. Cruz,Prosperidad,8.565085,126.15744,6,12.5,13.9,Sandy,Dead
+T0460,Molave,San Roque,Prosperidad,8.376986,125.827985,15,25.1,34.2,Sandy,Alive
+T0461,Yakal,Salvacion,Loreto,8.848042,126.093292,11,18.5,22.6,Sandy,Alive
+T0462,Acacia,Patin-ay,Bunawan,8.894643,125.000664,4,6.1,5.7,Loam,Dead
+T0463,Narra,Poblacion,San Francisco,8.993255,125.067367,13,26.8,28,Clay,Alive
+T0464,Molave,Patin-ay,Bunawan,8.032618,125.086554,7,9.8,17.4,Clay,Alive
+T0465,Yakal,Taglatawan,Prosperidad,8.251001,125.846111,11,21.5,23.7,Sandy,Dead
+T0466,Molave,Patin-ay,Loreto,8.877356,126.461558,7,10.3,15.5,Loam,Alive
+T0467,Gmelina,Sta. Cruz,Prosperidad,8.036019,125.262833,2,2,5.8,Loam,Dead
+T0468,Yakal,San Roque,Rosario,8.71916,125.844987,5,11.4,11.2,Sandy,Alive
+T0469,Yakal,Poblacion,Bunawan,8.35305,126.341141,7,12.1,17.6,Loam,Alive
+T0470,Narra,Sta. Cruz,Loreto,8.823161,126.333331,2,4.2,1.7,Loam,Alive
+T0471,Yakal,Patin-ay,Loreto,8.331565,126.282545,12,19.5,29.2,Clay,Alive
+T0472,Molave,Patin-ay,Loreto,8.879497,125.690004,15,27.7,33.8,Loam,Alive
+T0473,Yakal,Sta. Cruz,Talacogon,8.693618,126.156684,10,18.1,24.6,Sandy,Alive
+T0474,Yakal,Libertad,Loreto,8.045403,125.435044,13,24.4,23.5,Sandy,Alive
+T0475,Acacia,Poblacion,Rosario,8.973078,125.339188,6,10.8,12.8,Clay,Dead
+T0476,Yakal,Libertad,San Francisco,8.051901,125.286678,12,22.6,24.1,Sandy,Dead
+T0477,Acacia,Poblacion,Bunawan,8.848425,125.633944,2,2.3,2.6,Loam,Alive
+T0478,Gmelina,Patin-ay,Talacogon,8.336965,126.499316,4,9.4,5.4,Loam,Alive
+T0479,Bagras,Taglatawan,Talacogon,8.078456,125.816745,10,15.4,22.3,Clay,Alive
+T0480,Mahogany,Patin-ay,Bunawan,8.481867,125.542565,4,5.8,9.5,Loam,Dead
+T0481,Bagras,Libertad,Bislig,8.780732,126.062735,3,6.3,6.2,Sandy,Dead
+T0482,Bagras,San Roque,San Francisco,8.697209,126.07149,11,19.4,24.6,Loam,Alive
+T0483,Bagras,Patin-ay,Bislig,8.850472,125.516906,2,2.8,5.5,Loam,Dead
+T0484,Mahogany,Patin-ay,Talacogon,8.33561,126.467788,3,5.9,5.7,Sandy,Dead
+T0485,Bagras,Patin-ay,San Francisco,8.435324,125.823965,1,0.2,1.4,Loam,Dead
+T0486,Narra,Sta. Cruz,Loreto,8.734444,125.576533,3,4.8,7.2,Sandy,Dead
+T0487,Yakal,Salvacion,Prosperidad,8.615912,126.264917,7,13.8,13.4,Sandy,Dead
+T0488,Gmelina,Taglatawan,Talacogon,8.54643,126.450553,3,2.7,5.3,Sandy,Dead
+T0489,Mahogany,San Isidro,Rosario,8.118492,126.44227,14,22,33,Loam,Alive
+T0490,Bagras,Salvacion,Loreto,8.865296,125.23591,4,5,10.8,Sandy,Dead
+T0491,Molave,Taglatawan,Prosperidad,8.501515,125.106337,14,26.9,34.7,Loam,Alive
+T0492,Bagras,Sta. Cruz,Bislig,8.906087,125.018235,8,14.5,16.3,Sandy,Alive
+T0493,Acacia,Patin-ay,Rosario,8.306777,125.529438,1,1.6,3.6,Clay,Dead
+T0494,Bagras,Patin-ay,Rosario,8.605505,125.370697,1,1,-1.2,Loam,Dead
+T0495,Narra,Taglatawan,Rosario,8.332456,125.084878,15,27.2,32.9,Loam,Alive
+T0496,Molave,Libertad,San Francisco,8.733487,125.174286,7,14.9,14.4,Sandy,Alive
+T0497,Bagras,Libertad,Loreto,8.277853,125.414479,10,18.6,21.9,Clay,Alive
+T0498,Bagras,Patin-ay,Loreto,8.547785,126.468436,9,17.5,21.9,Loam,Alive
+T0499,Molave,Patin-ay,Rosario,8.346524,125.596419,11,20.4,29.1,Loam,Alive
+T0500,Narra,Salvacion,Rosario,8.6307,125.824409,6,10.9,14,Loam,Alive
+T0501,Gmelina,San Roque,Prosperidad,8.075584,126.427135,11,22.4,22.9,Clay,Alive
+T0502,Acacia,Poblacion,Talacogon,8.092095,125.830069,5,10.2,8.7,Loam,Dead
+T0503,Narra,Poblacion,Talacogon,8.610007,125.469361,4,10.4,6.8,Clay,Alive
+T0504,Gmelina,Libertad,Rosario,8.939057,125.010023,8,16.9,19,Sandy,Dead
+T0505,Yakal,Poblacion,Rosario,8.408152,125.023092,4,7.3,10.2,Clay,Dead
+T0506,Mahogany,San Roque,Loreto,8.220484,126.088589,14,26,28.8,Loam,Dead
+T0507,Yakal,Patin-ay,Rosario,8.101893,125.01248,6,11.9,12.6,Sandy,Alive
+T0508,Acacia,Taglatawan,Bislig,8.807189,126.291979,4,9.7,7.8,Clay,Alive
+T0509,Narra,San Roque,Loreto,8.589454,125.919938,9,18,21.9,Clay,Alive
+T0510,Bagras,Patin-ay,Bislig,8.653994,126.227554,15,25.8,31.6,Sandy,Alive
+T0511,Molave,Sta. Cruz,Bunawan,8.24756,125.093789,13,21.3,27.9,Loam,Alive
+T0512,Mahogany,San Isidro,Bunawan,8.594803,125.558301,7,13.2,16.3,Clay,Dead
+T0513,Mahogany,Sta. Cruz,San Francisco,8.932711,125.816381,14,25.7,25.8,Sandy,Alive
+T0514,Acacia,Libertad,Bunawan,8.98766,125.437244,14,26.2,30.4,Loam,Alive
+T0515,Molave,San Roque,San Francisco,8.538332,125.40328,12,23.1,25.9,Sandy,Dead
+T0516,Molave,Salvacion,San Francisco,8.833643,125.749148,2,4.4,4.8,Clay,Alive
+T0517,Gmelina,Sta. Cruz,Bunawan,8.824743,125.438575,11,17.9,25.1,Sandy,Alive
+T0518,Gmelina,Salvacion,Bislig,8.407633,125.704288,8,13.7,20.5,Loam,Alive
+T0519,Mahogany,Libertad,Bislig,8.260237,125.239238,13,24.6,29.3,Loam,Alive
+T0520,Narra,San Roque,Prosperidad,8.685134,125.165648,5,11.8,7,Loam,Alive
+T0521,Narra,Sta. Cruz,Loreto,8.742531,125.114954,8,13.4,19.6,Loam,Dead
+T0522,Yakal,San Roque,Loreto,8.952815,125.490114,10,15.9,20.4,Clay,Alive
+T0523,Gmelina,Salvacion,San Francisco,8.318609,126.355338,6,11.1,19.2,Sandy,Alive
+T0524,Yakal,Libertad,Rosario,8.858817,126.015411,1,1,-1.9,Sandy,Dead
+T0525,Yakal,Poblacion,Talacogon,8.013251,125.443914,15,25.5,34.1,Clay,Alive
+T0526,Gmelina,Poblacion,Rosario,8.229598,125.176327,1,2.7,3,Sandy,Dead
+T0527,Mahogany,Taglatawan,San Francisco,8.789432,125.44518,6,9.7,10.7,Loam,Alive
+T0528,Yakal,Patin-ay,Rosario,8.222361,125.778837,12,20.3,25.4,Clay,Alive
+T0529,Narra,Taglatawan,Bunawan,8.267601,125.503511,14,25.4,31.7,Loam,Alive
+T0530,Mahogany,San Roque,Rosario,8.415775,125.643417,3,4.1,10,Clay,Dead
+T0531,Narra,Poblacion,Loreto,8.203667,125.491328,13,23.9,30.4,Sandy,Alive
+T0532,Acacia,Taglatawan,Loreto,8.115395,125.908457,13,22.1,27.8,Clay,Alive
+T0533,Bagras,Salvacion,Loreto,8.206252,125.587789,1,3.4,3.6,Loam,Dead
+T0534,Bagras,San Roque,Rosario,8.776489,125.917005,11,19.7,22.7,Sandy,Alive
+T0535,Gmelina,San Isidro,Bunawan,8.628426,126.032947,12,22.1,27.6,Loam,Alive
+T0536,Acacia,Sta. Cruz,San Francisco,8.752638,125.697583,6,10.7,15.6,Loam,Alive
+T0537,Acacia,Poblacion,Talacogon,8.791558,125.676941,3,4.9,9,Loam,Dead
+T0538,Yakal,Taglatawan,Loreto,8.013368,125.614609,9,15.8,21.7,Sandy,Alive
+T0539,Gmelina,Libertad,San Francisco,8.968066,125.099847,9,16.1,20.5,Loam,Alive
+T0540,Narra,Sta. Cruz,Bislig,8.989218,125.347323,13,20.6,29.8,Clay,Alive
+T0541,Molave,San Isidro,Loreto,8.350521,125.5588,11,18.5,27.1,Clay,Alive
+T0542,Narra,Poblacion,San Francisco,8.045319,125.524917,11,21.5,23.4,Loam,Alive
+T0543,Gmelina,Taglatawan,Bislig,8.373241,125.947983,2,4,7.4,Sandy,Dead
+T0544,Acacia,Patin-ay,San Francisco,8.766515,125.87557,5,5.8,11.6,Loam,Alive
+T0545,Gmelina,Taglatawan,Bunawan,8.758502,125.021942,3,7.5,8,Sandy,Dead
+T0546,Bagras,Poblacion,Bislig,8.194975,126.335614,13,22.7,27.2,Loam,Alive
+T0547,Gmelina,San Roque,Bunawan,8.433163,126.161454,10,20.8,24.2,Sandy,Alive
+T0548,Yakal,Sta. Cruz,Loreto,8.473921,126.074596,6,12.9,9.7,Sandy,Alive
+T0549,Bagras,Patin-ay,Bunawan,8.599771,126.292271,14,25.2,32.6,Clay,Alive
+T0550,Bagras,Taglatawan,Bunawan,8.076972,126.044234,12,18.9,22.3,Clay,Dead
+T0551,Narra,Salvacion,Rosario,8.431087,125.824014,9,16.3,19.7,Sandy,Dead
+T0552,Gmelina,Poblacion,Prosperidad,8.324512,125.404268,12,19,25.8,Sandy,Dead
+T0553,Narra,Patin-ay,San Francisco,8.823767,125.09471,5,9.8,12.3,Loam,Alive
+T0554,Gmelina,Poblacion,Prosperidad,8.187722,125.132577,5,8,11.9,Clay,Alive
+T0555,Molave,Patin-ay,Bislig,8.46399,125.396007,13,22.9,29.6,Loam,Alive
+T0556,Acacia,Poblacion,San Francisco,8.038979,126.000271,6,8.8,12.6,Loam,Alive
+T0557,Mahogany,Libertad,Bunawan,8.736229,125.654629,13,23.9,29.2,Sandy,Alive
+T0558,Mahogany,Taglatawan,Bislig,8.576702,125.100884,11,20.9,25.4,Loam,Alive
+T0559,Molave,Libertad,Loreto,8.997628,125.362245,15,25.4,30.7,Loam,Dead
+T0560,Yakal,Taglatawan,Talacogon,8.891711,126.273769,6,8.1,14.5,Sandy,Dead
+T0561,Gmelina,Taglatawan,Talacogon,8.232018,125.021572,14,25.6,31.8,Clay,Alive
+T0562,Mahogany,Libertad,Prosperidad,8.132645,125.767454,10,21,24,Clay,Dead
+T0563,Yakal,Taglatawan,Bunawan,8.586937,125.871426,13,25.4,30.2,Sandy,Dead
+T0564,Bagras,Poblacion,San Francisco,8.138435,125.86826,3,4.9,8.5,Loam,Dead
+T0565,Yakal,Libertad,Bislig,8.618527,125.949609,5,10.7,12.1,Sandy,Dead
+T0566,Gmelina,San Isidro,Rosario,8.593158,125.080022,11,19.1,26.3,Clay,Dead
+T0567,Yakal,Patin-ay,Rosario,8.110063,126.387571,12,24.5,26.4,Loam,Alive
+T0568,Molave,Salvacion,Bunawan,8.648639,125.412932,3,6.5,7.8,Clay,Dead
+T0569,Bagras,Patin-ay,Talacogon,8.204167,125.063513,2,5,5.3,Loam,Alive
+T0570,Narra,Poblacion,Bislig,8.019145,126.168654,7,12.3,12.9,Sandy,Alive
+T0571,Gmelina,Taglatawan,Rosario,8.685701,126.36532,12,17.8,25.8,Sandy,Alive
+T0572,Mahogany,Libertad,Bunawan,8.572607,125.415519,4,7.5,8.2,Loam,Alive
+T0573,Acacia,Taglatawan,Bislig,8.594083,126.05396,13,22.2,28.3,Loam,Alive
+T0574,Bagras,Sta. Cruz,Rosario,8.880973,126.324372,14,25.3,35.9,Sandy,Dead
+T0575,Narra,Patin-ay,Loreto,8.683454,125.563162,7,13.9,14.1,Sandy,Dead
+T0576,Narra,Taglatawan,Prosperidad,8.030026,126.346049,15,29.4,35.8,Sandy,Dead
+T0577,Molave,Poblacion,Talacogon,8.775912,125.191905,12,22.1,27,Sandy,Dead
+T0578,Yakal,Patin-ay,Rosario,8.085103,125.578396,2,1.8,3.8,Clay,Dead
+T0579,Acacia,San Roque,Rosario,8.055223,126.413575,4,9,3.7,Clay,Dead
+T0580,Molave,Patin-ay,Loreto,8.166022,125.171647,12,22.9,25.1,Clay,Alive
+T0581,Mahogany,Poblacion,San Francisco,8.299383,125.348759,12,20.9,28.6,Clay,Alive
+T0582,Gmelina,San Isidro,Rosario,8.302479,126.46306,10,17.4,22.7,Clay,Alive
+T0583,Gmelina,Salvacion,San Francisco,8.864659,125.232388,7,13.9,18.4,Sandy,Alive
+T0584,Gmelina,Patin-ay,San Francisco,8.478496,126.170834,14,25.4,30.6,Loam,Alive
+T0585,Molave,Libertad,Bislig,8.984234,125.593562,7,12.4,14.1,Sandy,Alive
+T0586,Mahogany,Patin-ay,Talacogon,8.725006,125.861431,3,5.7,4.5,Sandy,Dead
+T0587,Molave,Poblacion,Rosario,8.940419,125.023735,5,11.6,10.9,Sandy,Alive
+T0588,Narra,San Roque,Bunawan,8.483181,126.257346,7,12.9,14.9,Clay,Alive
+T0589,Yakal,San Isidro,San Francisco,8.698531,125.624218,14,25.3,33.5,Clay,Alive
+T0590,Bagras,Sta. Cruz,Bislig,8.512897,126.304409,6,11.2,10.2,Sandy,Alive
+T0591,Narra,Taglatawan,San Francisco,8.661667,125.211835,6,10.5,13.7,Sandy,Dead
+T0592,Gmelina,San Isidro,Prosperidad,8.490765,125.609835,6,12.9,16.9,Clay,Alive
+T0593,Bagras,Sta. Cruz,Loreto,8.37117,126.178465,3,7.3,4.8,Loam,Dead
+T0594,Narra,San Roque,Talacogon,8.337649,126.482782,15,26,31.6,Loam,Alive
+T0595,Acacia,Taglatawan,Prosperidad,8.249669,125.394871,13,25.4,31.9,Clay,Alive
+T0596,Gmelina,Patin-ay,Loreto,8.37653,125.348084,4,4.1,7.6,Sandy,Alive
+T0597,Gmelina,Poblacion,Prosperidad,8.48613,126.381109,13,23.6,29.7,Clay,Dead
+T0598,Bagras,Poblacion,Bislig,8.785813,125.884922,5,11.4,10.6,Sandy,Alive
+T0599,Narra,Poblacion,Talacogon,8.487265,125.644978,1,2.3,2.5,Loam,Dead
+T0600,Narra,San Isidro,Prosperidad,8.708122,125.713532,11,20,19.9,Clay,Alive
+T0601,Mahogany,Libertad,Bunawan,8.910606,125.764781,15,27.5,31.2,Loam,Alive
+T0602,Acacia,Sta. Cruz,Talacogon,8.852982,126.392575,15,24.7,32.4,Clay,Alive
+T0603,Bagras,Poblacion,Bislig,8.724598,125.167389,9,17.5,22.9,Sandy,Alive
+T0604,Gmelina,Salvacion,Rosario,8.055525,125.852697,15,25.9,34.5,Clay,Alive
+T0605,Acacia,Taglatawan,Prosperidad,8.565782,126.393717,6,8.6,11.1,Loam,Alive
+T0606,Acacia,San Roque,Bunawan,8.431112,125.131323,1,0.7,-0.2,Loam,Alive
+T0607,Molave,Taglatawan,Talacogon,8.961492,126.001802,3,7.2,10,Clay,Dead
+T0608,Molave,Poblacion,Bunawan,8.19231,125.443482,6,9.5,15.1,Clay,Alive
+T0609,Gmelina,Taglatawan,Bislig,8.96336,125.015427,1,3.1,5.1,Sandy,Dead
+T0610,Yakal,Taglatawan,Loreto,8.311879,125.509958,8,15.7,16.7,Sandy,Alive
+T0611,Narra,Libertad,Prosperidad,8.991696,125.811504,12,20.9,24.1,Clay,Dead
+T0612,Gmelina,Poblacion,Rosario,8.061808,125.138541,8,12.8,18.2,Loam,Dead
+T0613,Gmelina,San Roque,Prosperidad,8.446715,125.752277,10,18.4,23.5,Clay,Alive
+T0614,Molave,Salvacion,Loreto,8.177193,125.4414,3,4,10.1,Sandy,Dead
+T0615,Gmelina,Libertad,Prosperidad,8.884587,126.343344,7,11,13.3,Sandy,Alive
+T0616,Acacia,San Isidro,Rosario,8.440058,126.094568,3,4.1,2.8,Sandy,Dead
+T0617,Yakal,Libertad,Talacogon,8.119891,126.102389,1,2.3,0.7,Clay,Dead
+T0618,Acacia,Poblacion,Rosario,8.137089,126.100825,9,17.6,20,Loam,Alive
+T0619,Molave,Poblacion,Rosario,8.733,125.987992,2,6.4,4.8,Clay,Dead
+T0620,Mahogany,Sta. Cruz,Bislig,8.56058,126.413989,8,15.1,18.6,Clay,Alive
+T0621,Narra,San Roque,Talacogon,8.576857,125.695973,8,14.7,15.9,Sandy,Alive
+T0622,Gmelina,Taglatawan,Bislig,8.895698,126.17525,8,14.5,17.2,Loam,Alive
+T0623,Mahogany,Patin-ay,Loreto,8.103265,125.258786,11,20.4,27.4,Sandy,Alive
+T0624,Gmelina,Patin-ay,Prosperidad,8.423548,126.190356,7,12.5,16.3,Sandy,Alive
+T0625,Yakal,San Isidro,Bislig,8.05035,125.079148,12,19.3,26.7,Loam,Dead
+T0626,Molave,Taglatawan,San Francisco,8.574437,125.206828,10,19.6,21.1,Sandy,Dead
+T0627,Gmelina,Taglatawan,Rosario,8.47735,125.526229,8,12.6,18,Clay,Dead
+T0628,Gmelina,Poblacion,San Francisco,8.358335,126.369339,3,4.6,4,Clay,Dead
+T0629,Acacia,San Isidro,Rosario,8.823624,125.576917,1,0.5,0.9,Sandy,Dead
+T0630,Bagras,San Roque,Bislig,8.679199,125.114852,7,11.8,15.5,Loam,Alive
+T0631,Gmelina,Salvacion,San Francisco,8.407748,125.241828,2,3.7,5.3,Clay,Dead
+T0632,Molave,Taglatawan,Talacogon,8.06845,125.6265,7,14.9,15.5,Sandy,Alive
+T0633,Yakal,Sta. Cruz,Talacogon,8.693335,125.972354,4,3.9,11.1,Sandy,Dead
+T0634,Mahogany,San Roque,Bislig,8.814671,125.917747,1,4.2,1.5,Sandy,Dead
+T0635,Narra,Salvacion,Bunawan,8.537783,125.417149,15,25.2,32.2,Loam,Alive
+T0636,Gmelina,Sta. Cruz,Talacogon,8.827302,125.062873,13,23.5,25.6,Loam,Alive
+T0637,Yakal,Salvacion,Prosperidad,8.095729,125.476542,15,27.5,32.5,Sandy,Dead
+T0638,Bagras,Taglatawan,Rosario,8.916421,125.953122,9,15.4,19.3,Sandy,Alive
+T0639,Yakal,San Roque,San Francisco,8.043052,126.171446,7,13.8,16.5,Clay,Alive
+T0640,Molave,Salvacion,Bislig,8.83293,125.810445,10,17.4,21.5,Loam,Alive
+T0641,Yakal,Taglatawan,Bislig,8.500477,125.650656,15,30.5,27.7,Loam,Alive
+T0642,Gmelina,Patin-ay,Prosperidad,8.573042,125.487817,11,21.7,24.7,Sandy,Dead
+T0643,Gmelina,Poblacion,San Francisco,8.696695,125.486519,1,0.5,4.8,Sandy,Dead
+T0644,Yakal,San Isidro,Bislig,8.80543,126.420134,4,9.4,5.9,Loam,Alive
+T0645,Mahogany,Salvacion,Loreto,8.780189,126.496434,12,23.5,28.6,Sandy,Alive
+T0646,Gmelina,Salvacion,Loreto,8.93853,125.271775,3,5.1,8.5,Loam,Dead
+T0647,Yakal,Salvacion,San Francisco,8.916942,126.164436,2,3.1,2,Sandy,Dead
+T0648,Acacia,Poblacion,Prosperidad,8.897965,125.126191,10,19.6,20.9,Loam,Alive
+T0649,Molave,San Isidro,Loreto,8.159625,125.503435,10,17.4,21,Clay,Dead
+T0650,Molave,Sta. Cruz,Prosperidad,8.926464,125.629441,6,10.2,10.4,Loam,Alive
+T0651,Bagras,Patin-ay,Loreto,8.857955,126.096736,6,9.8,15.3,Clay,Alive
+T0652,Gmelina,Libertad,Loreto,8.697716,125.546169,4,7.3,9.7,Loam,Alive
+T0653,Yakal,San Isidro,San Francisco,8.709439,125.407238,7,12.7,13.2,Loam,Alive
+T0654,Mahogany,Salvacion,Rosario,8.093196,125.615744,11,18.9,25.5,Sandy,Alive
+T0655,Gmelina,San Isidro,Talacogon,8.817305,126.395598,4,4.2,7.6,Clay,Dead
+T0656,Molave,Salvacion,Talacogon,8.083525,125.316689,10,19.3,22.7,Clay,Alive
+T0657,Yakal,Salvacion,San Francisco,8.727529,125.726587,15,25.1,33.2,Clay,Alive
+T0658,Narra,Libertad,Prosperidad,8.805432,126.140241,4,9.7,9.5,Loam,Alive
+T0659,Yakal,Taglatawan,Bunawan,8.407716,125.188348,2,6,2.7,Sandy,Dead
+T0660,Bagras,Patin-ay,Bunawan,8.641504,125.389742,6,8.9,11,Sandy,Alive
+T0661,Mahogany,Sta. Cruz,San Francisco,8.111137,125.972158,4,8.7,9.8,Loam,Alive
+T0662,Acacia,Salvacion,Rosario,8.82435,125.595488,4,7.9,13,Loam,Alive
+T0663,Gmelina,San Isidro,San Francisco,8.034939,126.484635,13,24.3,30.8,Clay,Alive
+T0664,Bagras,Libertad,San Francisco,8.866102,125.434159,5,8.4,14,Sandy,Alive
+T0665,Mahogany,San Roque,Talacogon,8.618772,125.998048,14,25.1,30,Loam,Alive
+T0666,Bagras,Patin-ay,Bunawan,8.129174,125.14932,7,13.6,14,Loam,Alive
+T0667,Bagras,Taglatawan,Talacogon,8.865562,125.154264,10,17.2,21.5,Sandy,Dead
+T0668,Bagras,San Isidro,Bunawan,8.13508,125.227663,11,22.3,27.2,Clay,Alive
+T0669,Gmelina,Libertad,Loreto,8.575359,125.643594,6,11.8,13.1,Loam,Alive
+T0670,Acacia,Taglatawan,Talacogon,8.661141,125.978353,15,28.6,33.7,Sandy,Alive
+T0671,Acacia,San Isidro,Talacogon,8.734151,125.511978,10,15.6,25.4,Clay,Alive
+T0672,Gmelina,Patin-ay,San Francisco,8.027844,125.934098,9,14.6,23.6,Loam,Alive
+T0673,Yakal,San Isidro,San Francisco,8.174647,125.443898,15,26.4,35.5,Clay,Dead
+T0674,Narra,Poblacion,Rosario,8.592017,125.248852,7,11.4,15.4,Loam,Alive
+T0675,Molave,Salvacion,Talacogon,8.600912,125.511438,10,16.4,21.4,Sandy,Dead
+T0676,Bagras,Sta. Cruz,Rosario,8.293353,125.788205,13,23.6,28.9,Loam,Alive
+T0677,Molave,Poblacion,Bunawan,8.679633,126.418887,3,6.7,5,Loam,Alive
+T0678,Yakal,Libertad,Talacogon,8.924287,125.488735,3,5,6.7,Clay,Dead
+T0679,Acacia,Poblacion,Talacogon,8.32353,125.997584,14,25.1,24.4,Clay,Alive
+T0680,Gmelina,Sta. Cruz,Talacogon,8.894265,125.967354,11,20.8,23.5,Loam,Alive
+T0681,Bagras,San Isidro,Loreto,8.322727,125.831535,14,25.2,30.2,Loam,Alive
+T0682,Molave,San Roque,Loreto,8.957632,125.848617,9,18.2,20.3,Sandy,Alive
+T0683,Gmelina,Salvacion,Bunawan,8.666268,126.483253,11,19.3,23.8,Sandy,Alive
+T0684,Narra,Taglatawan,Loreto,8.096645,125.265345,15,26.9,33.7,Clay,Alive
+T0685,Acacia,San Isidro,San Francisco,8.065812,126.336977,3,4.6,8.6,Clay,Dead
+T0686,Yakal,San Isidro,Loreto,8.402704,126.008761,6,13.3,14.8,Sandy,Alive
+T0687,Mahogany,Salvacion,Talacogon,8.738506,125.999926,12,23.3,28.5,Loam,Alive
+T0688,Mahogany,Taglatawan,San Francisco,8.872859,125.749938,6,11,12.9,Sandy,Dead
+T0689,Gmelina,Sta. Cruz,San Francisco,8.767499,125.461295,15,28.6,33.7,Sandy,Alive
+T0690,Acacia,Salvacion,Rosario,8.12555,126.44522,3,9.2,5.3,Clay,Dead
+T0691,Yakal,Libertad,Bislig,8.086032,125.08554,7,12.6,16.3,Loam,Alive
+T0692,Molave,Poblacion,Bunawan,8.048092,125.443498,11,19.8,23,Sandy,Dead
+T0693,Narra,San Roque,Rosario,8.252312,125.461656,10,16.3,22.3,Sandy,Dead
+T0694,Molave,Salvacion,Bislig,8.074638,126.361603,4,8.1,7,Sandy,Dead
+T0695,Mahogany,Patin-ay,Loreto,8.358622,126.367009,14,25.7,31.2,Sandy,Dead
+T0696,Acacia,Libertad,San Francisco,8.833204,125.454526,4,5.8,12.1,Clay,Dead
+T0697,Yakal,Taglatawan,Bunawan,8.454184,125.61842,6,13,13.7,Sandy,Alive
+T0698,Acacia,San Roque,Prosperidad,8.579731,125.518437,9,15.9,18.8,Clay,Alive
+T0699,Molave,Sta. Cruz,Prosperidad,8.161923,125.987153,1,2.3,2.1,Sandy,Dead
+T0700,Narra,Taglatawan,San Francisco,8.613979,125.924642,6,10,13.6,Loam,Alive
+T0701,Yakal,San Roque,Prosperidad,8.940504,125.973148,2,2.8,3.4,Loam,Alive
+T0702,Bagras,San Roque,San Francisco,8.525258,125.166813,11,18.5,23.5,Clay,Alive
+T0703,Molave,Libertad,Bunawan,8.162661,126.101549,11,18.3,25.6,Loam,Alive
+T0704,Gmelina,Libertad,Bislig,8.363645,125.147891,8,16.1,16.5,Clay,Alive
+T0705,Narra,Taglatawan,Bunawan,8.07928,125.848776,14,24.8,30.2,Loam,Alive
+T0706,Acacia,Patin-ay,Rosario,8.558352,126.304907,15,25.9,33.3,Clay,Dead
+T0707,Bagras,Sta. Cruz,Loreto,8.755134,125.879936,4,6.3,6.8,Loam,Dead
+T0708,Acacia,Sta. Cruz,Prosperidad,8.915788,125.539691,10,18.3,21.8,Clay,Alive
+T0709,Yakal,Patin-ay,San Francisco,8.875134,126.45641,13,25.7,25.4,Loam,Alive
+T0710,Narra,Patin-ay,Bislig,8.469519,125.633984,14,25.5,31.7,Loam,Alive
+T0711,Molave,Patin-ay,San Francisco,8.809675,126.425799,11,21.1,23.5,Clay,Alive
+T0712,Bagras,San Roque,Rosario,8.226691,125.850339,5,12,9.3,Clay,Alive
+T0713,Gmelina,Taglatawan,San Francisco,8.054565,125.899192,11,22.2,23.7,Sandy,Dead
+T0714,Molave,Sta. Cruz,Bislig,8.835373,125.295332,11,20.3,26.6,Loam,Alive
+T0715,Bagras,Salvacion,Talacogon,8.799783,125.832031,12,21.5,27.9,Loam,Alive
+T0716,Gmelina,Patin-ay,Loreto,8.014567,125.3711,15,30.4,34.8,Clay,Alive
+T0717,Yakal,Libertad,Bunawan,8.625651,125.857411,13,24.1,29.5,Sandy,Dead
+T0718,Acacia,San Roque,Talacogon,8.283364,126.255856,11,18.9,24.7,Clay,Alive
+T0719,Narra,Libertad,Bislig,8.163367,125.276689,12,22.4,23.5,Clay,Alive
+T0720,Acacia,San Roque,Talacogon,8.854806,126.428623,3,7,5.8,Sandy,Dead
+T0721,Narra,Sta. Cruz,Prosperidad,8.505697,125.093062,13,25,34.1,Clay,Dead
+T0722,Molave,Salvacion,Rosario,8.201842,125.387156,5,12.2,12.2,Clay,Alive
+T0723,Mahogany,San Isidro,Talacogon,8.945971,126.263248,8,15.5,17.4,Sandy,Dead
+T0724,Molave,Poblacion,Bislig,8.796484,126.135137,14,24.1,28.2,Sandy,Dead
+T0725,Bagras,Poblacion,Talacogon,8.684314,126.423471,2,5.1,2,Loam,Alive
+T0726,Mahogany,Salvacion,Prosperidad,8.055416,125.49672,15,29.7,31,Loam,Alive
+T0727,Gmelina,San Roque,Bislig,8.022218,126.48281,3,5.5,7.6,Sandy,Dead
+T0728,Yakal,Patin-ay,San Francisco,8.114754,125.735613,5,9.9,13.1,Sandy,Alive
+T0729,Acacia,Taglatawan,Bunawan,8.47509,126.383651,15,30,31,Loam,Alive
+T0730,Yakal,Sta. Cruz,Rosario,8.843755,125.487384,10,18.1,22.1,Sandy,Alive
+T0731,Gmelina,Sta. Cruz,Prosperidad,8.399333,125.614509,7,12.3,15.5,Clay,Alive
+T0732,Gmelina,Sta. Cruz,Talacogon,8.810468,125.408976,12,23.4,27,Sandy,Dead
+T0733,Acacia,Salvacion,Rosario,8.866423,125.089426,10,18.5,23.6,Clay,Alive
+T0734,Gmelina,Patin-ay,Rosario,8.675761,125.927915,12,20.2,29.7,Loam,Alive
+T0735,Narra,Sta. Cruz,Prosperidad,8.158737,126.42391,5,7.4,10.6,Sandy,Dead
+T0736,Molave,Patin-ay,Prosperidad,8.354377,125.454245,7,8.7,14.4,Clay,Alive
+T0737,Gmelina,Salvacion,Loreto,8.593781,125.86339,1,0.1,3.3,Sandy,Dead
+T0738,Narra,Taglatawan,Rosario,8.224602,125.10373,15,26.9,32.7,Loam,Alive
+T0739,Narra,Salvacion,Bunawan,8.563893,125.391744,9,15.4,22.8,Loam,Alive
+T0740,Acacia,San Roque,Rosario,8.513175,125.195757,1,1.2,1,Clay,Dead
+T0741,Mahogany,Salvacion,Prosperidad,8.599299,125.770562,9,15,16.3,Clay,Dead
+T0742,Bagras,Poblacion,Loreto,8.242578,125.136963,11,20.8,24.4,Clay,Alive
+T0743,Mahogany,Salvacion,San Francisco,8.471649,125.137133,2,2.3,7.2,Clay,Alive
+T0744,Yakal,Taglatawan,Talacogon,8.253613,125.96313,9,17.6,20.2,Sandy,Alive
+T0745,Molave,Salvacion,Prosperidad,8.810161,125.64451,6,11,14.9,Clay,Alive
+T0746,Molave,Poblacion,Rosario,8.268798,125.297967,7,10.9,11.4,Loam,Alive
+T0747,Acacia,Taglatawan,Bislig,8.589653,125.101065,9,16.3,17.2,Sandy,Alive
+T0748,Gmelina,San Isidro,Loreto,8.283284,125.600469,9,13.8,22.8,Loam,Alive
+T0749,Molave,Taglatawan,Prosperidad,8.308802,125.440302,1,1.6,4.2,Clay,Dead
+T0750,Bagras,Taglatawan,Rosario,8.663027,126.0186,13,22.8,28,Loam,Alive
+T0751,Mahogany,Poblacion,Loreto,8.319743,125.085676,14,24,29.4,Loam,Alive
+T0752,Narra,Salvacion,San Francisco,8.859112,125.750087,12,22.6,25.9,Clay,Alive
+T0753,Narra,San Isidro,Bislig,8.512215,126.020719,12,22.4,26.8,Sandy,Alive
+T0754,Molave,Sta. Cruz,Loreto,8.781891,126.148788,9,15.5,18,Clay,Alive
+T0755,Mahogany,Poblacion,Talacogon,8.182458,126.447814,10,15.9,22.7,Loam,Alive
+T0756,Molave,Salvacion,Prosperidad,8.31219,125.6412,6,12.4,10.4,Sandy,Alive
+T0757,Yakal,Poblacion,Loreto,8.006815,125.785111,14,25.4,31,Loam,Alive
+T0758,Yakal,Taglatawan,Prosperidad,8.751279,126.345493,7,13.2,13.6,Clay,Alive
+T0759,Yakal,Poblacion,Talacogon,8.02557,126.181955,15,28.2,31.8,Clay,Alive
+T0760,Yakal,Taglatawan,Talacogon,8.599968,125.72847,1,3,1.3,Sandy,Dead
+T0761,Yakal,San Roque,Bislig,8.764651,125.220043,8,13.8,17.3,Clay,Alive
+T0762,Bagras,Libertad,Rosario,8.23128,125.365357,14,26.7,29.6,Sandy,Dead
+T0763,Narra,San Roque,Prosperidad,8.1373,126.42858,5,7.4,12.5,Clay,Dead
+T0764,Bagras,Salvacion,Bunawan,8.871252,125.434161,6,12.3,14.9,Sandy,Dead
+T0765,Mahogany,San Roque,Talacogon,8.252315,126.309565,6,12,12.3,Sandy,Dead
+T0766,Acacia,Poblacion,Bunawan,8.217713,125.132228,7,13.1,14.7,Sandy,Alive
+T0767,Yakal,Taglatawan,San Francisco,8.189196,126.080576,9,15.9,15.9,Loam,Alive
+T0768,Narra,San Roque,Bislig,8.981242,126.398733,15,28.8,35.1,Sandy,Alive
+T0769,Acacia,San Roque,Bunawan,8.87928,126.088057,7,10.3,17.2,Sandy,Alive
+T0770,Yakal,San Isidro,Bislig,8.070916,125.524694,2,1.5,6,Loam,Alive
+T0771,Narra,Sta. Cruz,Rosario,8.942058,125.447409,8,14.5,18.3,Clay,Dead
+T0772,Narra,Libertad,Bislig,8.911515,125.332276,2,1.4,1.8,Clay,Dead
+T0773,Mahogany,Salvacion,Bislig,8.520544,125.660997,13,22.4,28.3,Sandy,Alive
+T0774,Gmelina,Poblacion,Loreto,8.474006,125.6769,9,13.9,23.3,Loam,Alive
+T0775,Narra,Poblacion,Prosperidad,8.785064,125.293569,2,2.1,8.1,Loam,Dead
+T0776,Molave,Salvacion,San Francisco,8.256647,126.128171,5,10.8,12.6,Clay,Alive
+T0777,Gmelina,Libertad,San Francisco,8.845654,125.389405,3,3.3,5.8,Sandy,Dead
+T0778,Bagras,San Roque,Bunawan,8.915002,126.265819,6,11.6,14.6,Loam,Alive
+T0779,Acacia,Sta. Cruz,Bislig,8.876192,126.084177,15,25.5,32.6,Loam,Alive
+T0780,Narra,San Roque,San Francisco,8.348832,125.562237,1,0.9,2.9,Clay,Alive
+T0781,Narra,Taglatawan,Rosario,8.99433,125.349093,7,11.3,17.3,Loam,Alive
+T0782,Yakal,Poblacion,Bislig,8.081164,125.678304,1,4.7,1,Clay,Dead
+T0783,Molave,San Roque,Talacogon,8.861446,126.299054,3,5.5,5.6,Clay,Alive
+T0784,Bagras,Taglatawan,Loreto,8.808068,125.481087,7,11.4,17,Clay,Alive
+T0785,Narra,San Isidro,Bislig,8.992136,126.286296,11,20.2,20.8,Sandy,Dead
+T0786,Yakal,San Roque,Talacogon,8.325881,126.431063,8,13.6,19.7,Loam,Alive
+T0787,Narra,Salvacion,Bislig,8.000598,125.461729,1,2,0,Clay,Alive
+T0788,Bagras,Sta. Cruz,Bunawan,8.428155,125.092138,12,18.9,23.9,Loam,Alive
+T0789,Mahogany,Salvacion,Bislig,8.905299,125.739435,9,18,20.1,Loam,Alive
+T0790,Yakal,Poblacion,Prosperidad,8.708899,126.490676,6,9.4,12.2,Sandy,Dead
+T0791,Mahogany,Libertad,Bislig,8.122498,125.95236,3,5.3,4,Sandy,Dead
+T0792,Gmelina,San Roque,Bunawan,8.139002,125.660107,6,10.8,12.5,Loam,Alive
+T0793,Mahogany,Libertad,Loreto,8.934796,126.363803,9,16.3,24.8,Sandy,Dead
+T0794,Bagras,Sta. Cruz,Rosario,8.952517,126.131805,7,15.1,16.9,Loam,Alive
+T0795,Narra,San Isidro,Rosario,8.447201,126.244732,6,12,15.8,Loam,Alive
+T0796,Acacia,Salvacion,Loreto,8.547045,125.13117,2,2.7,3.3,Sandy,Dead
+T0797,Acacia,Sta. Cruz,Talacogon,8.209898,125.391378,11,19.2,24,Sandy,Alive
+T0798,Molave,Sta. Cruz,Bunawan,8.392218,126.42167,13,25.3,28.6,Sandy,Alive
+T0799,Gmelina,Salvacion,San Francisco,8.620241,125.716613,13,25.2,25.6,Clay,Alive
+T0800,Narra,San Isidro,Talacogon,8.146021,126.407096,7,13.7,16.5,Loam,Alive
+T0801,Yakal,Patin-ay,San Francisco,8.924073,126.230486,13,25,25.8,Loam,Alive
+T0802,Gmelina,Poblacion,Bunawan,8.148507,125.894701,4,4.8,9.4,Clay,Dead
+T0803,Narra,San Isidro,Prosperidad,8.967743,125.986648,3,7.2,9.9,Loam,Dead
+T0804,Bagras,San Isidro,Bunawan,8.362502,126.235996,1,1.6,-0.6,Clay,Dead
+T0805,Narra,Patin-ay,Prosperidad,8.378225,125.77594,13,25.3,26.4,Loam,Alive
+T0806,Molave,Sta. Cruz,Bunawan,8.690047,125.474152,10,16.7,24.7,Clay,Alive
+T0807,Narra,Poblacion,Bislig,8.202149,125.818236,14,24.4,30.3,Clay,Dead
+T0808,Molave,Poblacion,Rosario,8.006047,125.72579,14,24.4,32.9,Loam,Alive
+T0809,Narra,San Isidro,Prosperidad,8.570409,125.872346,10,18.5,25.3,Loam,Alive
+T0810,Bagras,Libertad,San Francisco,8.553993,125.801839,2,2.2,6.5,Sandy,Dead
+T0811,Mahogany,Patin-ay,San Francisco,8.201264,126.335355,13,24,28.3,Loam,Alive
+T0812,Mahogany,Patin-ay,Loreto,8.597429,126.321343,9,16.2,15.8,Loam,Alive
+T0813,Gmelina,Taglatawan,Talacogon,8.872626,125.130664,10,15.2,20.2,Clay,Dead
+T0814,Mahogany,Sta. Cruz,Loreto,8.444852,125.733573,2,3.8,6,Loam,Alive
+T0815,Gmelina,Taglatawan,Rosario,8.430858,125.468288,3,7.1,6.2,Clay,Dead
+T0816,Gmelina,San Isidro,Talacogon,8.793935,126.411488,7,13.4,11.4,Sandy,Alive
+T0817,Yakal,Taglatawan,Bislig,8.744825,125.668933,9,18.7,17.9,Sandy,Alive
+T0818,Mahogany,Taglatawan,Bunawan,8.748963,125.535474,4,8.1,7.3,Clay,Alive
+T0819,Gmelina,San Roque,Prosperidad,8.204064,125.437867,10,17.9,21.4,Loam,Alive
+T0820,Bagras,Sta. Cruz,Rosario,8.531357,125.593667,2,2.3,-0.8,Loam,Dead
+T0821,Acacia,Poblacion,Prosperidad,8.525049,126.060918,8,16.1,20.1,Sandy,Alive
+T0822,Molave,Patin-ay,Loreto,8.428764,125.080673,10,19.4,22.9,Loam,Alive
+T0823,Molave,Salvacion,Prosperidad,8.153145,126.092175,3,8.3,6.5,Loam,Dead
+T0824,Mahogany,Sta. Cruz,Loreto,8.418291,125.464119,12,20.7,26.8,Loam,Alive
+T0825,Yakal,Taglatawan,Bislig,8.119381,125.491764,11,17.5,26.3,Clay,Alive
+T0826,Gmelina,Sta. Cruz,Loreto,8.555497,125.875879,4,8,9.7,Loam,Alive
+T0827,Gmelina,Libertad,Bislig,8.430347,125.24825,7,12.1,15.9,Clay,Alive
+T0828,Molave,Patin-ay,San Francisco,8.286474,125.777116,8,15.3,13.8,Sandy,Dead
+T0829,Narra,Taglatawan,San Francisco,8.666927,125.653094,14,26.5,28.6,Clay,Alive
+T0830,Acacia,San Isidro,Rosario,8.092715,125.798334,10,17.1,22.7,Sandy,Alive
+T0831,Narra,Sta. Cruz,San Francisco,8.532471,125.846625,4,8,7.1,Loam,Dead
+T0832,Mahogany,San Isidro,Talacogon,8.898355,125.874029,3,5.5,6.8,Loam,Dead
+T0833,Yakal,Patin-ay,San Francisco,8.192023,126.000028,15,24.6,31.7,Loam,Alive
+T0834,Bagras,Sta. Cruz,Bunawan,8.728012,126.219721,8,13.6,20.3,Loam,Alive
+T0835,Molave,Taglatawan,Bislig,8.856001,126.124931,6,7.8,14.7,Loam,Dead
+T0836,Molave,Sta. Cruz,Bislig,8.922645,125.753558,1,2.9,3.2,Clay,Dead
+T0837,Bagras,Poblacion,San Francisco,8.315997,126.278319,14,25.2,30.3,Sandy,Dead
+T0838,Molave,Libertad,Bunawan,8.485018,125.128105,8,12.9,16.6,Clay,Alive
+T0839,Yakal,Poblacion,Talacogon,8.457575,125.713079,2,2.9,5.7,Sandy,Dead
+T0840,Molave,San Roque,Bislig,8.504911,126.153121,10,16.5,22.4,Sandy,Alive
+T0841,Yakal,Sta. Cruz,Rosario,8.052744,126.251246,13,24,32.1,Loam,Dead
+T0842,Bagras,Sta. Cruz,Bunawan,8.25089,125.150844,5,8.9,9.9,Clay,Alive
+T0843,Narra,San Isidro,Talacogon,8.570907,125.49864,8,15.7,18.1,Sandy,Alive
+T0844,Yakal,Salvacion,Prosperidad,8.404242,126.489898,2,6,6,Loam,Alive
+T0845,Acacia,Taglatawan,Rosario,8.63077,125.683474,3,4.4,5,Sandy,Dead
+T0846,Molave,Patin-ay,Loreto,8.095641,125.628704,9,17.5,19.7,Clay,Alive
+T0847,Acacia,Libertad,Loreto,8.546407,125.374616,13,23.5,25.6,Loam,Alive
+T0848,Narra,Libertad,Rosario,8.751771,126.35935,12,21.4,27.2,Sandy,Dead
+T0849,Mahogany,Poblacion,Loreto,8.079715,126.024671,10,17.4,23.9,Loam,Alive
+T0850,Acacia,Salvacion,Bislig,8.74618,126.203057,15,27.5,34.7,Loam,Alive
+T0851,Gmelina,Taglatawan,Bunawan,8.623505,125.196932,2,3.5,6.8,Loam,Dead
+T0852,Yakal,Taglatawan,Loreto,8.402373,125.44701,15,27.9,31.6,Clay,Alive
+T0853,Gmelina,San Roque,Rosario,8.22579,125.924933,5,9,11.3,Sandy,Alive
+T0854,Narra,San Roque,Rosario,8.442829,126.270904,13,23,27.9,Loam,Alive
+T0855,Yakal,Libertad,San Francisco,8.425506,125.848124,5,6.7,9.2,Clay,Alive
+T0856,Yakal,Salvacion,Bislig,8.505365,125.604547,4,8.9,8,Clay,Alive
+T0857,Molave,Patin-ay,Loreto,8.935394,126.127135,10,20,21.9,Sandy,Alive
+T0858,Acacia,Taglatawan,Talacogon,8.428644,125.942753,7,14.1,16.9,Loam,Dead
+T0859,Yakal,Patin-ay,Talacogon,8.204802,126.196997,6,9.5,10,Sandy,Alive
+T0860,Yakal,Sta. Cruz,Prosperidad,8.203488,126.431831,15,29,34.8,Clay,Dead
+T0861,Yakal,Salvacion,Prosperidad,8.377202,126.20276,3,6.9,7.4,Sandy,Dead
+T0862,Acacia,Sta. Cruz,Bunawan,8.542573,125.98038,2,2.7,7.2,Sandy,Dead
+T0863,Mahogany,Salvacion,Loreto,8.444574,126.113555,10,16.7,19.2,Sandy,Dead
+T0864,Bagras,Libertad,Bislig,8.118238,126.430918,8,15.8,18,Clay,Alive
+T0865,Bagras,Patin-ay,Loreto,8.597808,125.997109,6,10.5,12.4,Loam,Alive
+T0866,Mahogany,Taglatawan,Bunawan,8.256413,126.400967,8,14,17.8,Loam,Alive
+T0867,Yakal,Taglatawan,Bislig,8.979032,125.631105,2,3.4,6.7,Sandy,Dead
+T0868,Gmelina,Sta. Cruz,Bislig,8.536155,126.076044,11,17.5,18.9,Loam,Alive
+T0869,Molave,Libertad,Loreto,8.966706,126.045749,6,9.4,12.8,Loam,Alive
+T0870,Bagras,Taglatawan,Bislig,8.726877,126.311021,10,18.3,24.5,Clay,Alive
+T0871,Bagras,San Isidro,Bislig,8.971845,125.768923,15,28.9,33,Sandy,Dead
+T0872,Narra,Patin-ay,Loreto,8.615065,125.263508,4,8.7,7.4,Clay,Alive
+T0873,Mahogany,San Isidro,Bunawan,8.227482,125.249277,4,8.9,7.9,Clay,Alive
+T0874,Gmelina,Patin-ay,Bislig,8.456731,125.493846,7,12.5,17.4,Loam,Alive
+T0875,Acacia,Patin-ay,Bislig,8.983712,125.075263,8,16.3,18.9,Loam,Alive
+T0876,Acacia,Patin-ay,Prosperidad,8.047058,125.029172,14,28.7,29.4,Sandy,Alive
+T0877,Molave,Patin-ay,Bislig,8.027107,126.175252,1,2.2,0.4,Clay,Dead
+T0878,Acacia,San Isidro,Talacogon,8.791993,126.480031,12,22.9,25.9,Clay,Dead
+T0879,Gmelina,Taglatawan,Bislig,8.335816,125.922605,15,27.1,31.7,Clay,Dead
+T0880,Bagras,Poblacion,Bunawan,8.262721,125.708373,15,25.5,31.1,Loam,Alive
+T0881,Mahogany,Salvacion,Rosario,8.998793,125.082449,5,7.4,6.7,Loam,Dead
+T0882,Molave,Taglatawan,Prosperidad,8.357755,125.095851,4,6.3,8.3,Sandy,Dead
+T0883,Acacia,Sta. Cruz,San Francisco,8.966558,126.417061,3,4.2,4.1,Loam,Dead
+T0884,Acacia,Patin-ay,Bunawan,8.625216,126.40646,8,14.5,18.7,Sandy,Alive
+T0885,Narra,Salvacion,Loreto,8.257632,125.674916,4,6,10.2,Clay,Dead
+T0886,Gmelina,Salvacion,Bislig,8.955843,125.355073,7,10.8,14.7,Loam,Dead
+T0887,Mahogany,Taglatawan,Bislig,8.853317,125.7475,8,14.3,17.3,Sandy,Alive
+T0888,Bagras,Taglatawan,Bislig,8.295422,125.135839,3,3,9.3,Sandy,Dead
+T0889,Narra,Libertad,Loreto,8.170463,125.576774,15,26.9,32.6,Sandy,Alive
+T0890,Bagras,Poblacion,Bislig,8.796645,125.506972,4,6.1,7.4,Clay,Dead
+T0891,Bagras,Taglatawan,Bislig,8.260849,125.013631,14,25.3,28.1,Clay,Dead
+T0892,Acacia,Libertad,San Francisco,8.079605,126.060434,11,20.1,22,Sandy,Dead
+T0893,Bagras,Salvacion,Loreto,8.583106,126.077021,7,11.1,14.8,Clay,Alive
+T0894,Acacia,San Isidro,Loreto,8.581215,126.077252,8,13.3,15.1,Clay,Dead
+T0895,Acacia,Libertad,Rosario,8.966622,125.665159,12,21.1,25.7,Clay,Alive
+T0896,Mahogany,Poblacion,Rosario,8.119531,125.345479,7,12.4,14.4,Sandy,Alive
+T0897,Molave,Sta. Cruz,Talacogon,8.315633,125.73653,5,9.1,14.2,Sandy,Dead
+T0898,Mahogany,Salvacion,Rosario,8.522497,125.961537,1,3,0,Clay,Dead
+T0899,Bagras,San Roque,Bislig,8.607324,125.132868,7,12.6,14.9,Loam,Dead
+T0900,Molave,San Isidro,Bislig,8.278268,125.593127,15,24.8,32.6,Sandy,Alive
+T0901,Mahogany,Poblacion,San Francisco,8.953307,125.108998,12,19.3,26.2,Loam,Alive
+T0902,Gmelina,San Isidro,Rosario,8.877692,125.134349,8,13.3,16.2,Sandy,Alive
+T0903,Yakal,Libertad,Talacogon,8.704031,125.326179,3,5.1,8.6,Loam,Dead
+T0904,Narra,San Isidro,Rosario,8.303283,126.074909,3,5.5,3.1,Sandy,Dead
+T0905,Mahogany,Patin-ay,Talacogon,8.858323,126.267296,11,18.2,25.2,Clay,Alive
+T0906,Yakal,Poblacion,Rosario,8.635632,126.489415,13,20.8,26.8,Clay,Alive
+T0907,Bagras,Sta. Cruz,Prosperidad,8.766245,125.456142,7,13,16,Clay,Dead
+T0908,Molave,San Isidro,San Francisco,8.909744,126.277686,13,24.4,26.3,Loam,Alive
+T0909,Acacia,Taglatawan,Bunawan,8.915098,125.234543,8,17.1,14,Sandy,Alive
+T0910,Bagras,Libertad,Prosperidad,8.260709,125.77742,14,25.5,32.7,Sandy,Dead
+T0911,Yakal,San Isidro,San Francisco,8.518748,125.076748,11,17.1,23.3,Loam,Dead
+T0912,Acacia,Taglatawan,Loreto,8.124613,125.978714,2,3.2,1.1,Sandy,Dead
+T0913,Narra,Libertad,San Francisco,8.927746,126.301553,13,24.8,25.6,Loam,Alive
+T0914,Yakal,Poblacion,Rosario,8.899743,125.94261,15,28.6,33.9,Clay,Alive
+T0915,Bagras,Sta. Cruz,Talacogon,8.646407,125.687545,15,28.1,31.9,Loam,Alive
+T0916,Bagras,Salvacion,Prosperidad,8.866184,125.74878,10,17.3,18.8,Loam,Dead
+T0917,Gmelina,San Isidro,Loreto,8.220327,125.154825,6,7.2,17.3,Sandy,Alive
+T0918,Molave,Patin-ay,Bislig,8.649556,126.301999,13,24.6,31.2,Loam,Alive
+T0919,Bagras,Poblacion,San Francisco,8.621519,125.329793,7,12,14.2,Clay,Alive
+T0920,Narra,Libertad,San Francisco,8.942983,125.915564,15,27.7,26.9,Loam,Alive
+T0921,Narra,Libertad,Rosario,8.932348,126.28731,10,16.6,20.1,Clay,Dead
+T0922,Acacia,Taglatawan,Bunawan,8.024644,126.045033,11,19.1,21.4,Loam,Alive
+T0923,Mahogany,Patin-ay,San Francisco,8.021646,125.137666,15,29,35.6,Loam,Alive
+T0924,Mahogany,San Isidro,Bunawan,8.650187,126.473724,9,17,22.8,Sandy,Alive
+T0925,Gmelina,San Isidro,Bunawan,8.097018,125.096358,13,22.4,28.5,Loam,Alive
+T0926,Yakal,Patin-ay,Bunawan,8.469025,126.392833,10,17,18.9,Loam,Dead
+T0927,Yakal,San Isidro,San Francisco,8.338231,126.370814,3,2.1,5.9,Sandy,Dead
+T0928,Bagras,Salvacion,Prosperidad,8.662232,126.072983,12,21.4,25.5,Sandy,Dead
+T0929,Narra,Libertad,Bunawan,8.102529,125.017877,3,2.7,2.1,Clay,Alive
+T0930,Acacia,Libertad,Talacogon,8.670765,126.231889,10,16.4,22.4,Sandy,Dead
+T0931,Mahogany,Taglatawan,Bunawan,8.35193,125.669224,7,12.3,17.8,Clay,Alive
+T0932,Yakal,Poblacion,Rosario,8.546476,125.13703,10,19.2,23.8,Clay,Dead
+T0933,Bagras,Sta. Cruz,San Francisco,8.189443,125.601722,7,14.3,16,Clay,Alive
+T0934,Acacia,Libertad,Talacogon,8.049005,125.859155,14,25.1,31.8,Loam,Alive
+T0935,Narra,Libertad,Bunawan,8.8384,126.073431,13,21.8,29.9,Loam,Alive
+T0936,Gmelina,San Isidro,Talacogon,8.12611,125.194786,9,17.1,22.5,Loam,Alive
+T0937,Bagras,Patin-ay,San Francisco,8.512835,125.514951,13,23.9,31.2,Sandy,Dead
+T0938,Mahogany,Libertad,Bislig,8.781462,126.054916,7,13.5,17.4,Sandy,Alive
+T0939,Narra,Patin-ay,Prosperidad,8.950307,125.449908,1,2.1,2,Loam,Alive
+T0940,Yakal,Salvacion,San Francisco,8.579793,125.249755,14,24.1,32.2,Sandy,Dead
+T0941,Mahogany,Sta. Cruz,Bislig,8.048079,125.725362,8,15,16.4,Sandy,Alive
+T0942,Acacia,Salvacion,Bunawan,8.911785,125.219922,1,2.5,1.6,Clay,Dead
+T0943,Mahogany,Libertad,Bislig,8.350778,126.249041,10,17.2,18.3,Sandy,Alive
+T0944,Acacia,Poblacion,Prosperidad,8.984089,125.438373,7,12.4,17.9,Loam,Alive
+T0945,Bagras,Patin-ay,Talacogon,8.878747,125.295001,15,27.7,30.5,Loam,Alive
+T0946,Yakal,Libertad,Talacogon,8.545669,126.025963,12,17.6,30,Sandy,Alive
+T0947,Molave,San Isidro,Rosario,8.818308,125.503524,7,12.3,13.6,Sandy,Dead
+T0948,Narra,San Isidro,Talacogon,8.141384,125.195481,11,20.9,25.2,Sandy,Alive
+T0949,Molave,Salvacion,San Francisco,8.086783,125.355274,2,5.6,1.9,Loam,Dead
+T0950,Gmelina,San Roque,Rosario,8.677124,126.024007,7,12.2,12.9,Clay,Alive
+T0951,Acacia,Sta. Cruz,Bunawan,8.140592,125.637175,1,2.6,0.4,Clay,Dead
+T0952,Acacia,Libertad,Bislig,8.979955,126.478401,7,11.2,13.9,Clay,Dead
+T0953,Gmelina,Poblacion,Talacogon,8.817107,125.67252,13,20.8,24.7,Loam,Alive
+T0954,Bagras,Sta. Cruz,Loreto,8.76213,126.404265,10,19,19.3,Sandy,Alive
+T0955,Yakal,Patin-ay,Rosario,8.875685,125.407146,13,25.5,30.3,Loam,Alive
+T0956,Bagras,Libertad,Bunawan,8.719388,125.042182,13,22.8,24.9,Sandy,Alive
+T0957,Narra,San Roque,Loreto,8.898146,126.403137,3,7.8,3.4,Clay,Alive
+T0958,Narra,San Roque,Rosario,8.016913,126.364347,15,29.6,31.3,Loam,Alive
+T0959,Molave,San Isidro,San Francisco,8.083963,126.155032,5,8.1,10.4,Sandy,Alive
+T0960,Molave,Sta. Cruz,Prosperidad,8.815956,125.567473,14,24.9,29.2,Sandy,Alive
+T0961,Acacia,Libertad,San Francisco,8.514562,126.063446,7,12.1,15.1,Sandy,Alive
+T0962,Molave,Patin-ay,Loreto,8.120378,125.871153,2,2.4,2.3,Clay,Dead
+T0963,Gmelina,Libertad,Bislig,8.063183,125.916712,8,13.7,15.4,Clay,Alive
+T0964,Bagras,Patin-ay,Bislig,8.070697,125.54231,7,14,16.1,Loam,Alive
+T0965,Acacia,Libertad,Loreto,8.390296,126.336533,12,24.2,23.4,Sandy,Dead
+T0966,Acacia,Salvacion,Bunawan,8.417383,125.216468,8,14.5,17.1,Clay,Alive
+T0967,Narra,Sta. Cruz,Bunawan,8.449677,125.517897,13,23.5,24.6,Loam,Alive
+T0968,Molave,San Roque,Loreto,8.959746,126.277372,9,14.4,22.4,Sandy,Alive
+T0969,Yakal,Patin-ay,Bunawan,8.689791,126.418242,10,19.5,16.8,Clay,Alive
+T0970,Yakal,Patin-ay,San Francisco,8.750544,126.11963,1,4.3,1.4,Clay,Dead
+T0971,Mahogany,Taglatawan,Loreto,8.813142,125.882647,12,20.4,22.4,Sandy,Alive
+T0972,Molave,San Isidro,Talacogon,8.578218,125.896449,15,27.6,34.7,Loam,Alive
+T0973,Mahogany,San Isidro,San Francisco,8.4879,125.306385,14,25.6,31.9,Clay,Alive
+T0974,Bagras,San Roque,Loreto,8.441504,125.196009,2,6.2,3.6,Loam,Dead
+T0975,Gmelina,Libertad,Loreto,8.492367,125.288474,7,11.5,13.8,Sandy,Dead
+T0976,Molave,Libertad,Prosperidad,8.463199,125.730242,12,22.7,30.7,Loam,Alive
+T0977,Molave,Poblacion,Bunawan,8.375821,125.148719,13,21.4,28.3,Loam,Alive
+T0978,Bagras,Patin-ay,Loreto,8.050803,125.702451,9,16.5,20.6,Clay,Alive
+T0979,Gmelina,Libertad,Bislig,8.517272,125.12632,8,13.8,19.5,Sandy,Dead
+T0980,Yakal,Libertad,Talacogon,8.714898,125.644767,9,16.9,17.7,Sandy,Alive
+T0981,Molave,San Roque,Bunawan,8.717561,126.165232,11,19.8,22.3,Clay,Alive
+T0982,Mahogany,San Roque,Prosperidad,8.406898,125.331049,6,12.1,15.5,Loam,Alive
+T0983,Acacia,Patin-ay,Talacogon,8.238998,125.421927,12,20.4,25.9,Clay,Alive
+T0984,Molave,Sta. Cruz,Talacogon,8.299458,125.403285,2,5,5.5,Loam,Alive
+T0985,Mahogany,Sta. Cruz,San Francisco,8.159666,126.185125,9,17.4,20.3,Loam,Alive
+T0986,Gmelina,Libertad,Bislig,8.134025,125.17364,11,19.6,25.4,Loam,Alive
+T0987,Narra,San Roque,Talacogon,8.483877,126.346298,15,25.4,35.6,Clay,Alive
+T0988,Bagras,San Roque,Prosperidad,8.81371,125.325655,14,25.8,31.5,Clay,Alive
+T0989,Acacia,San Isidro,Rosario,8.95226,125.07479,1,2.4,2,Loam,Alive
+T0990,Gmelina,Libertad,Bislig,8.399658,126.47429,12,21.7,25.9,Loam,Dead
+T0991,Narra,Poblacion,Talacogon,8.665947,126.233986,5,10.3,12.2,Loam,Alive
+T0992,Molave,San Isidro,San Francisco,8.125582,126.148315,10,16.2,21.9,Sandy,Dead
+T0993,Mahogany,Taglatawan,Loreto,8.172386,126.308592,12,20.5,26.8,Sandy,Dead
+T0994,Acacia,Salvacion,San Francisco,8.762534,125.877396,7,13.8,14.2,Sandy,Dead
+T0995,Bagras,Salvacion,Talacogon,8.978947,125.752804,8,15.3,18.4,Clay,Alive
+T0996,Acacia,San Roque,Talacogon,8.669266,126.222523,4,8.9,8.3,Sandy,Dead
+T0997,Gmelina,San Roque,Loreto,8.099238,125.136081,8,14.2,16,Clay,Alive
+T0998,Bagras,Sta. Cruz,Rosario,8.01592,125.924274,12,23.4,25.2,Sandy,Alive
+T0999,Yakal,San Isidro,Bunawan,8.639202,125.353524,9,17.3,21,Clay,Alive
+T1000,Molave,Salvacion,Prosperidad,8.417884,125.066764,7,10.8,14.9,Loam,Alive
