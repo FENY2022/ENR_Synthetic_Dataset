@@ -8,7 +8,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, roc_auc_score
 
-st.set_page_config(page_title="Forest DSS", layout="wide")
+st.set_page_config(page_title="Forest DSS", layout="wide", page_icon="🌳")
 st.title("🌳 DENR Forest Decision Support System")
 st.markdown("---")
 
