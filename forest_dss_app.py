@@ -9,8 +9,53 @@ from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, roc_auc_score
 
 st.set_page_config(page_title="Forest DSS", layout="wide", page_icon="🌳")
-st.title("🌳 DENR Forest Decision Support System")
-st.markdown("---")
+
+st.markdown("""
+<style>
+    .main > .block-container { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    h1, h2, h3 { margin-top: 0 !important; }
+    .stApp { background-color: #f8f9fa; }
+    .card {
+        background: white; border-radius: 12px; padding: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 1rem;
+        border: 1px solid #e9ecef;
+    }
+    .metric-card {
+        background: white; border-radius: 10px; padding: 1.2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        text-align: center; border-left: 4px solid #2e7d32;
+    }
+    .metric-card .label { font-size: 0.8rem; color: #6c757d; text-transform: uppercase; letter-spacing: 0.5px; }
+    .metric-card .value { font-size: 1.6rem; font-weight: 700; color: #1a1a2e; margin: 4px 0; }
+    .metric-card .delta { font-size: 0.8rem; color: #2e7d32; }
+    .sidebar-header {
+        background: linear-gradient(135deg, #1b5e20, #2e7d32);
+        color: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; text-align: center;
+    }
+    .sidebar-header h3 { margin: 0; font-size: 1rem; color: white !important; }
+    .sidebar-header p { margin: 4px 0 0; font-size: 0.75rem; opacity: 0.85; }
+    .badge {
+        display: inline-block; padding: 2px 10px; border-radius: 12px;
+        font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3px;
+    }
+    .badge-green { background: #e8f5e9; color: #2e7d32; }
+    .badge-red { background: #ffebee; color: #c62828; }
+    .badge-yellow { background: #fff8e1; color: #f57f17; }
+    hr { margin: 1rem 0; opacity: 0.2; }
+    .stDataFrame { border: 1px solid #e9ecef; border-radius: 8px; }
+    div[data-testid="stMetricValue"] { font-weight: 700; }
+    .stButton button {
+        border-radius: 8px; font-weight: 600; padding: 0.4rem 1.2rem;
+        transition: all 0.2s;
+    }
+    .stButton button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    div[data-testid="stMetric"] {
+        background: white; padding: 0.8rem 1rem; border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-left: 3px solid #2e7d32;
+    }
+    .st-emotion-cache-1wivap2 { background-color: transparent !important; }
+</style>
+""", unsafe_allow_html=True)
 
 DATA_PATH = 'forest_inventory_dataset_1000 - forest_inventory_dataset_1000.csv'
 
@@ -21,9 +66,28 @@ def load_data():
 
 df = load_data()
 
+st.markdown("""
+<div style="display:flex; align-items:center; gap:12px; margin-bottom:4px;">
+    <div style="font-size:2rem;">🌳</div>
+    <div>
+        <h1 style="margin:0; font-size:1.6rem; color:#1b5e20;">DENR Forest Decision Support System</h1>
+        <p style="margin:0; color:#6c757d; font-size:0.85rem;">
+            AI-Powered Analytics for Sustainable Forest Management
+        </p>
+    </div>
+</div>
+<hr style="margin:0.8rem 0;">
+""", unsafe_allow_html=True)
+
 # ── Sidebar ──
-st.sidebar.header("Navigation")
-page = st.sidebar.radio("Go to", [
+st.sidebar.markdown("""
+<div class="sidebar-header">
+    <h3>🌳 Navigation</h3>
+    <p>Forest DSS v1.0</p>
+</div>
+""", unsafe_allow_html=True)
+
+page = st.sidebar.radio("", [
     "📊 Data Overview",
     "🌱 Survival Prediction",
     "⚠️ Mortality Risk",
@@ -33,7 +97,7 @@ page = st.sidebar.radio("Go to", [
     "📦 Timber Volume",
     "🗺️ GIS Priority Mapping",
     "📰 News Report Summary",
-])
+], label_visibility="collapsed")
 
 # ── Helpers ──
 @st.cache_data
@@ -55,33 +119,66 @@ def train_survival_model():
 
 rf_model, encoders, feature_cols, X_test, y_test = train_survival_model()
 
+sns.set_style("whitegrid")
+plt.rcParams.update({
+    'figure.facecolor': 'white', 'axes.facecolor': 'white',
+    'axes.grid': True, 'grid.alpha': 0.3, 'axes.spines.top': False,
+    'axes.spines.right': False, 'font.size': 11
+})
+
 # ── 1. DATA OVERVIEW ──
 if page == "📊 Data Overview":
+    alive_count = (df['Survival_Status'] == 'Alive').sum()
+    dead_count = (df['Survival_Status'] == 'Dead').sum()
+    surv_rate = alive_count / len(df)
+
+    st.markdown('<div class="card">', unsafe_allow_html=True)
     st.subheader("Dataset Overview")
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Total Trees", df.shape[0])
-    col2.metric("Species", df['Species'].nunique())
-    col3.metric("Alive", (df['Survival_Status'] == 'Alive').sum())
-    col4.metric("Dead", (df['Survival_Status'] == 'Dead').sum())
+    cols = st.columns(5)
+    cols[0].metric("Total Trees", df.shape[0])
+    cols[1].metric("Species", df['Species'].nunique())
+    cols[2].metric("Municipalities", df['Municipality'].nunique())
+    cols[3].metric("Alive", f"{alive_count} ({surv_rate:.1%})")
+    cols[4].metric("Dead", f"{dead_count} ({1-surv_rate:.1%})")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    st.dataframe(df.head(20), width='stretch')
-    st.subheader("Descriptive Statistics")
-    st.dataframe(df.describe(), width='stretch')
+    col_left, col_right = st.columns(2)
 
-    st.subheader("Survival by Species")
-    fig, ax = plt.subplots(figsize=(10, 5))
-    sns.countplot(data=df, y='Species', hue='Survival_Status', ax=ax)
-    st.pyplot(fig)
+    with col_left:
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+        st.subheader("Survival by Species")
+        fig, ax = plt.subplots(figsize=(9, 4.5))
+        c = sns.countplot(data=df, y='Species', hue='Survival_Status', ax=ax,
+                          palette={'Alive': '#2e7d32', 'Dead': '#c62828'})
+        ax.set_xlabel('Count'); ax.set_ylabel('')
+        ax.legend(loc='lower right')
+        st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
 
-    st.subheader("Survival by Soil Type")
-    fig2, ax2 = plt.subplots(figsize=(8, 4))
-    sns.countplot(data=df, x='Soil_Type', hue='Survival_Status', ax=ax2)
-    st.pyplot(fig2)
+    with col_right:
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+        st.subheader("Survival by Soil Type")
+        fig, ax = plt.subplots(figsize=(9, 4))
+        c = sns.countplot(data=df, x='Soil_Type', hue='Survival_Status', ax=ax,
+                          palette={'Alive': '#2e7d32', 'Dead': '#c62828'})
+        ax.set_xlabel(''); ax.set_ylabel('Count')
+        ax.legend(loc='upper right')
+        st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with st.expander("View Raw Data & Descriptive Statistics"):
+        tab1, tab2 = st.tabs(["Data Sample", "Statistics"])
+        with tab1:
+            st.dataframe(df.head(20), use_container_width=True)
+        with tab2:
+            st.dataframe(df.describe(), use_container_width=True)
 
 # ── 2. SURVIVAL PREDICTION ──
 elif page == "🌱 Survival Prediction":
-    st.subheader("Tree Survival Prediction")
-    st.markdown("Enter tree details below to predict whether the tree will survive.")
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("🌱 Tree Survival Prediction")
+    st.markdown("Enter tree details to predict whether the tree will survive.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -106,26 +203,45 @@ elif page == "🌱 Survival Prediction":
         pred = rf_model.predict(inp)[0]
 
         st.markdown("---")
-        cola, colb = st.columns(2)
-        cola.metric("Prediction", "✅ Alive" if pred == 1 else "❌ Dead")
-        colb.metric("Survival Probability", f"{prob:.2%}")
+        c1, c2, c3 = st.columns(3)
+        c1.markdown(f"""
+        <div class="metric-card" style="border-left-color: {'#2e7d32' if pred else '#c62828'}">
+            <div class="label">Prediction</div>
+            <div class="value">{'✅ Alive' if pred else '❌ Dead'}</div>
+        </div>
+        """, unsafe_allow_html=True)
+        c2.markdown(f"""
+        <div class="metric-card" style="border-left-color: #1976d2">
+            <div class="label">Survival Probability</div>
+            <div class="value">{prob:.1%}</div>
+        </div>
+        """, unsafe_allow_html=True)
+        c3.markdown(f"""
+        <div class="metric-card" style="border-left-color: {'#2e7d32' if prob > 0.5 else '#c62828'}">
+            <div class="label">Confidence</div>
+            <div class="value">{'High' if prob > 0.75 else 'Medium' if prob > 0.5 else 'Low'}</div>
+        </div>
+        """, unsafe_allow_html=True)
         st.progress(float(prob))
 
-    st.markdown("---")
-    st.subheader("Model Performance")
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("📈 Model Performance")
     y_pred = rf_model.predict(X_test)
     acc = accuracy_score(y_test, y_pred)
     auc = roc_auc_score(y_test, rf_model.predict_proba(X_test)[:, 1])
-    cola, colb = st.columns(2)
-    cola.metric("Accuracy", f"{acc:.2%}")
-    colb.metric("ROC AUC", f"{auc:.3f}")
-    st.text("Classification Report:")
+    c1, c2 = st.columns(2)
+    c1.metric("Accuracy", f"{acc:.2%}")
+    c2.metric("ROC AUC", f"{auc:.3f}")
     st.text(classification_report(y_test, y_pred, target_names=['Dead', 'Alive']))
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ── 3. MORTALITY RISK ──
 elif page == "⚠️ Mortality Risk":
-    st.subheader("Tree Mortality Risk Classification")
-    st.markdown("Classifies trees into **Low**, **Medium**, or **High** mortality risk.")
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("⚠️ Tree Mortality Risk Classification")
+    st.markdown("Classifies trees into **Low**, **Medium**, or **High** mortality risk based on characteristics.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -144,35 +260,62 @@ elif page == "⚠️ Mortality Risk":
         for c in ['Species', 'Barangay', 'Municipality', 'Soil_Type']:
             inp[c] = encoders[c].transform(inp[c])
         prob_dead = rf_model.predict_proba(inp)[0, 0]
-        if prob_dead < 0.25:
-            risk = "🟢 Low"
-            desc = "Tree is likely to survive. No immediate intervention needed."
-        elif prob_dead < 0.50:
-            risk = "🟡 Medium"
-            desc = "Tree faces moderate mortality risk. Monitor regularly."
-        else:
-            risk = "🔴 High"
-            desc = "Tree is at high risk of mortality. Consider intervention."
+
+        color, badge, label, desc = ("#2e7d32", "🟢 Low",
+            "Low Mortality Risk",
+            "Tree is likely to survive. No immediate intervention needed.") if prob_dead < 0.25 else \
+            ("#f57f17", "🟡 Medium",
+            "Moderate Mortality Risk",
+            "Tree faces moderate mortality risk. Monitor regularly.") if prob_dead < 0.50 else \
+            ("#c62828", "🔴 High",
+            "High Mortality Risk",
+            "Tree is at high risk of mortality. Consider intervention.")
 
         st.markdown("---")
-        cola, colb, colc = st.columns(3)
-        cola.metric("Mortality Risk", risk)
-        colb.metric("Death Probability", f"{prob_dead:.2%}")
-        colc.metric("Survival Probability", f"{1-prob_dead:.2%}")
-        st.info(desc)
+        c1, c2, c3 = st.columns(3)
+        c1.markdown(f"""
+        <div class="metric-card" style="border-left-color: {color}">
+            <div class="label">Mortality Risk</div>
+            <div class="value">{badge} {label}</div>
+        </div>
+        """, unsafe_allow_html=True)
+        c2.markdown(f"""
+        <div class="metric-card" style="border-left-color: {color}">
+            <div class="label">Death Probability</div>
+            <div class="value">{prob_dead:.1%}</div>
+        </div>
+        """, unsafe_allow_html=True)
+        c3.markdown(f"""
+        <div class="metric-card" style="border-left-color: {color}">
+            <div class="label">Survival Probability</div>
+            <div class="value">{1-prob_dead:.1%}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        if prob_dead < 0.25:
+            st.success(desc)
+        elif prob_dead < 0.50:
+            st.warning(desc)
+        else:
+            st.error(desc)
 
 # ── 4. SPECIES RECOMMENDATION ──
 elif page == "🌿 Species Recommendation":
-    st.subheader("Species Recommendation Engine")
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("🌿 Species Recommendation Engine")
     st.markdown("Recommends the best tree species based on soil type and location.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    soil_type = st.selectbox("Soil Type", df['Soil_Type'].unique(), key='rec_soil')
-    municipality = st.selectbox("Municipality", df['Municipality'].unique(), key='rec_mun')
+    col1, col2 = st.columns(2)
+    with col1:
+        soil_type = st.selectbox("Soil Type", df['Soil_Type'].unique(), key='rec_soil')
+    with col2:
+        municipality = st.selectbox("Municipality", df['Municipality'].unique(), key='rec_mun')
 
     if st.button("Recommend Species", type="primary"):
         sub = df[(df['Soil_Type'] == soil_type) & (df['Municipality'] == municipality)]
         if sub.empty:
-            st.warning("No data available for this combination. Showing overall best performers.")
+            st.warning("No data for this combination. Showing best performers for this soil type.")
             sub = df[df['Soil_Type'] == soil_type]
 
         stats = sub.groupby('Species').agg(
@@ -182,90 +325,106 @@ elif page == "🌿 Species Recommendation":
             Avg_Diameter=('Diameter_cm', 'mean')
         ).sort_values('Survival_Rate', ascending=False)
 
+        best = stats.index[0]
+        st.success(f"**Recommended Species: {best}** — {stats.loc[best, 'Survival_Rate']:.1%} survival rate in {soil_type} soil.")
+
         st.dataframe(stats.style.format({
             'Survival_Rate': '{:.1%}',
             'Avg_Height': '{:.1f} m',
             'Avg_Diameter': '{:.1f} cm'
-        }), width='stretch')
+        }), use_container_width=True)
 
-        best = stats.index[0]
-        st.success(f"**Recommended Species: {best}** — {stats.loc[best, 'Survival_Rate']:.1%} survival rate in {soil_type} soil.")
-
-        fig, ax = plt.subplots(figsize=(8, 4))
-        sns.barplot(data=stats.reset_index(), x='Survival_Rate', y='Species', ax=ax)
-        ax.set_title(f'Survival Rate by Species ({soil_type} Soil)')
+        fig, ax = plt.subplots(figsize=(9, 4))
+        colors = ['#2e7d32' if i == 0 else '#adb5bd' for i in range(len(stats))]
+        sns.barplot(data=stats.reset_index(), x='Survival_Rate', y='Species',
+                    palette=colors, ax=ax)
+        ax.set_title(f'Species Survival Rate — {soil_type} Soil', fontweight='bold')
         ax.set_xlabel('Survival Rate')
+        ax.set_ylabel('')
         st.pyplot(fig)
 
 # ── 5. GROWTH PREDICTION ──
 elif page == "📈 Growth Prediction":
-    st.subheader("Tree Growth Prediction")
-    st.markdown("Predict future height and diameter based on current age and species.")
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("📈 Tree Growth Prediction")
+    st.markdown("Predict future height and diameter based on current age, species, and soil type.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    species = st.selectbox("Species", df['Species'].unique(), key='gr_species')
-    soil = st.selectbox("Soil Type", df['Soil_Type'].unique(), key='gr_soil')
-    current_age = st.slider("Current Age (Years)", 1, 40, 5, key='gr_age')
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        species = st.selectbox("Species", df['Species'].unique(), key='gr_species')
+    with col2:
+        soil = st.selectbox("Soil Type", df['Soil_Type'].unique(), key='gr_soil')
+    with col3:
+        current_age = st.slider("Current Age (Years)", 1, 40, 5, key='gr_age')
     future_age = st.slider("Predict at Age (Years)", current_age + 1, 50, current_age + 5, key='gr_fage')
 
     if st.button("Predict Growth", type="primary"):
         sub = df[(df['Species'] == species) & (df['Soil_Type'] == soil)]
         if len(sub) < 5:
             sub = df[df['Species'] == species]
-            st.info("Limited data for this soil type; using species-level data.")
+            st.info("Limited data for this specific combination; using species-level data.")
 
         sub = sub.copy()
         le_g = LabelEncoder()
         sub['Soil_Type_E'] = le_g.fit_transform(sub['Soil_Type'])
 
         Xg = sub[['Age_Years', 'Soil_Type_E']]
-        yh = sub['Height_m']
-        yd = sub['Diameter_cm']
-
         rf_h = RandomForestRegressor(n_estimators=100, random_state=42)
         rf_d = RandomForestRegressor(n_estimators=100, random_state=42)
-        rf_h.fit(Xg, yh)
-        rf_d.fit(Xg, yd)
+        rf_h.fit(Xg, sub['Height_m'])
+        rf_d.fit(Xg, sub['Diameter_cm'])
 
         inp_g = pd.DataFrame([[future_age, le_g.transform([soil])[0]]], columns=['Age_Years', 'Soil_Type_E'])
+        inp_c = pd.DataFrame([[current_age, le_g.transform([soil])[0]]], columns=['Age_Years', 'Soil_Type_E'])
         pred_h = rf_h.predict(inp_g)[0]
         pred_d = rf_d.predict(inp_g)[0]
-
-        # also predict current
-        inp_c = pd.DataFrame([[current_age, le_g.transform([soil])[0]]], columns=['Age_Years', 'Soil_Type_E'])
         cur_h = rf_h.predict(inp_c)[0]
         cur_d = rf_d.predict(inp_c)[0]
 
-        col1, col2 = st.columns(2)
-        col1.metric(f"Height at Age {future_age}", f"{pred_h:.1f} m", f"{pred_h - cur_h:.1f} m from current")
-        col2.metric(f"Diameter at Age {future_age}", f"{pred_d:.1f} cm", f"{pred_d - cur_d:.1f} cm from current")
+        c1, c2 = st.columns(2)
+        c1.markdown(f"""
+        <div class="metric-card" style="border-left-color: #2e7d32">
+            <div class="label">Height at Age {future_age}</div>
+            <div class="value">{pred_h:.1f} m</div>
+            <div class="delta">▲ {pred_h - cur_h:.1f} m from current ({cur_h:.1f} m)</div>
+        </div>
+        """, unsafe_allow_html=True)
+        c2.markdown(f"""
+        <div class="metric-card" style="border-left-color: #5d4037">
+            <div class="label">Diameter at Age {future_age}</div>
+            <div class="value">{pred_d:.1f} cm</div>
+            <div class="delta">▲ {pred_d - cur_d:.1f} cm from current ({cur_d:.1f} cm)</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-        fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+        fig, axes = plt.subplots(1, 2, figsize=(13, 4.5))
         age_range = np.arange(1, 51)
         inp_range = pd.DataFrame({'Age_Years': age_range, 'Soil_Type_E': le_g.transform([soil])[0]})
-        axes[0].plot(age_range, rf_h.predict(inp_range), color='green')
-        axes[0].axvline(current_age, ls='--', color='gray')
-        axes[0].axvline(future_age, ls='--', color='orange')
-        axes[0].scatter([current_age], [cur_h], color='blue', s=80, zorder=5)
-        axes[0].scatter([future_age], [pred_h], color='orange', s=80, zorder=5)
-        axes[0].set_xlabel('Age (Years)'); axes[0].set_ylabel('Height (m)')
-        axes[0].set_title(f'{species} Height Growth')
-        axes[0].legend(['Predicted', 'Current Age', 'Target Age'])
 
-        axes[1].plot(age_range, rf_d.predict(inp_range), color='brown')
-        axes[1].axvline(current_age, ls='--', color='gray')
-        axes[1].axvline(future_age, ls='--', color='orange')
-        axes[1].scatter([current_age], [cur_d], color='blue', s=80, zorder=5)
-        axes[1].scatter([future_age], [pred_d], color='orange', s=80, zorder=5)
-        axes[1].set_xlabel('Age (Years)'); axes[1].set_ylabel('Diameter (cm)')
-        axes[1].set_title(f'{species} Diameter Growth')
+        for ax, data, label, color, ylabel in [
+            (axes[0], rf_h.predict(inp_range), 'Height', '#2e7d32', 'Height (m)'),
+            (axes[1], rf_d.predict(inp_range), 'Diameter', '#5d4037', 'Diameter (cm)')
+        ]:
+            ax.plot(age_range, data, color=color, linewidth=2.5)
+            ax.axvline(current_age, ls='--', color='gray', alpha=0.6, label=f'Current: {current_age} yrs')
+            ax.axvline(future_age, ls='--', color='orange', alpha=0.6, label=f'Target: {future_age} yrs')
+            ax.scatter([current_age], [data[current_age-1]], color='#1565c0', s=100, zorder=5, edgecolors='white')
+            ax.scatter([future_age], [data[future_age-1]], color='orange', s=100, zorder=5, edgecolors='white')
+            ax.set_xlabel('Age (Years)', fontweight='bold')
+            ax.set_ylabel(ylabel, fontweight='bold')
+            ax.set_title(f'{species} — {label} Growth Projection', fontweight='bold')
+            ax.legend(frameon=True, fancybox=True)
+
         st.pyplot(fig)
 
 # ── 6. CARBON STORAGE ──
 elif page == "🌳 Carbon Storage":
-    st.subheader("Carbon Storage Estimation")
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("🌳 Carbon Storage Estimation")
     st.markdown("Estimates above-ground carbon sequestration based on tree dimensions and species.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    # Simple allometric model: Biomass = a * (D^2 * H)^b, Carbon = Biomass * 0.47
     @st.cache_data
     def fit_carbon_model():
         sub = df.copy()
@@ -273,17 +432,20 @@ elif page == "🌳 Carbon Storage":
         le_c = LabelEncoder()
         sub['Species_E'] = le_c.fit_transform(sub['Species'])
         Xc = sub[['D2H', 'Species_E']]
-        # Assume biomass ~ 0.05 * D^2*H (generic tropical allometric)
-        yc = 0.05 * sub['D2H'] * 0.47  # carbon tonnes
+        yc = 0.05 * sub['D2H'] * 0.47
         rf_c = RandomForestRegressor(n_estimators=100, random_state=42)
         rf_c.fit(Xc, yc)
         return rf_c, le_c
 
     rf_carb, carb_le = fit_carbon_model()
 
-    species = st.selectbox("Species", df['Species'].unique(), key='carb_sp')
-    diameter = st.slider("Diameter at Breast Height (cm)", 5.0, 60.0, 25.0, key='carb_d')
-    height = st.slider("Height (m)", 2.0, 40.0, 15.0, key='carb_h')
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        species = st.selectbox("Species", df['Species'].unique(), key='carb_sp')
+    with col2:
+        diameter = st.slider("Diameter at Breast Height (cm)", 5.0, 60.0, 25.0, key='carb_d')
+    with col3:
+        height = st.slider("Height (m)", 2.0, 40.0, 15.0, key='carb_h')
 
     if st.button("Estimate Carbon", type="primary"):
         d2h_val = diameter ** 2 * height
@@ -291,47 +453,87 @@ elif page == "🌳 Carbon Storage":
         carbon_t = rf_carb.predict(inp_c)[0]
         co2_eq = carbon_t * 3.67
 
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Above-Ground Carbon", f"{carbon_t:.2f} tonnes")
-        col2.metric("CO₂ Equivalent", f"{co2_eq:.2f} tonnes")
-        col3.metric("Biomass (est.)", f"{carbon_t / 0.47:.2f} tonnes")
+        c1, c2, c3 = st.columns(3)
+        c1.markdown(f"""
+        <div class="metric-card" style="border-left-color: #2e7d32">
+            <div class="label">Above-Ground Carbon</div>
+            <div class="value">{carbon_t:.2f} t</div>
+        </div>
+        """, unsafe_allow_html=True)
+        c2.markdown(f"""
+        <div class="metric-card" style="border-left-color: #1565c0">
+            <div class="label">CO₂ Equivalent</div>
+            <div class="value">{co2_eq:.2f} t</div>
+        </div>
+        """, unsafe_allow_html=True)
+        c3.markdown(f"""
+        <div class="metric-card" style="border-left-color: #5d4037">
+            <div class="label">Total Biomass</div>
+            <div class="value">{carbon_t / 0.47:.2f} t</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.markdown("""
-        *Estimation based on generic tropical allometric equation:  
-        **Biomass = 0.05 × D² × H** where D = diameter (cm), H = height (m).  
-        Carbon = Biomass × 0.47, CO₂e = Carbon × 3.67*
-        """)
+        with st.expander("Methodology"):
+            st.markdown("""
+            **Allometric Equation:** Biomass = 0.05 × D² × H  
+            **Carbon:** Biomass × 0.47  
+            **CO₂e:** Carbon × 3.67  
+            *D = diameter at breast height (cm), H = height (m)*
+            """)
 
 # ── 7. TIMBER VOLUME ──
 elif page == "📦 Timber Volume":
-    st.subheader("Timber Volume Prediction")
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("📦 Timber Volume Prediction")
     st.markdown("Predicts merchantable timber volume using tree dimensions.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    species = st.selectbox("Species", df['Species'].unique(), key='tv_sp')
-    diameter = st.slider("Diameter at Breast Height (cm)", 5.0, 60.0, 25.0, key='tv_d')
-    height = st.slider("Height (m)", 2.0, 40.0, 15.0, key='tv_h')
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        species = st.selectbox("Species", df['Species'].unique(), key='tv_sp')
+    with col2:
+        diameter = st.slider("Diameter at Breast Height (cm)", 5.0, 60.0, 25.0, key='tv_d')
+    with col3:
+        height = st.slider("Height (m)", 2.0, 40.0, 15.0, key='tv_h')
 
-    # Volume = 0.00007854 * D^2 * H * F (form factor ~0.45)
     if st.button("Predict Volume", type="primary"):
         form_factor = 0.45
         volume_m3 = 0.00007854 * (diameter ** 2) * height * form_factor
-        bd_ft = volume_m3 * 423.776  # cubic meters to board feet
+        bd_ft = volume_m3 * 423.776
 
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Volume (m³)", f"{volume_m3:.3f}")
-        col2.metric("Volume (board ft)", f"{bd_ft:.0f}")
-        col3.metric("Form Factor", form_factor)
+        c1, c2, c3 = st.columns(3)
+        c1.markdown(f"""
+        <div class="metric-card" style="border-left-color: #5d4037">
+            <div class="label">Volume</div>
+            <div class="value">{volume_m3:.3f} m³</div>
+        </div>
+        """, unsafe_allow_html=True)
+        c2.markdown(f"""
+        <div class="metric-card" style="border-left-color: #f57f17">
+            <div class="label">Volume</div>
+            <div class="value">{bd_ft:,.0f} bd ft</div>
+        </div>
+        """, unsafe_allow_html=True)
+        c3.markdown(f"""
+        <div class="metric-card" style="border-left-color: #1976d2">
+            <div class="label">Form Factor</div>
+            <div class="value">{form_factor}</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.markdown("""
-        *Volume = 0.00007854 × D² × H × FF*  
-        where D = diameter (cm), H = height (m), FF = form factor (0.45).  
-        1 m³ ≈ 423.78 board feet.
-        """)
+        with st.expander("Methodology"):
+            st.markdown("""
+            **Volume = 0.00007854 × D² × H × FF**  
+            D = diameter (cm), H = height (m), FF = form factor (0.45)  
+            1 m³ ≈ 423.78 board feet
+            """)
 
 # ── 8. GIS PRIORITY MAPPING ──
 elif page == "🗺️ GIS Priority Mapping":
-    st.subheader("GIS-Based Reforestation Priority Mapping")
-    st.markdown("Identifies high-priority areas for reforestation based on mortality rates and tree density.")
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("🗺️ GIS-Based Reforestation Priority Mapping")
+    st.markdown("Identifies high-priority areas for reforestation based on mortality rates and tree metrics.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
     agg = df.groupby(['Municipality', 'Barangay', 'Soil_Type']).agg(
         Tree_Count=('Tree_ID', 'count'),
@@ -348,26 +550,52 @@ elif page == "🗺️ GIS Priority Mapping":
                              bins=[0, 0.33, 0.66, 1.0],
                              labels=['🟢 Low', '🟡 Medium', '🔴 High'])
 
-    st.dataframe(agg.sort_values('Priority_Score', ascending=False), width='stretch')
+    def color_priority(val):
+        if '🔴' in str(val): return 'background-color: #ffebee'
+        if '🟡' in str(val): return 'background-color: #fff8e1'
+        if '🟢' in str(val): return 'background-color: #e8f5e9'
+        return ''
 
-    st.subheader("Priority Distribution")
-    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-    sns.barplot(data=agg.sort_values('Priority_Score', ascending=False).head(10),
-                x='Priority_Score', y='Barangay', hue='Municipality', ax=axes[0], dodge=False)
-    axes[0].set_title('Top 10 Priority Areas')
+    st.dataframe(
+        agg.sort_values('Priority_Score', ascending=False).style.map(color_priority, subset=['Priority']),
+        use_container_width=True
+    )
 
-    priority_counts = agg['Priority'].value_counts()
-    axes[1].pie(priority_counts.values, labels=priority_counts.index, autopct='%1.1f%%',
-               colors=['#2ecc71', '#f1c40f', '#e74c3c'])
-    axes[1].set_title('Priority Level Breakdown')
-    st.pyplot(fig)
+    col_left, col_right = st.columns(2)
+
+    with col_left:
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+        st.subheader("Top Priority Areas")
+        fig, ax = plt.subplots(figsize=(9, 4.5))
+        top10 = agg.sort_values('Priority_Score', ascending=False).head(10)
+        bars = sns.barplot(data=top10, x='Priority_Score', y='Barangay', hue='Municipality', ax=ax, dodge=False)
+        ax.set_xlabel('Priority Score'); ax.set_ylabel('')
+        ax.set_title('Top 10 Barangays by Priority Score', fontweight='bold')
+        ax.legend(loc='lower right')
+        st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with col_right:
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+        st.subheader("Priority Breakdown")
+        priority_counts = agg['Priority'].value_counts()
+        fig, ax = plt.subplots(figsize=(7, 5))
+        wedges, texts, autotexts = ax.pie(
+            priority_counts.values, labels=priority_counts.index,
+            autopct='%1.1f%%', colors=['#2ecc71', '#f1c40f', '#e74c3c'],
+            startangle=90, explode=[0.02]*3,
+            textprops={'fontweight': 'bold'}
+        )
+        ax.set_title('Priority Level Distribution', fontweight='bold')
+        st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with st.expander("Priority Scoring Methodology"):
         st.markdown("""
         **Priority Score = 0.4 × Mortality Rate + 0.3 × (1 - Normalized Height) + 0.3 × (1 - Normalized Age)**  
         - **High Mortality** → higher priority  
-        - **Low average height** → higher priority (young/stunted)  
-        - **Low average age** → higher priority (young stands need intervention)
+        - **Low avg height** → higher priority (young/stunted regeneration)  
+        - **Low avg age** → higher priority (early intervention window)
         """)
 
 # ── 9. NEWS REPORT SUMMARY ──
@@ -408,52 +636,65 @@ elif page == "📰 News Report Summary":
     mature_trees = df[df['Age_Years'] > 20]
     young_survival = (young_trees['Survival_Status'] == 'Alive').mean()
     mature_survival = (mature_trees['Survival_Status'] == 'Alive').mean() if len(mature_trees) > 0 else 0
-
     total_carbon = (0.05 * (df['Diameter_cm'] ** 2 * df['Height_m']).sum() * 0.47) / 1000
 
-    # ── Key Metrics ──
+    st.markdown('<div class="card">', unsafe_allow_html=True)
     st.subheader("Forest Overview")
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Total Trees", total)
-    col2.metric("Alive", f"{alive} ({survival_rate:.1%})")
-    col3.metric("Dead", f"{dead} ({1-survival_rate:.1%})")
-    col4.metric("Municipalities", df['Municipality'].nunique())
+    cols = st.columns(4)
+    cols[0].metric("Total Trees", total)
+    cols[1].metric("Alive", f"{alive} ({survival_rate:.1%})")
+    cols[2].metric("Dead", f"{dead} ({1-survival_rate:.1%})")
+    cols[3].metric("Municipalities", df['Municipality'].nunique())
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    # ── Status Banner ──
-    if survival_rate >= 0.70:
-        st.success(f"**Forest Status: Healthy** — {survival_rate:.1%} overall survival rate across all municipalities.")
-    elif survival_rate >= 0.50:
-        st.warning(f"**Forest Status: Moderate Concern** — Survival rate at {survival_rate:.1%}. Some areas need attention.")
-    else:
-        st.error(f"**Forest Status: Critical** — Survival rate at {survival_rate:.1%}. Immediate intervention required.")
+    status_color, status_icon, status_label = \
+        ("#2e7d32", "✅", "Healthy") if survival_rate >= 0.70 else \
+        ("#f57f17", "⚠️", "Moderate Concern") if survival_rate >= 0.50 else \
+        ("#c62828", "🔴", "Critical")
 
-    # ── Insight Cards (using native Streamlit) ──
+    st.markdown(f"""
+    <div class="card" style="border-left: 5px solid {status_color}; background: {status_color}08;">
+        <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:2rem;">{status_icon}</span>
+            <div>
+                <strong style="color:{status_color}; font-size:1.1rem;">Forest Status: {status_label}</strong>
+                <p style="margin:2px 0 0; color:#666;">
+                    {survival_rate:.1%} overall survival rate — 
+                    {'Healthy forest ecosystem.' if survival_rate >= 0.70 else 
+                     'Some areas need attention.' if survival_rate >= 0.50 else 
+                     'Immediate intervention required.'}
+                </p>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown('<div class="card">', unsafe_allow_html=True)
     st.subheader("Key Insights")
     c1, c2 = st.columns(2)
 
     with c1:
-        st.info(f"**🏆 Best Municipality:** {best_mun['Municipality']}")
-        st.caption(f"{best_mun['Survival_Rate']:.1%} survival — {int(best_mun['Alive'])} alive out of {int(best_mun['Total_Trees'])} trees")
-        st.info(f"**🌿 Best Species:** {best_sp}")
+        st.markdown(f"**🏆 Best Municipality:** {best_mun['Municipality']}")
+        st.caption(f"{best_mun['Survival_Rate']:.1%} survival — {int(best_mun['Alive'])} alive / {int(best_mun['Total_Trees'])} trees")
+        st.markdown(f"**🌿 Best Species:** {best_sp}")
         st.caption(f"{sp_stats.loc[best_sp, 'Survival_Rate']:.1%} survival rate")
-        st.info(f"**🧪 Best Soil Type:** {best_soil}")
+        st.markdown(f"**🧪 Best Soil Type:** {best_soil}")
         st.caption(f"{soil_stats.loc[best_soil, 'Survival_Rate']:.1%} survival rate")
 
     with c2:
-        st.warning(f"**⚠️ Needs Intervention:** {worst_mun['Municipality']}")
-        st.caption(f"{worst_mun['Survival_Rate']:.1%} survival — {int(worst_mun['Dead'])} dead out of {int(worst_mun['Total_Trees'])} trees")
-        st.warning(f"**🌿 Weakest Species:** {worst_sp}")
-        st.caption(f"{sp_stats.loc[worst_sp, 'Survival_Rate']:.1%} survival rate — may need site-matching adjustments")
-        st.info(f"**🌍 Carbon Stored:** {total_carbon:.1f} tonnes ({(total_carbon * 3.67):.1f} tonnes CO₂e)")
+        st.markdown(f"**⚠️ Needs Intervention:** {worst_mun['Municipality']}")
+        st.caption(f"{worst_mun['Survival_Rate']:.1%} survival — {int(worst_mun['Dead'])} dead / {int(worst_mun['Total_Trees'])} trees")
+        st.markdown(f"**🌿 Weakest Species:** {worst_sp}")
+        st.caption(f"{sp_stats.loc[worst_sp, 'Survival_Rate']:.1%} survival — may need site-matching")
+        st.markdown(f"**🌍 Carbon Stored:** {total_carbon:.1f} t ({(total_carbon * 3.67):.1f} t CO₂e)")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    # ── Age Structure ──
-    st.subheader("Age Structure")
-    col1, col2 = st.columns(2)
-    col1.metric("Young Trees (≤5 yrs)", f"{len(young_trees)} trees", f"{young_survival:.1%} survival")
-    col2.metric("Mature Trees (>20 yrs)", f"{len(mature_trees)} trees", f"{mature_survival:.1%} survival")
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("Age Structure & Alerts")
+    c1, c2 = st.columns(2)
+    c1.metric("Young Trees (≤5 yrs)", f"{len(young_trees)} trees", f"{young_survival:.1%} survival")
+    c2.metric("Mature Trees (>20 yrs)", f"{len(mature_trees)} trees", f"{mature_survival:.1%} survival")
 
-    # ── Alerts ──
-    st.subheader("Municipality Alerts")
     has_alert = False
     for _, m in mun_stats.iterrows():
         if m['Survival_Rate'] < 0.50:
@@ -464,14 +705,14 @@ elif page == "📰 News Report Summary":
             has_alert = True
     if not has_alert:
         st.success("No critical alerts. All municipalities have adequate survival rates.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    # ── Municipality Details ──
     with st.expander("View Full Per-Municipality Report"):
         st.dataframe(mun_stats.style.format({
             'Survival_Rate': '{:.1%}', 'Avg_Age': '{:.1f} yrs', 'Avg_Height': '{:.1f} m'
         }), use_container_width=True)
 
-    # ── Live News Feed ──
+    st.markdown('<div class="card">', unsafe_allow_html=True)
     st.subheader("Live Forestry News")
     st.caption("Sourced from Google News — forestry, environment, and DENR updates")
 
@@ -514,12 +755,10 @@ elif page == "📰 News Report Summary":
                         raw_summary = getattr(e, 'summary', '')
                         clean_summary = re.sub(r'<[^>]+>', '', raw_summary)[:200]
                         entries.append({
-                            "title": t,
-                            "link": e.link,
+                            "title": t, "link": e.link,
                             "source": getattr(e, "source", {}).get("title", "Google News") if hasattr(e, "source") else "Google News",
                             "published": getattr(e, "published", "Just now"),
-                            "summary": clean_summary,
-                            "image_url": image_url,
+                            "summary": clean_summary, "image_url": image_url,
                         })
             except:
                 pass
@@ -545,8 +784,14 @@ elif page == "📰 News Report Summary":
                         st.markdown(ne['summary'])
     else:
         st.info("Live news feed unavailable at this time.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
     st.caption("Report generated from forest inventory data • For DENR decision support")
 
 st.sidebar.markdown("---")
-st.sidebar.info("Built with Streamlit • Models trained on Forest Inventory Dataset")
+st.sidebar.markdown("""
+<div style="padding:0.8rem; background:#f8f9fa; border-radius:8px; font-size:0.75rem; color:#6c757d;">
+    <strong>About</strong><br>
+    Built with Streamlit • Random Forest models trained on forest inventory data.
+</div>
+""", unsafe_allow_html=True)
