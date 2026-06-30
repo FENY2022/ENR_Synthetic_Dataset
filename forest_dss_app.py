@@ -10,7 +10,6 @@ from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor, Isol
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, roc_auc_score
 from sklearn.inspection import permutation_importance
-import xgboost as xgb
 
 st.set_page_config(page_title="Forest DSS", layout="wide", page_icon="🌳")
 
@@ -67,42 +66,61 @@ PAGES = [
 ]
 page = st.sidebar.radio("", PAGES, label_visibility="collapsed")
 
-st.sidebar.markdown("---")
-st.sidebar.markdown("### ⚙️ Model")
-model_names = list(models.keys())
-idx = model_names.index(st.session_state.model_choice) if st.session_state.model_choice in model_names else 0
-st.session_state.model_choice = st.sidebar.selectbox(
-    "Prediction Engine",
-    model_names,
-    index=idx,
-    key="model_selector",
-    help="Switch between ML models for predictions"
-)
-for name, acc in model_accs.items():
-    check = "✅" if name == st.session_state.model_choice else ""
-    st.sidebar.caption(f"{check} {name}: {acc:.1%}")
-
-# ── OLLAMA HELPER ──
-@st.cache_data(show_spinner=False)
-def ask_ollama(prompt, model="qwen3:4b", system=""):
+# ── MODEL SELECTOR ──
+@st.cache_data(ttl=300)
+def get_ollama_models():
     import ollama
     try:
+        models = ollama.list()
+        return [m.model for m in models.get("models", [])]
+    except:
+        return ["qwen3:4b"]
+
+available_models = get_ollama_models()
+if "selected_model" not in st.session_state:
+    preferred = [m for m in available_models if "qwen3" in m or "deepseek" in m or "phi3" in m]
+    st.session_state.selected_model = preferred[0] if preferred else available_models[0]
+
+st.sidebar.markdown("### 🤖 AI Model")
+selected = st.sidebar.selectbox(
+    "Model for AI features", available_models,
+    index=available_models.index(st.session_state.selected_model) if st.session_state.selected_model in available_models else 0,
+    key="model_selector", label_visibility="collapsed"
+)
+if selected != st.session_state.selected_model:
+    st.session_state.selected_model = selected
+    st.cache_data.clear()
+    st.rerun()
+
+st.sidebar.markdown("---")
+st.sidebar.caption(f"Active: **{st.session_state.selected_model}**")
+
+# ── OLLAMA HELPER ──
+def _get_model():
+    return st.session_state.get("selected_model", "qwen3:4b")
+
+@st.cache_data(show_spinner=False)
+def ask_ollama(prompt, model=None, system=""):
+    import ollama
+    try:
+        m = model or _get_model()
         msgs = []
         if system:
             msgs.append({"role": "system", "content": system})
         msgs.append({"role": "user", "content": prompt})
-        resp = ollama.chat(model=model, messages=msgs, options={"num_predict": 1024, "temperature": 0.3})
+        resp = ollama.chat(model=m, messages=msgs, options={"num_predict": 1024, "temperature": 0.3})
         return resp["message"]["content"].strip()
     except Exception as e:
         return f"⚠️ AI unavailable: {e}"
 
-def stream_ollama(prompt, model="qwen3:4b", system=""):
+def stream_ollama(prompt, model=None, system=""):
     import ollama
+    m = model or _get_model()
     msgs = []
     if system:
         msgs.append({"role": "system", "content": system})
     msgs.append({"role": "user", "content": prompt})
-    stream = ollama.chat(model=model, messages=msgs, stream=True, options={"num_predict": 2048, "temperature": 0.3})
+    stream = ollama.chat(model=m, messages=msgs, stream=True, options={"num_predict": 2048, "temperature": 0.3})
     for chunk in stream:
         yield chunk["message"]["content"]
 
@@ -120,36 +138,16 @@ def train_survival_model():
     X = df_m.drop('Survival_Status', axis=1)
     y = df_m['Survival_Status']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
-
-    models = {}
-    models["Random Forest"] = RandomForestClassifier(n_estimators=200, max_depth=12, random_state=42, n_jobs=-1)
-    models["Random Forest"].fit(X_train, y_train)
-
-    models["Logistic Regression"] = LogisticRegression(max_iter=1000, random_state=42)
-    models["Logistic Regression"].fit(X_train, y_train)
-
-    models["XGBoost"] = xgb.XGBClassifier(n_estimators=200, max_depth=6, learning_rate=0.1, random_state=42, use_label_encoder=False, eval_metric='logloss')
-    models["XGBoost"].fit(X_train, y_train)
-
+    rf = RandomForestClassifier(n_estimators=200, max_depth=12, random_state=42, n_jobs=-1)
+    rf.fit(X_train, y_train)
+    lr = LogisticRegression(max_iter=1000, random_state=42)
+    lr.fit(X_train, y_train)
     cv = StratifiedKFold(5, shuffle=True, random_state=42)
-    rf = models["Random Forest"]
     cv_scores = cross_val_score(rf, X_train, y_train, cv=cv, scoring='accuracy')
     imp = permutation_importance(rf, X_test, y_test, n_repeats=10, random_state=42)
+    return rf, lr, enc, X.columns.tolist(), X_test, y_test, cv_scores, imp
 
-    model_accs = {}
-    for name, m in models.items():
-        model_accs[name] = accuracy_score(y_test, m.predict(X_test))
-
-    return models, enc, X.columns.tolist(), X_test, y_test, cv_scores, imp, model_accs
-
-models, encoders, feature_cols, X_test, y_test, cv_scores, perm_imp, model_accs = train_survival_model()
-
-# ── Model Switcher ──
-if "model_choice" not in st.session_state:
-    st.session_state.model_choice = "Random Forest"
-
-def get_model():
-    return models[st.session_state.model_choice]
+rf_model, lr_model, encoders, feature_cols, X_test, y_test, cv_scores, perm_imp = train_survival_model()
 
 sns.set_style("whitegrid")
 plt.rcParams.update({'figure.facecolor': 'white', 'axes.facecolor': 'white', 'axes.grid': True, 'grid.alpha': 0.3, 'axes.spines.top': False, 'axes.spines.right': False, 'font.size': 11})
@@ -245,8 +243,8 @@ elif page == "🌱 Survival Prediction":
         lng = st.number_input("Longitude", value=126.0, format="%.5f")
 
     inp = encode_input(make_input_row(species, barangay, municipality, lat, lng, age, height, diameter, soil))
-    prob = get_model().predict_proba(inp)[0, 1]
-    pred = get_model().predict(inp)[0]
+    prob = rf_model.predict_proba(inp)[0, 1]
+    pred = rf_model.predict(inp)[0]
 
     if whatif:
         st.markdown("---")
@@ -260,7 +258,7 @@ elif page == "🌱 Survival Prediction":
         probs = []
         for a in ages:
             inp_sim = encode_input(make_input_row(species, barangay, municipality, lat, lng, a, sim_ht, sim_dia, soil))
-            probs.append(get_model().predict_proba(inp_sim)[0, 1])
+            probs.append(rf_model.predict_proba(inp_sim)[0, 1])
 
         fig, ax = plt.subplots(figsize=(10, 3.5))
         ax.plot(ages, probs, color='#2e7d32', linewidth=2.5)
@@ -305,16 +303,16 @@ Explain why this tree {'would survive' if pred else 'might die'} in plain langua
     with st.expander("📈 Advanced Model Performance"):
         tab1, tab2, tab3 = st.tabs(["Metrics", "Cross-Validation", "Feature Importance"])
         with tab1:
-            y_pred = get_model().predict(X_test)
+            y_pred = rf_model.predict(X_test)
             acc = accuracy_score(y_test, y_pred)
-            auc = roc_auc_score(y_test, get_model().predict_proba(X_test)[:, 1])
+            auc = roc_auc_score(y_test, rf_model.predict_proba(X_test)[:, 1])
             c1, c2 = st.columns(2)
             c1.metric("Accuracy", f"{acc:.2%}")
             c2.metric("ROC AUC", f"{auc:.3f}")
             st.text(classification_report(y_test, y_pred, target_names=['Dead', 'Alive']))
         with tab2:
             st.metric("Cross-Validation Accuracy (5-Fold)", f"{cv_scores.mean():.2%} ± {cv_scores.std():.2%}")
-            st.metric("Logistic Regression (baseline)", f"{accuracy_score(y_test, models["Logistic Regression"].predict(X_test)):.2%}")
+            st.metric("Logistic Regression (baseline)", f"{accuracy_score(y_test, lr_model.predict(X_test)):.2%}")
         with tab3:
             imp_df = pd.DataFrame({'Feature': perm_imp.importances_mean, 'Name': feature_cols}).sort_values('Feature', ascending=False).head(10)
             fig, ax = plt.subplots(figsize=(8, 4))
@@ -341,7 +339,7 @@ elif page == "⚠️ Mortality Risk":
 
     if st.button("Classify Risk", type="primary", key='mr_btn'):
         inp = encode_input(make_input_row(species, 'Libertad', municipality, 8.5, 126.0, age, height, diameter, soil))
-        prob_dead = get_model().predict_proba(inp)[0, 0]
+        prob_dead = rf_model.predict_proba(inp)[0, 0]
 
         if prob_dead < 0.25:
             color, badge, label, desc = "#2e7d32", "🟢 Low", "Low Mortality Risk", "Tree is likely to survive. No intervention needed."
@@ -763,7 +761,7 @@ Municipality survival: {df.groupby('Municipality')['Survival_Status'].apply(lamb
 
 Provide: 1) Executive Summary 2) Situation Analysis 3) Recommended Interventions 4) Species Selection 5) Timeline 6) Budget Considerations 7) Success Metrics"""
                 }
-                resp = ask_ollama(prompts[rec_type], model="qwen3:4b")
+                resp = ask_ollama(prompts[rec_type])
                 st.markdown(f'<div class="ai-box">{resp}</div>', unsafe_allow_html=True)
 
     # ── Data Analysis Tab ──
@@ -782,9 +780,9 @@ Provide: 1) Executive Summary 2) Situation Analysis 3) Recommended Interventions
                     "Soil Type Effectiveness": f"Analyze soil type effectiveness: {df.groupby('Soil_Type').agg(Count=('Tree_ID','count'), Survival=('Survival_Status',lambda x: (x=='Alive').mean())).to_string()}. Which soil types perform best and why?",
                     "Age Structure Analysis": f"Analyze age structure: Young (<=5yrs): {(df[df['Age_Years']<=5]['Survival_Status']=='Alive').mean():.1%} survival, Mature (>20yrs): {(df[df['Age_Years']>20]['Survival_Status']=='Alive').mean() if len(df[df['Age_Years']>20])>0 else 0:.1%}. Provide age management recommendations.",
                     "Location-Based Trends": f"Analyze location-based trends: {df.groupby('Municipality').agg(Count=('Tree_ID','count'), Survival=('Survival_Status',lambda x: (x=='Alive').mean()), AvgAge=('Age_Years','mean')).to_string()}. Identify geographical patterns.",
-                    "Predictive Modeling Insights": f"Model ({st.session_state.model_choice}) performance: Accuracy: {accuracy_score(y_test, get_model().predict(X_test)):.2%}, CV: {cv_scores.mean():.2%}±{cv_scores.std():.2%}. Key features: {', '.join(feature_cols[:5])}. Provide insights on model reliability and key drivers."
+                    "Predictive Modeling Insights": f"Model performance: RF Accuracy: {accuracy_score(y_test, rf_model.predict(X_test)):.2%}, CV: {cv_scores.mean():.2%}±{cv_scores.std():.2%}. Key features: {', '.join(feature_cols[:5])}. Provide insights on model reliability and key drivers."
                 }
-                resp = ask_ollama(prompts[analysis_type], model="qwen3:4b")
+                resp = ask_ollama(prompts[analysis_type])
                 st.markdown(f'<div class="ai-box">{resp}</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════
