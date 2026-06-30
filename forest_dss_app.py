@@ -12,6 +12,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, roc_auc_score
+import joblib
+import os
 
 st.set_page_config(page_title="Forest DSS", layout="wide", page_icon="🌳")
 
@@ -102,6 +104,7 @@ page = st.sidebar.radio("", [
     "📦 Timber Volume",
     "🗺️ GIS Priority Mapping",
     "📰 News Report Summary",
+    "📋 Reforestation Project Monitoring Dataset",
 ], label_visibility="collapsed")
 
 # ── Helpers ──
@@ -227,23 +230,25 @@ if page == "📊 Data Overview":
     with col_left:
         st.markdown('<div class="card">', unsafe_allow_html=True)
         st.subheader("Survival by Species")
-        fig, ax = plt.subplots(figsize=(9, 4.5))
-        c = sns.countplot(data=df, y='Species', hue='Survival_Status', ax=ax,
-                          palette={'Alive': '#2e7d32', 'Dead': '#c62828'})
-        ax.set_xlabel('Count'); ax.set_ylabel('')
-        ax.legend(loc='lower right')
-        st.pyplot(fig)
+        with st.spinner("Rendering chart..."):
+            fig, ax = plt.subplots(figsize=(9, 4.5))
+            c = sns.countplot(data=df, y='Species', hue='Survival_Status', ax=ax,
+                              palette={'Alive': '#2e7d32', 'Dead': '#c62828'})
+            ax.set_xlabel('Count'); ax.set_ylabel('')
+            ax.legend(loc='lower right')
+            st.pyplot(fig)
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col_right:
         st.markdown('<div class="card">', unsafe_allow_html=True)
         st.subheader("Survival by Soil Type")
-        fig, ax = plt.subplots(figsize=(9, 4))
-        c = sns.countplot(data=df, x='Soil_Type', hue='Survival_Status', ax=ax,
-                          palette={'Alive': '#2e7d32', 'Dead': '#c62828'})
-        ax.set_xlabel(''); ax.set_ylabel('Count')
-        ax.legend(loc='upper right')
-        st.pyplot(fig)
+        with st.spinner("Rendering chart..."):
+            fig, ax = plt.subplots(figsize=(9, 4))
+            c = sns.countplot(data=df, x='Soil_Type', hue='Survival_Status', ax=ax,
+                              palette={'Alive': '#2e7d32', 'Dead': '#c62828'})
+            ax.set_xlabel(''); ax.set_ylabel('Count')
+            ax.legend(loc='upper right')
+            st.pyplot(fig)
         st.markdown('</div>', unsafe_allow_html=True)
 
     with st.expander("View Raw Data & Descriptive Statistics"):
@@ -277,13 +282,14 @@ elif page == "🌱 Survival Prediction":
         lng = st.number_input("Longitude", value=126.0, format="%.5f")
 
     if st.button("Predict Survival", type="primary"):
-        inp = pd.DataFrame([[species, barangay, municipality, lat, lng, age, height, diameter, soil]],
-                           columns=['Species', 'Barangay', 'Municipality', 'Latitude', 'Longitude',
-                                    'Age_Years', 'Height_m', 'Diameter_cm', 'Soil_Type'])
-        for c in ['Species', 'Barangay', 'Municipality', 'Soil_Type']:
-            inp[c] = encoders[c].transform(inp[c])
-        prob = rf_model.predict_proba(inp)[0, 1]
-        pred = rf_model.predict(inp)[0]
+        with st.spinner("Computing prediction..."):
+            inp = pd.DataFrame([[species, barangay, municipality, lat, lng, age, height, diameter, soil]],
+                               columns=['Species', 'Barangay', 'Municipality', 'Latitude', 'Longitude',
+                                        'Age_Years', 'Height_m', 'Diameter_cm', 'Soil_Type'])
+            for c in ['Species', 'Barangay', 'Municipality', 'Soil_Type']:
+                inp[c] = encoders[c].transform(inp[c])
+            prob = rf_model.predict_proba(inp)[0, 1]
+            pred = rf_model.predict(inp)[0]
 
         st.markdown("---")
         c1, c2, c3 = st.columns(3)
@@ -340,12 +346,13 @@ elif page == "⚠️ Mortality Risk":
         municipality = st.selectbox("Municipality", df['Municipality'].unique(), key='mr_mun')
 
     if st.button("Classify Risk", type="primary", key='mr_btn'):
-        inp = pd.DataFrame([[species, 'Libertad', municipality, 8.5, 126.0, age, height, diameter, soil]],
-                           columns=['Species', 'Barangay', 'Municipality', 'Latitude', 'Longitude',
-                                    'Age_Years', 'Height_m', 'Diameter_cm', 'Soil_Type'])
-        for c in ['Species', 'Barangay', 'Municipality', 'Soil_Type']:
-            inp[c] = encoders[c].transform(inp[c])
-        prob_dead = rf_model.predict_proba(inp)[0, 0]
+        with st.spinner("Classifying risk..."):
+            inp = pd.DataFrame([[species, 'Libertad', municipality, 8.5, 126.0, age, height, diameter, soil]],
+                               columns=['Species', 'Barangay', 'Municipality', 'Latitude', 'Longitude',
+                                        'Age_Years', 'Height_m', 'Diameter_cm', 'Soil_Type'])
+            for c in ['Species', 'Barangay', 'Municipality', 'Soil_Type']:
+                inp[c] = encoders[c].transform(inp[c])
+            prob_dead = rf_model.predict_proba(inp)[0, 0]
 
         color, badge, label, desc = ("#2e7d32", "🟢 Low",
             "Low Mortality Risk",
@@ -402,19 +409,21 @@ elif page == "🌿 Species Recommendation":
         municipality = st.selectbox("Municipality", df['Municipality'].unique(), key='rec_mun')
 
     if st.button("Recommend Species", type="primary"):
-        sub = df[(df['Soil_Type'] == soil_type) & (df['Municipality'] == municipality)]
-        if sub.empty:
-            st.warning("No data for this combination. Showing best performers for this soil type.")
-            sub = df[df['Soil_Type'] == soil_type]
+        with st.spinner("Analyzing species data..."):
+            sub = df[(df['Soil_Type'] == soil_type) & (df['Municipality'] == municipality)]
+            if sub.empty:
+                st.warning("No data for this combination. Showing best performers for this soil type.")
+                sub = df[df['Soil_Type'] == soil_type]
 
-        stats = sub.groupby('Species').agg(
-            Count=('Tree_ID', 'count'),
-            Survival_Rate=('Survival_Status', lambda x: (x == 'Alive').mean()),
-            Avg_Height=('Height_m', 'mean'),
-            Avg_Diameter=('Diameter_cm', 'mean')
-        ).sort_values('Survival_Rate', ascending=False)
+            stats = sub.groupby('Species').agg(
+                Count=('Tree_ID', 'count'),
+                Survival_Rate=('Survival_Status', lambda x: (x == 'Alive').mean()),
+                Avg_Height=('Height_m', 'mean'),
+                Avg_Diameter=('Diameter_cm', 'mean')
+            ).sort_values('Survival_Rate', ascending=False)
 
-        best = stats.index[0]
+            best = stats.index[0]
+
         st.success(f"**Recommended Species: {best}** — {stats.loc[best, 'Survival_Rate']:.1%} survival rate in {soil_type} soil.")
 
         st.dataframe(stats.style.format({
@@ -423,14 +432,15 @@ elif page == "🌿 Species Recommendation":
             'Avg_Diameter': '{:.1f} cm'
         }), use_container_width=True)
 
-        fig, ax = plt.subplots(figsize=(9, 4))
-        colors = ['#2e7d32' if i == 0 else '#adb5bd' for i in range(len(stats))]
-        sns.barplot(data=stats.reset_index(), x='Survival_Rate', y='Species',
-                    palette=colors, ax=ax)
-        ax.set_title(f'Species Survival Rate — {soil_type} Soil', fontweight='bold')
-        ax.set_xlabel('Survival Rate')
-        ax.set_ylabel('')
-        st.pyplot(fig)
+        with st.spinner("Rendering chart..."):
+            fig, ax = plt.subplots(figsize=(9, 4))
+            colors = ['#2e7d32' if i == 0 else '#adb5bd' for i in range(len(stats))]
+            sns.barplot(data=stats.reset_index(), x='Survival_Rate', y='Species',
+                        palette=colors, ax=ax)
+            ax.set_title(f'Species Survival Rate — {soil_type} Soil', fontweight='bold')
+            ax.set_xlabel('Survival Rate')
+            ax.set_ylabel('')
+            st.pyplot(fig)
 
         show_ai_analysis(f"You are a forestry AI expert. For {soil_type} soil in {municipality}, the top recommended species is {best} with {stats.loc[best, 'Survival_Rate']:.1%} survival rate. Explain why this species thrives in these conditions and give reforestation advice for DENR.", "species_rec",
             gauge_label=f"Best Species: {best}", gauge_value=stats.loc[best, 'Survival_Rate'], gauge_color="#2e7d32")
@@ -452,27 +462,28 @@ elif page == "📈 Growth Prediction":
     future_age = st.slider("Predict at Age (Years)", current_age + 1, 50, current_age + 5, key='gr_fage')
 
     if st.button("Predict Growth", type="primary"):
-        sub = df[(df['Species'] == species) & (df['Soil_Type'] == soil)]
-        if len(sub) < 5:
-            sub = df[df['Species'] == species]
-            st.info("Limited data for this specific combination; using species-level data.")
+        with st.spinner("Training growth model..."):
+            sub = df[(df['Species'] == species) & (df['Soil_Type'] == soil)]
+            if len(sub) < 5:
+                sub = df[df['Species'] == species]
+                st.info("Limited data for this specific combination; using species-level data.")
 
-        sub = sub.copy()
-        le_g = LabelEncoder()
-        sub['Soil_Type_E'] = le_g.fit_transform(sub['Soil_Type'])
+            sub = sub.copy()
+            le_g = LabelEncoder()
+            sub['Soil_Type_E'] = le_g.fit_transform(sub['Soil_Type'])
 
-        Xg = sub[['Age_Years', 'Soil_Type_E']]
-        rf_h = RandomForestRegressor(n_estimators=100, random_state=42)
-        rf_d = RandomForestRegressor(n_estimators=100, random_state=42)
-        rf_h.fit(Xg, sub['Height_m'])
-        rf_d.fit(Xg, sub['Diameter_cm'])
+            Xg = sub[['Age_Years', 'Soil_Type_E']]
+            rf_h = RandomForestRegressor(n_estimators=100, random_state=42)
+            rf_d = RandomForestRegressor(n_estimators=100, random_state=42)
+            rf_h.fit(Xg, sub['Height_m'])
+            rf_d.fit(Xg, sub['Diameter_cm'])
 
-        inp_g = pd.DataFrame([[future_age, le_g.transform([soil])[0]]], columns=['Age_Years', 'Soil_Type_E'])
-        inp_c = pd.DataFrame([[current_age, le_g.transform([soil])[0]]], columns=['Age_Years', 'Soil_Type_E'])
-        pred_h = rf_h.predict(inp_g)[0]
-        pred_d = rf_d.predict(inp_g)[0]
-        cur_h = rf_h.predict(inp_c)[0]
-        cur_d = rf_d.predict(inp_c)[0]
+            inp_g = pd.DataFrame([[future_age, le_g.transform([soil])[0]]], columns=['Age_Years', 'Soil_Type_E'])
+            inp_c = pd.DataFrame([[current_age, le_g.transform([soil])[0]]], columns=['Age_Years', 'Soil_Type_E'])
+            pred_h = rf_h.predict(inp_g)[0]
+            pred_d = rf_d.predict(inp_g)[0]
+            cur_h = rf_h.predict(inp_c)[0]
+            cur_d = rf_d.predict(inp_c)[0]
 
         c1, c2 = st.columns(2)
         c1.markdown(f"""
@@ -490,25 +501,26 @@ elif page == "📈 Growth Prediction":
         </div>
         """, unsafe_allow_html=True)
 
-        fig, axes = plt.subplots(1, 2, figsize=(13, 4.5))
-        age_range = np.arange(1, 51)
-        inp_range = pd.DataFrame({'Age_Years': age_range, 'Soil_Type_E': le_g.transform([soil])[0]})
+        with st.spinner("Rendering growth chart..."):
+            fig, axes = plt.subplots(1, 2, figsize=(13, 4.5))
+            age_range = np.arange(1, 51)
+            inp_range = pd.DataFrame({'Age_Years': age_range, 'Soil_Type_E': le_g.transform([soil])[0]})
 
-        for ax, data, label, color, ylabel in [
-            (axes[0], rf_h.predict(inp_range), 'Height', '#2e7d32', 'Height (m)'),
-            (axes[1], rf_d.predict(inp_range), 'Diameter', '#5d4037', 'Diameter (cm)')
-        ]:
-            ax.plot(age_range, data, color=color, linewidth=2.5)
-            ax.axvline(current_age, ls='--', color='gray', alpha=0.6, label=f'Current: {current_age} yrs')
-            ax.axvline(future_age, ls='--', color='orange', alpha=0.6, label=f'Target: {future_age} yrs')
-            ax.scatter([current_age], [data[current_age-1]], color='#1565c0', s=100, zorder=5, edgecolors='white')
-            ax.scatter([future_age], [data[future_age-1]], color='orange', s=100, zorder=5, edgecolors='white')
-            ax.set_xlabel('Age (Years)', fontweight='bold')
-            ax.set_ylabel(ylabel, fontweight='bold')
-            ax.set_title(f'{species} — {label} Growth Projection', fontweight='bold')
-            ax.legend(frameon=True, fancybox=True)
+            for ax, data, label, color, ylabel in [
+                (axes[0], rf_h.predict(inp_range), 'Height', '#2e7d32', 'Height (m)'),
+                (axes[1], rf_d.predict(inp_range), 'Diameter', '#5d4037', 'Diameter (cm)')
+            ]:
+                ax.plot(age_range, data, color=color, linewidth=2.5)
+                ax.axvline(current_age, ls='--', color='gray', alpha=0.6, label=f'Current: {current_age} yrs')
+                ax.axvline(future_age, ls='--', color='orange', alpha=0.6, label=f'Target: {future_age} yrs')
+                ax.scatter([current_age], [data[current_age-1]], color='#1565c0', s=100, zorder=5, edgecolors='white')
+                ax.scatter([future_age], [data[future_age-1]], color='orange', s=100, zorder=5, edgecolors='white')
+                ax.set_xlabel('Age (Years)', fontweight='bold')
+                ax.set_ylabel(ylabel, fontweight='bold')
+                ax.set_title(f'{species} — {label} Growth Projection', fontweight='bold')
+                ax.legend(frameon=True, fancybox=True)
 
-        st.pyplot(fig)
+            st.pyplot(fig)
 
         show_ai_analysis(f"You are a forestry AI expert. A {species} tree on {soil} soil at age {current_age} is predicted to reach {pred_h:.1f}m height and {pred_d:.1f}cm diameter by age {future_age}. Explain the growth pattern and recommend optimal management timing for DENR.", "growth",
             gauge_label="Height Growth Rate", gauge_value=min((pred_h-cur_h)/cur_h, 1) if cur_h > 0 else 0, gauge_color="#2e7d32")
@@ -543,10 +555,11 @@ elif page == "🌳 Carbon Storage":
         height = st.slider("Height (m)", 2.0, 40.0, 15.0, key='carb_h')
 
     if st.button("Estimate Carbon", type="primary"):
-        d2h_val = diameter ** 2 * height
-        inp_c = pd.DataFrame([[d2h_val, carb_le.transform([species])[0]]], columns=['D2H', 'Species_E'])
-        carbon_t = rf_carb.predict(inp_c)[0]
-        co2_eq = carbon_t * 3.67
+        with st.spinner("Computing carbon estimate..."):
+            d2h_val = diameter ** 2 * height
+            inp_c = pd.DataFrame([[d2h_val, carb_le.transform([species])[0]]], columns=['D2H', 'Species_E'])
+            carbon_t = rf_carb.predict(inp_c)[0]
+            co2_eq = carbon_t * 3.67
 
         c1, c2, c3 = st.columns(3)
         c1.markdown(f"""
@@ -668,71 +681,65 @@ elif page == "🗺️ GIS Priority Mapping":
     st.markdown("Click any tree marker to view details and open in Google Maps.")
     map_colors = st.radio("Color by", ["Survival Status", "Priority Score"], horizontal=True, key="map_mode")
 
-    map_df = df[['Tree_ID', 'Latitude', 'Longitude', 'Survival_Status', 'Species', 'Barangay', 'Municipality', 'Age_Years', 'Height_m', 'Diameter_cm']].copy()
-    avg_lat, avg_lon = df['Latitude'].mean(), df['Longitude'].mean()
+    with st.spinner("Rendering interactive map..."):
+        map_df = df[['Tree_ID', 'Latitude', 'Longitude', 'Survival_Status', 'Species', 'Barangay', 'Municipality', 'Age_Years', 'Height_m', 'Diameter_cm']].copy()
+        avg_lat, avg_lon = df['Latitude'].mean(), df['Longitude'].mean()
 
-    m = folium.Map(location=[avg_lat, avg_lon], zoom_start=10, tiles='CartoDB Positron', control_scale=True)
+        m = folium.Map(location=[avg_lat, avg_lon], zoom_start=10, tiles='CartoDB Positron', control_scale=True)
 
-    if map_colors == "Survival Status":
-        for _, row in map_df.iterrows():
-            color = '#2e7d32' if row['Survival_Status'] == 'Alive' else '#c62828'
-            status = '✅ Alive' if row['Survival_Status'] == 'Alive' else '❌ Dead'
-            radius = max(3, row['Diameter_cm'] * 0.4)
-            popup_html = f"""
-            <div style="font-family:sans-serif;font-size:13px;min-width:200px;">
-                <b style="font-size:15px;">{row['Tree_ID']}</b><hr style="margin:4px 0;">
-                <b>Species:</b> {row['Species']}<br>
-                <b>Age:</b> {row['Age_Years']} yrs<br>
-                <b>Height:</b> {row['Height_m']}m | <b>Diam:</b> {row['Diameter_cm']}cm<br>
-                <b>Location:</b> {row['Barangay']}, {row['Municipality']}<br>
-                <b>Status:</b> {status}<br><br>
-                <a href="https://www.google.com/maps?q={row['Latitude']},{row['Longitude']}" target="_blank"
-                   style="background:#2e7d32;color:white;padding:6px 14px;border-radius:20px;
-                          text-decoration:none;font-weight:bold;display:inline-block;">
-                   📍 Open in Google Maps
-                </a>
-            </div>"""
-            folium.CircleMarker(
-                location=[row['Latitude'], row['Longitude']],
-                radius=radius, color=color, fill=True, fill_color=color, fill_opacity=0.7,
-                popup=folium.Popup(popup_html, max_width=300)
-            ).add_to(m)
-    else:
-        map_df['priority_val'] = 0.0
-        for _, r in agg.iterrows():
-            mask = (map_df['Barangay'] == r['Barangay']) & (map_df['Municipality'] == r['Municipality'])
-            map_df.loc[mask, 'priority_val'] = r['Priority_Score']
-        for _, row in map_df.iterrows():
-            p = row['priority_val']
-            color = '#2e7d32' if p < 0.33 else '#f57f17' if p < 0.66 else '#c62828'
-            label = '🟢 Low' if p < 0.33 else '🟡 Medium' if p < 0.66 else '🔴 High'
-            radius = max(3, row['Diameter_cm'] * 0.4)
-            popup_html = f"""
-            <div style="font-family:sans-serif;font-size:13px;min-width:200px;">
-                <b style="font-size:15px;">{row['Tree_ID']}</b><hr style="margin:4px 0;">
-                <b>Species:</b> {row['Species']}<br>
-                <b>Priority:</b> {label} ({p:.2f})<br>
-                <b>Location:</b> {row['Barangay']}, {row['Municipality']}<br><br>
-                <a href="https://www.google.com/maps?q={row['Latitude']},{row['Longitude']}" target="_blank"
-                   style="background:#1565c0;color:white;padding:6px 14px;border-radius:20px;
-                          text-decoration:none;font-weight:bold;display:inline-block;">
-                   📍 Open in Google Maps
-                </a>
-            </div>"""
-            folium.CircleMarker(
-                location=[row['Latitude'], row['Longitude']],
-                radius=radius, color=color, fill=True, fill_color=color, fill_opacity=0.7,
-                popup=folium.Popup(popup_html, max_width=300)
-            ).add_to(m)
+        if map_colors == "Survival Status":
+            for _, row in map_df.iterrows():
+                color = '#2e7d32' if row['Survival_Status'] == 'Alive' else '#c62828'
+                status = '✅ Alive' if row['Survival_Status'] == 'Alive' else '❌ Dead'
+                radius = max(3, row['Diameter_cm'] * 0.4)
+                popup_html = f"""<div style="font-family:sans-serif;font-size:13px;min-width:200px;">
+                    <b style="font-size:15px;">{row['Tree_ID']}</b><hr style="margin:4px 0;">
+                    <b>Species:</b> {row['Species']}<br><b>Age:</b> {row['Age_Years']} yrs<br>
+                    <b>Height:</b> {row['Height_m']}m | <b>Diam:</b> {row['Diameter_cm']}cm<br>
+                    <b>Location:</b> {row['Barangay']}, {row['Municipality']}<br>
+                    <b>Status:</b> {status}<br><br>
+                    <a href="https://www.google.com/maps?q={row['Latitude']},{row['Longitude']}" target="_blank"
+                       style="background:#2e7d32;color:white;padding:6px 14px;border-radius:20px;
+                              text-decoration:none;font-weight:bold;display:inline-block;">📍 Open in Google Maps</a>
+                </div>"""
+                folium.CircleMarker(
+                    location=[row['Latitude'], row['Longitude']],
+                    radius=radius, color=color, fill=True, fill_color=color, fill_opacity=0.7,
+                    popup=folium.Popup(popup_html, max_width=300)
+                ).add_to(m)
+        else:
+            map_df['priority_val'] = 0.0
+            for _, r in agg.iterrows():
+                mask = (map_df['Barangay'] == r['Barangay']) & (map_df['Municipality'] == r['Municipality'])
+                map_df.loc[mask, 'priority_val'] = r['Priority_Score']
+            for _, row in map_df.iterrows():
+                p = row['priority_val']
+                color = '#2e7d32' if p < 0.33 else '#f57f17' if p < 0.66 else '#c62828'
+                label = '🟢 Low' if p < 0.33 else '🟡 Medium' if p < 0.66 else '🔴 High'
+                radius = max(3, row['Diameter_cm'] * 0.4)
+                popup_html = f"""<div style="font-family:sans-serif;font-size:13px;min-width:200px;">
+                    <b style="font-size:15px;">{row['Tree_ID']}</b><hr style="margin:4px 0;">
+                    <b>Species:</b> {row['Species']}<br>
+                    <b>Priority:</b> {label} ({p:.2f})<br>
+                    <b>Location:</b> {row['Barangay']}, {row['Municipality']}<br><br>
+                    <a href="https://www.google.com/maps?q={row['Latitude']},{row['Longitude']}" target="_blank"
+                       style="background:#1565c0;color:white;padding:6px 14px;border-radius:20px;
+                              text-decoration:none;font-weight:bold;display:inline-block;">📍 Open in Google Maps</a>
+                </div>"""
+                folium.CircleMarker(
+                    location=[row['Latitude'], row['Longitude']],
+                    radius=radius, color=color, fill=True, fill_color=color, fill_opacity=0.7,
+                    popup=folium.Popup(popup_html, max_width=300)
+                ).add_to(m)
 
-    st_folium(m, use_container_width=True, height=500)
-    st.markdown("""
-    <div style="display:flex; gap:1.5rem; font-size:0.8rem; justify-content:center;">
-        <span><span style="color:#2e7d32; font-weight:bold;">●</span> Alive</span>
-        <span><span style="color:#c62828; font-weight:bold;">●</span> Dead</span>
-        <span>Click marker → popup → Open in Google Maps</span>
-    </div>
-    """, unsafe_allow_html=True)
+        st_folium(m, use_container_width=True, height=500)
+        st.markdown("""
+        <div style="display:flex; gap:1.5rem; font-size:0.8rem; justify-content:center;">
+            <span><span style="color:#2e7d32; font-weight:bold;">●</span> Alive</span>
+            <span><span style="color:#c62828; font-weight:bold;">●</span> Dead</span>
+            <span>Click marker → popup → Open in Google Maps</span>
+        </div>
+        """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
     col_left, col_right = st.columns(2)
@@ -740,28 +747,30 @@ elif page == "🗺️ GIS Priority Mapping":
     with col_left:
         st.markdown('<div class="card">', unsafe_allow_html=True)
         st.subheader("Top Priority Areas")
-        fig, ax = plt.subplots(figsize=(9, 4.5))
-        top10 = agg.sort_values('Priority_Score', ascending=False).head(10)
-        bars = sns.barplot(data=top10, x='Priority_Score', y='Barangay', hue='Municipality', ax=ax, dodge=False)
-        ax.set_xlabel('Priority Score'); ax.set_ylabel('')
-        ax.set_title('Top 10 Barangays by Priority Score', fontweight='bold')
-        ax.legend(loc='lower right')
-        st.pyplot(fig)
+        with st.spinner("Rendering priority chart..."):
+            fig, ax = plt.subplots(figsize=(9, 4.5))
+            top10 = agg.sort_values('Priority_Score', ascending=False).head(10)
+            bars = sns.barplot(data=top10, x='Priority_Score', y='Barangay', hue='Municipality', ax=ax, dodge=False)
+            ax.set_xlabel('Priority Score'); ax.set_ylabel('')
+            ax.set_title('Top 10 Barangays by Priority Score', fontweight='bold')
+            ax.legend(loc='lower right')
+            st.pyplot(fig)
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col_right:
         st.markdown('<div class="card">', unsafe_allow_html=True)
         st.subheader("Priority Breakdown")
         priority_counts = agg['Priority'].value_counts()
-        fig, ax = plt.subplots(figsize=(7, 5))
-        wedges, texts, autotexts = ax.pie(
-            priority_counts.values, labels=priority_counts.index,
-            autopct='%1.1f%%', colors=['#2ecc71', '#f1c40f', '#e74c3c'],
-            startangle=90, explode=[0.02]*3,
-            textprops={'fontweight': 'bold'}
-        )
-        ax.set_title('Priority Level Distribution', fontweight='bold')
-        st.pyplot(fig)
+        with st.spinner("Rendering chart..."):
+            fig, ax = plt.subplots(figsize=(7, 5))
+            wedges, texts, autotexts = ax.pie(
+                priority_counts.values, labels=priority_counts.index,
+                autopct='%1.1f%%', colors=['#2ecc71', '#f1c40f', '#e74c3c'],
+                startangle=90, explode=[0.02]*3,
+                textprops={'fontweight': 'bold'}
+            )
+            ax.set_title('Priority Level Distribution', fontweight='bold')
+            st.pyplot(fig)
         st.markdown('</div>', unsafe_allow_html=True)
 
     with st.expander("Priority Scoring Methodology"):
@@ -949,7 +958,8 @@ elif page == "📰 News Report Summary":
         st.cache_data.clear()
         st.rerun()
 
-    news_entries = fetch_live_news()
+    with st.spinner("Fetching live forestry news..."):
+        news_entries = fetch_live_news()
     if news_entries:
         for ne in news_entries:
             with st.container(border=True):
@@ -970,6 +980,549 @@ elif page == "📰 News Report Summary":
         gauge_label="Overall Forest Health Score", gauge_value=survival_rate, gauge_color="#2e7d32" if survival_rate >= 0.7 else "#f57f17" if survival_rate >= 0.5 else "#c62828")
 
     st.caption("Report generated from forest inventory data • For DENR decision support")
+
+# ── 10. REFORESTATION PROJECT MONITORING DATASET ──
+elif page == "📋 Reforestation Project Monitoring Dataset":
+    _base = os.path.dirname(os.path.abspath(__file__))
+    REFORESTATION_DATA_PATH = os.path.join(_base, 'data', 'reforestation_projects_1000.csv')
+    MODEL_PATH = os.path.join(_base, 'models', 'project_status_model.pkl')
+    PREPROC_PATH = os.path.join(_base, 'models', 'preprocessor.pkl')
+    LABEL_PATH = os.path.join(_base, 'models', 'label_encoder.pkl')
+    FEATURES_PATH = os.path.join(_base, 'models', 'feature_columns.pkl')
+
+    @st.cache_data
+    def load_reforestation_data():
+        return pd.read_csv(REFORESTATION_DATA_PATH)
+
+    def load_reforestation_artifacts():
+        try:
+            model = joblib.load(MODEL_PATH)
+            preproc = joblib.load(PREPROC_PATH)
+            le = joblib.load(LABEL_PATH)
+            feats = joblib.load(FEATURES_PATH)
+            return model, preproc, le, feats
+        except:
+            return None, None, None, None
+
+    rdf = load_reforestation_data()
+    rf_model_r, rf_preproc, rf_label, rf_features = load_reforestation_artifacts()
+    models_ready = rf_model_r is not None
+
+    if not models_ready:
+        st.error("Models not found. Please run Reforestation_Model.ipynb first to train and save the models.")
+        st.markdown("""```bash\njupyter nbconvert --to notebook --execute Reforestation_Model.ipynb\n```""")
+        st.stop()
+
+    total_projects = len(rdf)
+    success_count = (rdf['Project_Status'] == 'Successful').sum()
+    moderate_count = (rdf['Project_Status'] == 'Moderate').sum()
+    failed_count = (rdf['Project_Status'] == 'Failed').sum()
+    total_seedlings_planted = int(rdf['Planted_Seedlings'].sum())
+    total_funding = int(rdf['Funding_PHP'].sum())
+    total_pest = int(rdf['Pest_Incidents'].sum())
+    total_fire = int(rdf['Fire_Incidents'].sum())
+    avg_survival = rdf['Survival_Rate'].mean()
+
+    color_map = {"Successful": "#2e7d32", "Moderate": "#f39c12", "Failed": "#c62828"}
+    icon_map = {"Successful": "✅", "Moderate": "⚠️", "Failed": "❌"}
+    palette_status = {'Successful': '#2ecc71', 'Moderate': '#f39c12', 'Failed': '#e74c3c'}
+
+    st.markdown("""
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:4px;">
+        <div style="font-size:1.8rem;">📋</div>
+        <div>
+            <h2 style="margin:0; font-size:1.3rem; color:#1b5e20;">Reforestation Project Monitoring Dashboard</h2>
+            <p style="margin:0; color:#6c757d; font-size:0.8rem;">AI-Powered Analysis of Reforestation Project Outcomes</p>
+        </div>
+    </div>
+    <hr style="margin:0.5rem 0; opacity:0.2;">
+    """, unsafe_allow_html=True)
+
+    # ═══════════════════════════════════════════════════════════
+    # 1. KPI CARDS (6)
+    # ═══════════════════════════════════════════════════════════
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    cols = st.columns(6)
+    cols[0].markdown(f"""<div class="metric-card" style="border-left-color:#2e7d32"><div class="label">🌱 Total Projects</div><div class="value">{total_projects}</div></div>""", unsafe_allow_html=True)
+    cols[1].markdown(f"""<div class="metric-card" style="border-left-color:#1565c0"><div class="label">🌳 Seedlings Planted</div><div class="value">{total_seedlings_planted:,}</div></div>""", unsafe_allow_html=True)
+    cols[2].markdown(f"""<div class="metric-card" style="border-left-color:#00897b"><div class="label">📈 Avg Survival Rate</div><div class="value">{avg_survival:.1%}</div></div>""", unsafe_allow_html=True)
+    cols[3].markdown(f"""<div class="metric-card" style="border-left-color:#6a1b9a"><div class="label">💰 Total Funding</div><div class="value">₱{total_funding:,}</div></div>""", unsafe_allow_html=True)
+    cols[4].markdown(f"""<div class="metric-card" style="border-left-color:#d84315"><div class="label">🔥 Fire Incidents</div><div class="value">{total_fire}</div></div>""", unsafe_allow_html=True)
+    cols[5].markdown(f"""<div class="metric-card" style="border-left-color:#f9a825"><div class="label">🐛 Pest Incidents</div><div class="value">{total_pest}</div></div>""", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ═══════════════════════════════════════════════════════════
+    # 2. PROJECT STATUS DISTRIBUTION  +  SURVIVAL BY MUNICIPALITY
+    # ═══════════════════════════════════════════════════════════
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.subheader("📈 Project Status Distribution")
+        fig, ax = plt.subplots(figsize=(7, 4.5))
+        status_counts = rdf['Project_Status'].value_counts()
+        status_colors = [palette_status[s] for s in status_counts.index]
+        wedges, texts, autotexts = ax.pie(
+            status_counts.values, labels=status_counts.index,
+            autopct='%1.1f%%', colors=status_colors,
+            startangle=90, explode=[0.02]*len(status_counts),
+            textprops={'fontweight': 'bold', 'fontsize': 11}
+        )
+        ax.set_title('Project Status Distribution', fontweight='bold', fontsize=13)
+        st.pyplot(fig)
+    with c2:
+        st.subheader("🌱 Survival Rate by Municipality")
+        mun_survival = rdf.groupby('Municipality')['Survival_Rate'].mean().sort_values()
+        fig, ax = plt.subplots(figsize=(8, 5.5))
+        bars = ax.barh(mun_survival.index, mun_survival.values,
+                       color=[palette_status.get('Successful') if v >= 0.6
+                              else palette_status.get('Moderate') if v >= 0.4
+                              else palette_status.get('Failed') for v in mun_survival.values],
+                       edgecolor='white', height=0.7)
+        for bar, val in zip(bars, mun_survival.values):
+            ax.text(bar.get_width() + 0.01, bar.get_y() + bar.get_height()/2,
+                    f'{val:.0%}', va='center', fontweight='bold', fontsize=10)
+        ax.set_xlabel('Survival Rate', fontweight='bold')
+        ax.set_ylabel('')
+        ax.set_title('Average Survival Rate by Municipality', fontweight='bold', fontsize=13)
+        ax.set_xlim(0, 1.05)
+        st.pyplot(fig)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ═══════════════════════════════════════════════════════════
+    # 3. FUNDING vs SURVIVAL  +  RAINFALL vs SURVIVAL
+    # ═══════════════════════════════════════════════════════════
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.subheader("💰 Funding vs Survival Rate")
+        fig, ax = plt.subplots(figsize=(7.5, 4.5))
+        for status, color in [('Successful', '#2ecc71'), ('Moderate', '#f39c12'), ('Failed', '#e74c3c')]:
+            subset = rdf[rdf['Project_Status'] == status]
+            ax.scatter(subset['Funding_PHP'], subset['Survival_Rate'],
+                       alpha=0.4, s=25, color=color, label=status, edgecolors='white', linewidth=0.4)
+        ax.set_xlabel('Funding (PHP)', fontweight='bold')
+        ax.set_ylabel('Survival Rate', fontweight='bold')
+        ax.set_title('Funding vs Survival Rate', fontweight='bold', fontsize=13)
+        ax.legend()
+        st.pyplot(fig)
+    with c2:
+        st.subheader("🌧 Rainfall vs Survival Rate")
+        fig, ax = plt.subplots(figsize=(7.5, 4.5))
+        for status, color in [('Successful', '#2ecc71'), ('Moderate', '#f39c12'), ('Failed', '#e74c3c')]:
+            subset = rdf[rdf['Project_Status'] == status]
+            ax.scatter(subset['Rainfall_mm'], subset['Survival_Rate'],
+                       alpha=0.4, s=25, color=color, label=status, edgecolors='white', linewidth=0.4)
+        ax.set_xlabel('Rainfall (mm)', fontweight='bold')
+        ax.set_ylabel('Survival Rate', fontweight='bold')
+        ax.set_title('Rainfall vs Survival Rate', fontweight='bold', fontsize=13)
+        ax.legend()
+        st.pyplot(fig)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ═══════════════════════════════════════════════════════════
+    # 4. TEMPERATURE vs SURVIVAL  +  MONITORING VISITS vs SURVIVAL
+    # ═══════════════════════════════════════════════════════════
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.subheader("🌡 Temperature vs Survival Rate")
+        fig, ax = plt.subplots(figsize=(7.5, 4.5))
+        for status, color in [('Successful', '#2ecc71'), ('Moderate', '#f39c12'), ('Failed', '#e74c3c')]:
+            subset = rdf[rdf['Project_Status'] == status]
+            ax.scatter(subset['Temperature_C'], subset['Survival_Rate'],
+                       alpha=0.4, s=25, color=color, label=status, edgecolors='white', linewidth=0.4)
+        ax.set_xlabel('Temperature (°C)', fontweight='bold')
+        ax.set_ylabel('Survival Rate', fontweight='bold')
+        ax.set_title('Temperature vs Survival Rate', fontweight='bold', fontsize=13)
+        ax.legend()
+        st.pyplot(fig)
+    with c2:
+        st.subheader("👀 Monitoring Visits vs Survival")
+        fig, ax = plt.subplots(figsize=(7.5, 4.5))
+        for status, color in [('Successful', '#2ecc71'), ('Moderate', '#f39c12'), ('Failed', '#e74c3c')]:
+            subset = rdf[rdf['Project_Status'] == status]
+            ax.scatter(subset['Monitoring_Visits'], subset['Survival_Rate'],
+                       alpha=0.4, s=25, color=color, label=status, edgecolors='white', linewidth=0.4)
+        ax.set_xlabel('Monitoring Visits', fontweight='bold')
+        ax.set_ylabel('Survival Rate', fontweight='bold')
+        ax.set_title('Monitoring Visits vs Survival Rate', fontweight='bold', fontsize=13)
+        ax.legend()
+        st.pyplot(fig)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ═══════════════════════════════════════════════════════════
+    # 5. PEST INCIDENTS  +  FIRE INCIDENTS  (by Municipality)
+    # ═══════════════════════════════════════════════════════════
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.subheader("🐛 Pest Incidents by Municipality")
+        mun_pest = rdf.groupby('Municipality')['Pest_Incidents'].mean().sort_values(ascending=False)
+        fig, ax = plt.subplots(figsize=(8, 5))
+        colors_pest = [palette_status.get('Failed') if v >= 3
+                       else palette_status.get('Moderate') for v in mun_pest.values]
+        ax.barh(range(len(mun_pest)), mun_pest.values, color=colors_pest, edgecolor='white', height=0.7)
+        ax.set_yticks(range(len(mun_pest)))
+        ax.set_yticklabels(mun_pest.index)
+        ax.set_xlabel('Average Pest Incidents', fontweight='bold')
+        ax.set_ylabel('')
+        ax.set_title('Pest Incident Hotspots by Municipality', fontweight='bold', fontsize=13)
+        for i, v in enumerate(mun_pest.values):
+            ax.text(v + 0.1, i, f'{v:.1f}', va='center', fontweight='bold')
+        st.pyplot(fig)
+    with c2:
+        st.subheader("🔥 Fire Incidents by Municipality")
+        mun_fire = rdf.groupby('Municipality')['Fire_Incidents'].mean().sort_values(ascending=False)
+        fig, ax = plt.subplots(figsize=(8, 5))
+        colors_fire = [palette_status.get('Failed') if v >= 1.0
+                       else palette_status.get('Moderate') if v >= 0.5
+                       else palette_status.get('Successful') for v in mun_fire.values]
+        ax.barh(range(len(mun_fire)), mun_fire.values, color=colors_fire, edgecolor='white', height=0.7)
+        ax.set_yticks(range(len(mun_fire)))
+        ax.set_yticklabels(mun_fire.index)
+        ax.set_xlabel('Average Fire Incidents', fontweight='bold')
+        ax.set_ylabel('')
+        ax.set_title('Fire Incident Hotspots by Municipality', fontweight='bold', fontsize=13)
+        for i, v in enumerate(mun_fire.values):
+            ax.text(v + 0.05, i, f'{v:.2f}', va='center', fontweight='bold')
+        st.pyplot(fig)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ═══════════════════════════════════════════════════════════
+    # 6. SOIL TYPE DISTRIBUTION  +  SURVIVAL BY SOIL TYPE
+    # ═══════════════════════════════════════════════════════════
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.subheader("🌍 Soil Type Distribution")
+        soil_counts = rdf['Soil_Type'].value_counts()
+        fig, ax = plt.subplots(figsize=(7, 4.5))
+        soil_colors_pie = ['#4CAF50', '#795548', '#FFC107', '#607D8B', '#9E9E9E'][:len(soil_counts)]
+        wedges, texts, autotexts = ax.pie(
+            soil_counts.values, labels=soil_counts.index,
+            autopct='%1.1f%%', colors=soil_colors_pie,
+            startangle=90, explode=[0.02]*len(soil_counts),
+            textprops={'fontweight': 'bold'}
+        )
+        ax.set_title('Soil Type Distribution', fontweight='bold', fontsize=13)
+        st.pyplot(fig)
+    with c2:
+        st.subheader("🌿 Survival Rate by Soil Type")
+        fig, ax = plt.subplots(figsize=(8, 4.5))
+        order = rdf.groupby('Soil_Type')['Survival_Rate'].mean().sort_values(ascending=False).index
+        sns.boxplot(data=rdf, x='Soil_Type', y='Survival_Rate', order=order, ax=ax,
+                    palette='Set2', hue='Soil_Type', legend=False, width=0.5)
+        ax.set_xlabel('')
+        ax.set_ylabel('Survival Rate', fontweight='bold')
+        ax.set_title('Survival Rate Distribution by Soil Type', fontweight='bold', fontsize=13)
+        means = rdf.groupby('Soil_Type')['Survival_Rate'].mean()
+        for i, soil in enumerate(order):
+            ax.text(i, means[soil] + 0.02, f'{means[soil]:.0%}',
+                    ha='center', va='bottom', fontweight='bold', fontsize=11)
+        st.pyplot(fig)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ═══════════════════════════════════════════════════════════
+    # 7. YEARLY PERFORMANCE  +  TARGET vs PLANTED (grouped bar)
+    # ═══════════════════════════════════════════════════════════
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.subheader("📅 Yearly Performance Trend")
+        yearly = rdf.groupby('Year')['Survival_Rate'].mean().reset_index()
+        fig, ax = plt.subplots(figsize=(7.5, 4.5))
+        ax.plot(yearly['Year'], yearly['Survival_Rate'], marker='o', linewidth=2.5,
+                color='#2e7d32', markersize=8, markerfacecolor='white', markeredgewidth=2)
+        ax.fill_between(yearly['Year'], yearly['Survival_Rate'], alpha=0.15, color='#2e7d32')
+        for _, row in yearly.iterrows():
+            ax.text(row['Year'], row['Survival_Rate'] + 0.02, f'{row["Survival_Rate"]:.0%}',
+                    ha='center', fontweight='bold', fontsize=9)
+        ax.set_xlabel('Year', fontweight='bold')
+        ax.set_ylabel('Average Survival Rate', fontweight='bold')
+        ax.set_title('Yearly Reforestation Performance Trend', fontweight='bold', fontsize=13)
+        ax.set_xticks(yearly['Year'])
+        ax.set_ylim(0, 1)
+        st.pyplot(fig)
+    with c2:
+        st.subheader("🌳 Target vs Planted Seedlings")
+        mun_seedlings = rdf.groupby('Municipality')[['Target_Seedlings', 'Planted_Seedlings']].mean()
+        mun_seedlings = mun_seedlings.sort_values('Target_Seedlings', ascending=False).head(10)
+        fig, ax = plt.subplots(figsize=(8, 5))
+        x = np.arange(len(mun_seedlings))
+        w = 0.35
+        bars1 = ax.bar(x - w/2, mun_seedlings['Target_Seedlings'], w, label='Target',
+                       color='#43a047', edgecolor='white')
+        bars2 = ax.bar(x + w/2, mun_seedlings['Planted_Seedlings'], w, label='Planted',
+                       color='#66bb6a', edgecolor='white')
+        ax.set_xlabel('')
+        ax.set_ylabel('Number of Seedlings', fontweight='bold')
+        ax.set_title('Target vs Planted Seedlings (Top 10)', fontweight='bold', fontsize=13)
+        ax.set_xticks(x)
+        ax.set_xticklabels(mun_seedlings.index, rotation=45, ha='right')
+        ax.legend()
+        st.pyplot(fig)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ═══════════════════════════════════════════════════════════
+    # 8. FEATURE IMPORTANCE
+    # ═══════════════════════════════════════════════════════════
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("📊 Feature Importance (Random Forest)")
+    st.markdown("Key variables driving project status predictions, ranked by impact.")
+    with st.spinner("Computing feature importance..."):
+        try:
+            from sklearn.ensemble import RandomForestClassifier
+            from sklearn.preprocessing import LabelEncoder
+            _rdf_imp = rdf.drop(columns=['Project_ID']).copy()
+            _le_mun = LabelEncoder()
+            _le_soil = LabelEncoder()
+            _rdf_imp['Municipality'] = _le_mun.fit_transform(_rdf_imp['Municipality'])
+            _rdf_imp['Soil_Type'] = _le_soil.fit_transform(_rdf_imp['Soil_Type'])
+            _le_target = LabelEncoder()
+            _y_imp = _le_target.fit_transform(_rdf_imp['Project_Status'])
+            _X_imp = _rdf_imp.drop(columns=['Project_Status'])
+            _rf_imp = RandomForestClassifier(n_estimators=200, random_state=42, n_jobs=-1)
+            _rf_imp.fit(_X_imp, _y_imp)
+            _importances = _rf_imp.feature_importances_
+            _feat_names = _X_imp.columns.tolist()
+            _sorted_idx = np.argsort(_importances)[::-1]
+            fig, ax = plt.subplots(figsize=(10, 5.5))
+            _top_n = min(12, len(_feat_names))
+            _top_feats = [_feat_names[i] for i in _sorted_idx[:_top_n]][::-1]
+            _top_vals = [_importances[i] for i in _sorted_idx[:_top_n]][::-1]
+            _imp_colors = plt.cm.Greens(np.linspace(0.35, 0.85, _top_n))
+            bars = ax.barh(range(_top_n), _top_vals, color=_imp_colors, edgecolor='white', height=0.65)
+            for i, (bar, val) in enumerate(zip(bars, _top_vals)):
+                ax.text(bar.get_width() + 0.005, i, f'{val:.1%}',
+                        va='center', fontweight='bold', fontsize=10)
+            ax.set_yticks(range(_top_n))
+            ax.set_yticklabels(_top_feats, fontsize=10)
+            ax.set_xlabel('Importance Score', fontweight='bold')
+            ax.set_title('Feature Importance — Top Factors Affecting Project Status', fontweight='bold', fontsize=13)
+            ax.set_xlim(0, max(_top_vals) * 1.25)
+            st.pyplot(fig)
+        except Exception as _e:
+            st.info(f"Feature importance unavailable: {_e}")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ═══════════════════════════════════════════════════════════
+    # 9. AI PREDICTION FORM
+    # ═══════════════════════════════════════════════════════════
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("🔮 Predict Project Status")
+    st.markdown("Enter project details to predict the outcome using machine learning.")
+    col1, col2 = st.columns(2)
+    with col1:
+        municipality = st.selectbox("Municipality", rdf['Municipality'].unique(), key='rf_mun')
+        target_seedlings = st.number_input("Target Seedlings", 500, 20000, 5000, key='rf_ts')
+        planted_seedlings = st.number_input("Planted Seedlings", 0, 20000, 4500, key='rf_ps')
+        survival_rate = st.slider("Survival Rate", 0.0, 1.0, 0.65, 0.01, key='rf_sr')
+        funding = st.number_input("Funding (PHP)", 30000, 3000000, 500000, key='rf_fund')
+    with col2:
+        rainfall = st.slider("Rainfall (mm)", 300, 5000, 2500, key='rf_rain')
+        temperature = st.slider("Temperature (°C)", 20.0, 38.0, 28.0, 0.5, key='rf_temp')
+        monitoring = st.slider("Monitoring Visits", 0, 30, 5, key='rf_mon')
+        soil_type = st.selectbox("Soil Type", rdf['Soil_Type'].unique(), key='rf_soil')
+        pest = st.slider("Pest Incidents", 0, 15, 2, key='rf_pest')
+        fire = st.slider("Fire Incidents", 0, 10, 0, key='rf_fire')
+
+    ml_model_choice = st.selectbox(
+        "Choose ML Model",
+        ["Decision Tree", "Random Forest", "Gradient Boosting", "KNN", "Logistic Regression"],
+        key='rf_ml_choice'
+    )
+
+    if st.button("Predict Project Status", type="primary", key='rf_predict'):
+        inp_df = pd.DataFrame([[
+            2025, municipality, target_seedlings, planted_seedlings, survival_rate,
+            funding, rainfall, temperature, monitoring, soil_type, pest, fire
+        ]], columns=rf_features)
+
+        from sklearn.tree import DecisionTreeClassifier
+        from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+        from sklearn.neighbors import KNeighborsClassifier
+        from sklearn.linear_model import LogisticRegression
+        from sklearn.pipeline import Pipeline
+
+        model_classes = {
+            "Decision Tree": DecisionTreeClassifier(random_state=42),
+            "Random Forest": RandomForestClassifier(n_estimators=200, max_depth=12, random_state=42, n_jobs=-1),
+            "Gradient Boosting": GradientBoostingClassifier(n_estimators=200, max_depth=5, random_state=42),
+            "KNN": KNeighborsClassifier(n_neighbors=5),
+            "Logistic Regression": LogisticRegression(max_iter=2000, random_state=42)
+        }
+        temp_pipeline = Pipeline([
+            ('preprocessor', rf_preproc),
+            ('classifier', model_classes[ml_model_choice])
+        ])
+        rdf_X = rdf.drop(columns=['Project_ID', 'Project_Status'])
+        rdf_y = rf_label.transform(rdf['Project_Status'])
+        temp_pipeline.fit(rdf_X, rdf_y)
+
+        pred_encoded = temp_pipeline.predict(inp_df)[0]
+        pred_label = rf_label.inverse_transform([pred_encoded])[0]
+        proba = temp_pipeline.predict_proba(inp_df)[0]
+        confidence = float(max(proba))
+
+        pc = color_map.get(pred_label, "#666")
+        pi = icon_map.get(pred_label, "❓")
+
+        st.markdown("---")
+        st.subheader("🧠 AI Prediction Result")
+        c1, c2, c3 = st.columns(3)
+        c1.markdown(f"""<div class="metric-card" style="border-left-color:{pc}"><div class="label">Predicted Status</div><div class="value">{pi} {pred_label}</div></div>""", unsafe_allow_html=True)
+        c2.markdown(f"""<div class="metric-card" style="border-left-color:#1976d2"><div class="label">Confidence</div><div class="value">{confidence:.1%}</div></div>""", unsafe_allow_html=True)
+        c3.markdown(f"""<div class="metric-card" style="border-left-color:{pc}"><div class="label">Model Used</div><div class="value">{ml_model_choice}</div></div>""", unsafe_allow_html=True)
+        st.progress(float(confidence))
+
+        with st.expander("Class Probabilities"):
+            for i, cls in enumerate(rf_label.classes_):
+                pct = proba[i]
+                cls_color = color_map.get(cls, "#666")
+                st.markdown(f"""<div style="display:flex; align-items:center; gap:8px; margin:4px 0;">
+                    <span style="width:100px; font-weight:600; color:{cls_color};">{cls}</span>
+                    <div style="flex:1; height:20px; background:#e9ecef; border-radius:10px; overflow:hidden;">
+                        <div style="height:100%; width:{pct:.1%}; background:{cls_color}; border-radius:10px;"></div>
+                    </div>
+                    <span style="width:50px; text-align:right; font-weight:600;">{pct:.1%}</span>
+                </div>""", unsafe_allow_html=True)
+
+        _pred_gauge = confidence if pred_label == "Successful" else (1 - confidence) if pred_label == "Failed" else confidence * 0.5 + 0.25
+        show_ai_analysis(
+            f"You are a reforestation project analyst. A project in {municipality} with target_seedlings={target_seedlings}, planted_seedlings={planted_seedlings}, survival_rate={survival_rate:.2f}, funding={funding} PHP, rainfall={rainfall}mm, temperature={temperature:.1f}°C, monitoring_visits={monitoring}, soil_type={soil_type}, pest_incidents={pest}, fire_incidents={fire} was predicted as **{pred_label}** with {confidence:.1%} confidence using {ml_model_choice}."
+            "\n\nExplain the key factors that influenced this prediction. Discuss what went well or what went wrong, and provide actionable recommendations for improving future project outcomes in this municipality.",
+            "reforestation_pred",
+            gauge_label="Project Success Score", gauge_value=_pred_gauge, gauge_color=pc
+        )
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ═══════════════════════════════════════════════════════════
+    # 10. AI PROJECT SUMMARIZATION
+    # ═══════════════════════════════════════════════════════════
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("🤖 AI Project Summarization")
+    ai_model_rf = st.selectbox("Select AI Model for Summary", AI_MODELS, key='rf_ai_model')
+
+    _mun_perf = rdf.groupby('Municipality').agg(
+        Total_Projects=('Project_ID', 'count'),
+        Success_Rate=('Project_Status', lambda x: (x == 'Successful').mean()),
+        Avg_Survival=('Survival_Rate', 'mean')
+    ).reset_index().sort_values('Success_Rate', ascending=False)
+    _best_mun = _mun_perf.iloc[0]
+    _worst_mun = _mun_perf.iloc[-1]
+
+    summary_prompt = (
+        f"You are a reforestation project monitoring expert for DENR Philippines. "
+        f"Generate a comprehensive natural language summary of the reforestation project portfolio based on this data:\n\n"
+        f"- Total projects analyzed: {total_projects}\n"
+        f"- Municipalities covered: {rdf['Municipality'].nunique()}\n"
+        f"- Project status breakdown: {success_count} Successful ({success_count/total_projects:.1%}), "
+        f"{moderate_count} Moderate ({moderate_count/total_projects:.1%}), "
+        f"{failed_count} Failed ({failed_count/total_projects:.1%})\n"
+        f"- Average survival rate across all projects: {avg_survival:.2%}\n"
+        f"- Total seedlings planted: {total_seedlings_planted:,}\n"
+        f"- Average funding per project: ₱{rdf['Funding_PHP'].mean():,.0f}\n"
+        f"- Average monitoring visits: {rdf['Monitoring_Visits'].mean():.1f}\n"
+        f"- Average pest incidents: {rdf['Pest_Incidents'].mean():.1f}\n"
+        f"- Average fire incidents: {rdf['Fire_Incidents'].mean():.2f}\n"
+        f"- Best performing municipality: {_best_mun['Municipality']} ({_best_mun['Success_Rate']:.1%} success)\n"
+        f"- Lowest performing municipality: {_worst_mun['Municipality']} ({_worst_mun['Success_Rate']:.1%} success)\n\n"
+        f"Write in a professional report style. Include:\n"
+        f"1. Executive summary of overall project health\n"
+        f"2. Key factors driving success (high survival rate, adequate funding, monitoring, etc.)\n"
+        f"3. Key risk factors leading to failure (pest outbreaks, fire incidents, low funding, etc.)\n"
+        f"4. Municipal-level comparisons and insights\n"
+        f"5. Specific actionable recommendations for DENR to improve reforestation project outcomes\n\n"
+        f"Conclude with a 'SUMMARY ASSESSMENT' section stating whether the overall reforestation program is on track."
+    )
+
+    if st.button("Generate AI Project Summary", type="primary", key='rf_summary'):
+        with st.spinner("Generating comprehensive project summary with AI..."):
+            summary = cached_ollama(summary_prompt, ai_model_rf)
+        if summary:
+            st.markdown("---")
+            st.markdown(summary)
+        else:
+            st.info("AI summary unavailable. Ensure Ollama is running.")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ═══════════════════════════════════════════════════════════
+    # 11. GIS PRIORITY MAP
+    # ═══════════════════════════════════════════════════════════
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("🗺 GIS Priority Map")
+    st.markdown("Municipality-level project status overview.")
+    _municipality_coords = {
+        "Bunawan": (8.239, 125.990), "Talacogon": (8.456, 125.784),
+        "San Francisco": (8.505, 125.975), "Lianga": (8.633, 126.094),
+        "Rosario": (8.380, 126.000), "Bislig": (8.215, 126.316),
+        "Trento": (8.046, 126.063), "Veruela": (8.073, 125.956),
+        "Loreto": (8.187, 125.853), "Lanuza": (9.234, 126.058),
+        "Cortes": (9.276, 126.191), "Cagwait": (8.918, 126.302),
+        "Barobo": (8.578, 126.204), "Hinatuan": (8.371, 126.338),
+        "Lingig": (8.038, 126.412)
+    }
+    _mun_gis = rdf.groupby('Municipality').agg(
+        Total=('Project_ID', 'count'),
+        Status=('Project_Status', lambda x: x.mode().iloc[0] if not x.mode().empty else 'Moderate'),
+        Survival=('Survival_Rate', 'mean')
+    ).reset_index()
+    _mun_gis['Lat'] = _mun_gis['Municipality'].map(lambda m: _municipality_coords.get(m, (8.5, 126.0))[0])
+    _mun_gis['Lon'] = _mun_gis['Municipality'].map(lambda m: _municipality_coords.get(m, (8.5, 126.0))[1])
+    _center_lat = _mun_gis['Lat'].mean()
+    _center_lon = _mun_gis['Lon'].mean()
+
+    _m = folium.Map(location=[_center_lat, _center_lon], zoom_start=9,
+                    tiles='CartoDB Positron', control_scale=True)
+    for _, _r in _mun_gis.iterrows():
+        _c = color_map.get(_r['Status'], '#999')
+        folium.CircleMarker(
+            location=[_r['Lat'], _r['Lon']],
+            radius=8 + _r['Total'] * 0.3, color=_c, fill=True,
+            fill_color=_c, fill_opacity=0.7, weight=2,
+            popup=folium.Popup(
+                f"<b>{_r['Municipality']}</b><br>"
+                f"Status: {_r['Status']}<br>"
+                f"Projects: {int(_r['Total'])}<br>"
+                f"Avg Survival: {_r['Survival']:.1%}<br>"
+                f"<span style='color:{_c}; font-weight:bold;'>● {_r['Status']}</span>",
+                max_width=250)
+        ).add_to(_m)
+    st_folium(_m, use_container_width=True, height=420)
+    st.markdown("""
+    <div style="display:flex; gap:1.5rem; font-size:0.8rem; justify-content:center; margin-bottom:0.5rem;">
+        <span><span style="color:#2e7d32;font-weight:bold;">●</span> Successful</span>
+        <span><span style="color:#f39c12;font-weight:bold;">●</span> Moderate</span>
+        <span><span style="color:#c62828;font-weight:bold;">●</span> Failed</span>
+        <span>Marker size = number of projects</span>
+    </div>""", unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ═══════════════════════════════════════════════════════════
+    # 12. PROJECT DETAILS TABLE
+    # ═══════════════════════════════════════════════════════════
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.subheader("📋 Project Details Table")
+    st.markdown("Search and filter individual project records.")
+    _filter_status = st.multiselect("Filter by Status", ["Successful", "Moderate", "Failed"],
+                                     default=["Successful", "Moderate", "Failed"])
+    _filter_soil = st.multiselect("Filter by Soil Type", rdf['Soil_Type'].unique().tolist(),
+                                   default=rdf['Soil_Type'].unique().tolist())
+    _search = st.text_input("Search by Municipality or Project ID", placeholder="Type to search...")
+    _df_display = rdf[rdf['Project_Status'].isin(_filter_status) & rdf['Soil_Type'].isin(_filter_soil)]
+    if _search:
+        _df_display = _df_display[
+            _df_display['Municipality'].str.contains(_search, case=False, na=False) |
+            _df_display['Project_ID'].str.contains(_search, case=False, na=False)
+        ]
+    st.dataframe(_df_display.style.map(
+        lambda s: f'background-color: {color_map.get(s, "")}20; color: {color_map.get(s, "#000")}; font-weight: bold;'
+        if s in color_map else '', subset=['Project_Status']
+    ), use_container_width=True, height=350)
+    st.markdown(f"**Showing {len(_df_display)} of {total_projects} projects**")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    st.caption("Powered by Machine Learning • Reforestation Project Monitoring System v1.0")
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("""
