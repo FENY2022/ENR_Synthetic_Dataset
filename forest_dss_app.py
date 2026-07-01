@@ -151,6 +151,12 @@ def cached_ollama(prompt, model):
     return ask_ollama(prompt, model)
 
 AI_MODELS = ["phi3:latest", "qwen3:4b", "tinyllama:latest", "deepseek-r1:8b", "qwen2.5-coder:7b"]
+AI_REGION_CONTEXT = (
+    "You are a forestry AI expert for DENR Caraga, Region XIII, Philippines. "
+    "Limit all analysis, assumptions, examples, and recommendations to the Caraga Region only, "
+    "including Agusan del Norte, Agusan del Sur, Surigao del Norte, Surigao del Sur, "
+    "and Dinagat Islands. Do not generalize to other Philippine regions unless explicitly asked."
+)
 
 # ── Sidebar AI Section ──
 st.sidebar.markdown("---")
@@ -160,7 +166,7 @@ ai_model = st.sidebar.selectbox("Model", AI_MODELS, index=0, key="ai_model", lab
 ai_question = st.sidebar.text_input("Ask anything about the forest data...", placeholder="e.g. What actions improve survival?")
 if ai_question:
     with st.spinner("Thinking..."):
-        ans = cached_ollama(f"You are a forestry AI expert. Answer concisely: {ai_question}", ai_model)
+        ans = cached_ollama(f"{AI_REGION_CONTEXT}\n\nAnswer concisely: {ai_question}", ai_model)
     if ans:
         st.sidebar.info(ans)
     else:
@@ -190,13 +196,13 @@ def recommendation_gauge(label, value, sublabel="", color="#2e7d32"):
     return fig
 
 def show_ai_analysis(prompt, key_suffix="", gauge_label=None, gauge_value=None, gauge_color="#2e7d32"):
-    full_prompt = prompt + (
+    full_prompt = AI_REGION_CONTEXT + "\n\n" + prompt + (
         "\n\nConclude your response with '**Therefore, I recommend:**' followed by a clear ACTIONABLE RECOMMENDATION section with:"
         "\n1. NEXT STEPS — list the specific tasks that should be done immediately, in order."
         "\n2. MATERIALS NEEDED — list the tools, equipment, supplies, or resources required."
         "\n3. WHO SHOULD ACT — specify which DENR office, personnel, or stakeholder should take action."
         "\n4. TIMEFRAME — urgent (within days), short-term (weeks), or long-term (months)."
-        "\nBe specific and practical for Philippine DENR field operations."
+        "\nBe specific and practical for DENR Caraga field operations."
     )
     with st.expander("🤖 AI Analysis & Recommendations", expanded=False):
         if gauge_label is not None and gauge_value is not None:
@@ -258,7 +264,7 @@ if page == "📊 Data Overview":
         with tab2:
             st.dataframe(df.describe(), use_container_width=True)
 
-    show_ai_analysis(f"You are a forestry AI expert. Analyze this Philippine forest inventory dataset: {ai_context['total_trees']} trees, {ai_context['species_count']} species, across {ai_context['municipalities']} municipalities. Survival rate: {ai_context['survival_rate']} ({ai_context['alive']} alive, {ai_context['dead']} dead). Explain key patterns in survival by species and soil type, and give management recommendations for DENR.", "data",
+    show_ai_analysis(f"Analyze this Caraga Region forest inventory dataset: {ai_context['total_trees']} trees, {ai_context['species_count']} species, across {ai_context['municipalities']} municipalities. Survival rate: {ai_context['survival_rate']} ({ai_context['alive']} alive, {ai_context['dead']} dead). Explain key patterns in survival by species and soil type, and give management recommendations for DENR Caraga.", "data",
         gauge_label="Overall Survival Rate", gauge_value=surv_rate, gauge_color="#2e7d32" if surv_rate >= 0.7 else "#f57f17" if surv_rate >= 0.5 else "#c62828")
 
 # ── 2. SURVIVAL PREDICTION ──
@@ -313,7 +319,7 @@ elif page == "🌱 Survival Prediction":
         """, unsafe_allow_html=True)
         st.progress(float(prob))
 
-        show_ai_analysis(f"You are a forestry AI expert. A {species} tree ({age} yrs, {height:.1f}m tall, {diameter:.1f}cm diameter) in {barangay}, {municipality} on {soil} soil was predicted {'Alive' if pred else 'Dead'} with {prob:.1%} probability. Explain the likely factors influencing this prediction and recommend management actions.", "survival",
+        show_ai_analysis(f"A {species} tree ({age} yrs, {height:.1f}m tall, {diameter:.1f}cm diameter) in {barangay}, {municipality}, Caraga Region, on {soil} soil was predicted {'Alive' if pred else 'Dead'} with {prob:.1%} probability. Explain the likely factors influencing this prediction and recommend management actions for DENR Caraga.", "survival",
             gauge_label="Survival Probability", gauge_value=prob, gauge_color="#2e7d32" if prob >= 0.7 else "#f57f17" if prob >= 0.5 else "#c62828")
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -392,7 +398,7 @@ elif page == "⚠️ Mortality Risk":
         else:
             st.error(desc)
 
-        show_ai_analysis(f"You are a forestry AI expert. A {species} tree ({age} yrs, {height:.1f}m tall, {diameter:.1f}cm diameter) in {municipality} on {soil} soil has {label} mortality risk ({prob_dead:.1f}% death probability). Explain the risk factors and recommend specific interventions for DENR.", "mortality",
+        show_ai_analysis(f"A {species} tree ({age} yrs, {height:.1f}m tall, {diameter:.1f}cm diameter) in {municipality}, Caraga Region, on {soil} soil has {label} mortality risk ({prob_dead:.1f}% death probability). Explain the risk factors and recommend specific interventions for DENR Caraga.", "mortality",
             gauge_label="Safety Score (1 - Death Risk)", gauge_value=1-prob_dead, gauge_color="#2e7d32" if prob_dead < 0.25 else "#f57f17" if prob_dead < 0.5 else "#c62828")
 
 # ── 4. SPECIES RECOMMENDATION ──
@@ -442,7 +448,7 @@ elif page == "🌿 Species Recommendation":
             ax.set_ylabel('')
             st.pyplot(fig)
 
-        show_ai_analysis(f"You are a forestry AI expert. For {soil_type} soil in {municipality}, the top recommended species is {best} with {stats.loc[best, 'Survival_Rate']:.1%} survival rate. Explain why this species thrives in these conditions and give reforestation advice for DENR.", "species_rec",
+        show_ai_analysis(f"For {soil_type} soil in {municipality}, Caraga Region, the top recommended species is {best} with {stats.loc[best, 'Survival_Rate']:.1%} survival rate. Explain why this species thrives in these conditions and give reforestation advice for DENR Caraga.", "species_rec",
             gauge_label=f"Best Species: {best}", gauge_value=stats.loc[best, 'Survival_Rate'], gauge_color="#2e7d32")
 
 # ── 5. GROWTH PREDICTION ──
@@ -522,7 +528,7 @@ elif page == "📈 Growth Prediction":
 
             st.pyplot(fig)
 
-        show_ai_analysis(f"You are a forestry AI expert. A {species} tree on {soil} soil at age {current_age} is predicted to reach {pred_h:.1f}m height and {pred_d:.1f}cm diameter by age {future_age}. Explain the growth pattern and recommend optimal management timing for DENR.", "growth",
+        show_ai_analysis(f"A {species} tree on {soil} soil in the Caraga Region at age {current_age} is predicted to reach {pred_h:.1f}m height and {pred_d:.1f}cm diameter by age {future_age}. Explain the growth pattern and recommend optimal management timing for DENR Caraga.", "growth",
             gauge_label="Height Growth Rate", gauge_value=min((pred_h-cur_h)/cur_h, 1) if cur_h > 0 else 0, gauge_color="#2e7d32")
 
 # ── 6. CARBON STORAGE ──
@@ -589,7 +595,7 @@ elif page == "🌳 Carbon Storage":
             *D = diameter at breast height (cm), H = height (m)*
             """)
 
-        show_ai_analysis(f"You are a forestry AI expert. A {species} tree with {diameter}cm diameter and {height}m height stores approximately {carbon_t:.2f} tonnes of above-ground carbon ({co2_eq:.2f} tonnes CO₂e). Explain the importance of this species for carbon sequestration and climate change mitigation in the Philippines.", "carbon",
+        show_ai_analysis(f"A {species} tree in the Caraga Region with {diameter}cm diameter and {height}m height stores approximately {carbon_t:.2f} tonnes of above-ground carbon ({co2_eq:.2f} tonnes CO₂e). Explain the importance of this species for carbon sequestration and climate change mitigation in Caraga.", "carbon",
             gauge_label="Carbon Sequestration Potential", gauge_value=min(carbon_t / 0.5, 1), gauge_color="#1565c0")
 
 # ── 7. TIMBER VOLUME ──
@@ -639,7 +645,7 @@ elif page == "📦 Timber Volume":
             1 m³ ≈ 423.78 board feet
             """)
 
-        show_ai_analysis(f"You are a forestry AI expert. A {species} tree with {diameter}cm DBH and {height}m height yields approximately {volume_m3:.3f} m³ ({bd_ft:,.0f} board feet) of timber. Explain the economic value and sustainable harvesting considerations for DENR.", "timber",
+        show_ai_analysis(f"A {species} tree in the Caraga Region with {diameter}cm DBH and {height}m height yields approximately {volume_m3:.3f} m³ ({bd_ft:,.0f} board feet) of timber. Explain the economic value and sustainable harvesting considerations for DENR Caraga.", "timber",
             gauge_label="Timber Volume Utilization", gauge_value=min(volume_m3 / 3.0, 1), gauge_color="#5d4037")
 
 # ── 8. GIS PRIORITY MAPPING ──
@@ -784,7 +790,7 @@ elif page == "🗺️ GIS Priority Mapping":
     top_areas = agg.sort_values('Priority_Score', ascending=False).head(5)
     top_list = "; ".join([f"{r['Barangay']}, {r['Municipality']} (Score: {r['Priority_Score']:.2f})" for _, r in top_areas.iterrows()])
     avg_priority = agg['Priority_Score'].mean()
-    show_ai_analysis(f"You are a forestry AI expert based in the Philippines. Based on priority mapping analysis, the top areas needing reforestation are: {top_list}. Explain why these areas score high and recommend targeted interventions for DENR.", "gis",
+    show_ai_analysis(f"Based on Caraga Region priority mapping analysis, the top areas needing reforestation are: {top_list}. Explain why these areas score high and recommend targeted interventions for DENR Caraga.", "gis",
         gauge_label="Average Priority Score", gauge_value=avg_priority, gauge_color="#c62828" if avg_priority > 0.5 else "#f57f17" if avg_priority > 0.33 else "#2e7d32")
 
 # ── 9. NEWS REPORT SUMMARY ──
@@ -909,9 +915,9 @@ elif page == "📰 News Report Summary":
     def fetch_live_news():
         import feedparser, time, re, urllib.request
         sources = [
-            "https://news.google.com/rss/search?q=forestry+Philippines+DENR&hl=en-PH&gl=PH&ceid=PH:en",
-            "https://news.google.com/rss/search?q=reforestation+environment+Philippines&hl=en-PH&gl=PH&ceid=PH:en",
-            "https://news.google.com/rss/search?q=climate+change+forest+conservation+Philippines&hl=en-PH&gl=PH&ceid=PH:en",
+            "https://news.google.com/rss/search?q=forestry+Caraga+DENR&hl=en-PH&gl=PH&ceid=PH:en",
+            "https://news.google.com/rss/search?q=reforestation+Caraga+environment&hl=en-PH&gl=PH&ceid=PH:en",
+            "https://news.google.com/rss/search?q=climate+change+forest+conservation+Caraga&hl=en-PH&gl=PH&ceid=PH:en",
         ]
         seen_titles = set()
         entries = []
@@ -976,7 +982,7 @@ elif page == "📰 News Report Summary":
         st.info("Live news feed unavailable at this time.")
     st.markdown('</div>', unsafe_allow_html=True)
 
-    show_ai_analysis(f"You are a forestry AI expert for DENR Philippines. Summarize this forest health report: {total} trees across {df['Municipality'].nunique()} municipalities. Survival rate: {survival_rate:.1%}. Best municipality: {best_mun['Municipality']} ({best_mun['Survival_Rate']:.1%}), worst: {worst_mun['Municipality']} ({worst_mun['Survival_Rate']:.1%}). Best species: {best_sp} ({sp_stats.loc[best_sp, 'Survival_Rate']:.1%}), weakest: {worst_sp} ({sp_stats.loc[worst_sp, 'Survival_Rate']:.1%}). Best soil: {best_soil}. Give executive recommendations for DENR action.", "news",
+    show_ai_analysis(f"Summarize this Caraga Region forest health report: {total} trees across {df['Municipality'].nunique()} municipalities. Survival rate: {survival_rate:.1%}. Best municipality: {best_mun['Municipality']} ({best_mun['Survival_Rate']:.1%}), worst: {worst_mun['Municipality']} ({worst_mun['Survival_Rate']:.1%}). Best species: {best_sp} ({sp_stats.loc[best_sp, 'Survival_Rate']:.1%}), weakest: {worst_sp} ({sp_stats.loc[worst_sp, 'Survival_Rate']:.1%}). Best soil: {best_soil}. Give executive recommendations for DENR Caraga action.", "news",
         gauge_label="Overall Forest Health Score", gauge_value=survival_rate, gauge_color="#2e7d32" if survival_rate >= 0.7 else "#f57f17" if survival_rate >= 0.5 else "#c62828")
 
     st.caption("Report generated from forest inventory data • For DENR decision support")
@@ -1389,7 +1395,7 @@ elif page == "📋 Reforestation Project Monitoring Dataset":
 
         _pred_gauge = confidence if pred_label == "Successful" else (1 - confidence) if pred_label == "Failed" else confidence * 0.5 + 0.25
         show_ai_analysis(
-            f"You are a reforestation project analyst. A project in {municipality} with survival_rate={survival_rate:.2f}, funding={funding} PHP, rainfall={rainfall}mm, temperature={temperature:.1f}°C, monitoring_visits={monitoring}, soil_type={soil_type}, pest_incidents={pest}, fire_incidents={fire} was predicted as **{pred_label}** with {confidence:.1%} confidence using {ml_model_choice}."
+            f"A reforestation project in {municipality}, Caraga Region, with survival_rate={survival_rate:.2f}, funding={funding} PHP, rainfall={rainfall}mm, temperature={temperature:.1f}°C, monitoring_visits={monitoring}, soil_type={soil_type}, pest_incidents={pest}, fire_incidents={fire} was predicted as **{pred_label}** with {confidence:.1%} confidence using {ml_model_choice}."
             "\n\nExplain the key factors that influenced this prediction. Discuss what went well or what went wrong, and provide actionable recommendations for improving future project outcomes in this municipality.",
             "reforestation_pred",
             gauge_label="Project Success Score", gauge_value=_pred_gauge, gauge_color=pc
@@ -1412,8 +1418,8 @@ elif page == "📋 Reforestation Project Monitoring Dataset":
     _worst_mun = _mun_perf.iloc[-1]
 
     summary_prompt = (
-        f"You are a reforestation project monitoring expert for DENR Philippines. "
-        f"Generate a comprehensive natural language summary of the reforestation project portfolio based on this data:\n\n"
+        f"{AI_REGION_CONTEXT}\n\n"
+        f"Generate a comprehensive natural language summary of the Caraga Region reforestation project portfolio based on this data:\n\n"
         f"- Total projects analyzed: {total_projects}\n"
         f"- Municipalities covered: {rdf['Municipality'].nunique()}\n"
         f"- Project status breakdown: {success_count} Successful ({success_count/total_projects:.1%}), "
@@ -1432,7 +1438,7 @@ elif page == "📋 Reforestation Project Monitoring Dataset":
         f"2. Key factors driving success (high survival rate, adequate funding, monitoring, etc.)\n"
         f"3. Key risk factors leading to failure (pest outbreaks, fire incidents, low funding, etc.)\n"
         f"4. Municipal-level comparisons and insights\n"
-        f"5. Specific actionable recommendations for DENR to improve reforestation project outcomes\n\n"
+        f"5. Specific actionable recommendations for DENR Caraga to improve reforestation project outcomes\n\n"
         f"Conclude with a 'SUMMARY ASSESSMENT' section stating whether the overall reforestation program is on track."
     )
 
