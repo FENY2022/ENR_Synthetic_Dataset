@@ -64,7 +64,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-DATA_PATH = 'forest_inventory_dataset_1000 - forest_inventory_dataset_1000.csv'
+DATA_PATH = os.path.join(os.path.dirname(__file__), 'data', 'forest_inventory_dataset_1000 - forest_inventory_dataset_1000.csv')
 
 @st.cache_data
 def load_data():
