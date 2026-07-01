@@ -1314,8 +1314,6 @@ elif page == "📋 Reforestation Project Monitoring Dataset":
     col1, col2 = st.columns(2)
     with col1:
         municipality = st.selectbox("Municipality", rdf['Municipality'].unique(), key='rf_mun')
-        target_seedlings = st.number_input("Target Seedlings", 500, 20000, 5000, key='rf_ts')
-        planted_seedlings = st.number_input("Planted Seedlings", 0, 20000, 4500, key='rf_ps')
         survival_rate = st.slider("Survival Rate", 0.0, 1.0, 0.65, 0.01, key='rf_sr')
         funding = st.number_input("Funding (PHP)", 30000, 3000000, 500000, key='rf_fund')
     with col2:
@@ -1333,6 +1331,8 @@ elif page == "📋 Reforestation Project Monitoring Dataset":
     )
 
     if st.button("Predict Project Status", type="primary", key='rf_predict'):
+        target_seedlings = int(rdf['Target_Seedlings'].median())
+        planted_seedlings = int(rdf['Planted_Seedlings'].median())
         inp_df = pd.DataFrame([[
             2025, municipality, target_seedlings, planted_seedlings, survival_rate,
             funding, rainfall, temperature, monitoring, soil_type, pest, fire
@@ -1389,7 +1389,7 @@ elif page == "📋 Reforestation Project Monitoring Dataset":
 
         _pred_gauge = confidence if pred_label == "Successful" else (1 - confidence) if pred_label == "Failed" else confidence * 0.5 + 0.25
         show_ai_analysis(
-            f"You are a reforestation project analyst. A project in {municipality} with target_seedlings={target_seedlings}, planted_seedlings={planted_seedlings}, survival_rate={survival_rate:.2f}, funding={funding} PHP, rainfall={rainfall}mm, temperature={temperature:.1f}°C, monitoring_visits={monitoring}, soil_type={soil_type}, pest_incidents={pest}, fire_incidents={fire} was predicted as **{pred_label}** with {confidence:.1%} confidence using {ml_model_choice}."
+            f"You are a reforestation project analyst. A project in {municipality} with survival_rate={survival_rate:.2f}, funding={funding} PHP, rainfall={rainfall}mm, temperature={temperature:.1f}°C, monitoring_visits={monitoring}, soil_type={soil_type}, pest_incidents={pest}, fire_incidents={fire} was predicted as **{pred_label}** with {confidence:.1%} confidence using {ml_model_choice}."
             "\n\nExplain the key factors that influenced this prediction. Discuss what went well or what went wrong, and provide actionable recommendations for improving future project outcomes in this municipality.",
             "reforestation_pred",
             gauge_label="Project Success Score", gauge_value=_pred_gauge, gauge_color=pc
